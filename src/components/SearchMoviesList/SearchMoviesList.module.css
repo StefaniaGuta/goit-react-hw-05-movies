@@ -1,0 +1,32 @@
+.moviesListContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 10px;
+  }
+  .moviesListContainer a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .moviesList {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    border-bottom: 1px solid grey;
+    padding: 10px 5px;
+  }
+  .moviesList:hover {
+    transform: scale(1.01);
+  }
+  
+  .moviesList img {
+    width: 300px;
+    height: auto;
+  }
+  .moviesList h3 {
+    margin-top: 10px;
+    text-decoration: none;
+  }
+  .moviesList h3:hover {
+    color: orangered;
+  }

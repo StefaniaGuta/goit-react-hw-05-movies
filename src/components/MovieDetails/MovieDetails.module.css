@@ -1,0 +1,27 @@
+.movieDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+  }
+  .movieInfo {
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid grey;
+  }
+  .movieExtraInfo {
+    padding: 10px;
+  }
+  .castReviewDiv {
+    border-bottom: 1px solid grey;
+  }
+  
+  .castReviewDiv li a {
+    text-decoration: none;
+    font-weight: 500;
+    color: black;
+    cursor: pointer;
+  }
+  .castReviewDiv li a:hover {
+    color: orangered;
+  }
