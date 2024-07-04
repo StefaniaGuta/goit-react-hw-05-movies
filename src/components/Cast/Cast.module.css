@@ -12,3 +12,10 @@
     width: 150px;
     height: auto;
   }
+
+  .actorInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

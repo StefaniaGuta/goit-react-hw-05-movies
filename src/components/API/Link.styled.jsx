@@ -10,7 +10,7 @@ export const Link = styled(NavLink)`
 
   &.active {
     color: white;
-    background-color: orangered;
+    background-color: darkblue;
   }
 `;
 
@@ -28,7 +28,7 @@ export const BackLink = styled(NavLink)`
 
   &:hover {
     color: white;
-    background-color: orangered;
+    background-color: darkblue;
     border: none;
   }
 `;

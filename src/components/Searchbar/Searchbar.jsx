@@ -30,7 +30,7 @@ const Searchbar = ({ onSubmit, resetQuery }) => {
           type="text"
           autoComplete="off"
           autoFocus
-          placeholder="Search movies"
+          placeholder="Type a movie to watch"
           name="inputValue"
           value={inputValue}
           onChange={handleInputChange}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'C';
+import { useParams } from 'react-router-dom';
 import { getMovieCredits, IMAGE_URL } from '../API/getAPI';
 import Loader from '../Loader/Loader';
 import styles from './Cast.module.css';

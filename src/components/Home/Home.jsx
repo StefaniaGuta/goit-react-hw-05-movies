@@ -11,7 +11,6 @@ const Home = () => {
     async function fetchMovies() {
       try {
         const response = await getMovies();
-        console.log(response.results);
         setMovies(response.results);
       } catch (error) {
         console.error('Error fetching trending movies:', error);
@@ -24,7 +23,7 @@ const Home = () => {
   return (
     <div className={styles.trendingContainer}>
       <>
-        <h1>Trending movies today</h1>
+        <h1>In tranding today</h1>
         <ul>
           {movies.map(movie => (
             <li key={movie.id}>
