@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import SharedLayout from './SharedLayout/SharedLayout';
 import Loader from './Loader/Loader';
@@ -15,7 +15,7 @@ const Reviews = lazy(() => import('./Reviews/Reviews'));
 export const App = () => {
   return (
     <section>
-      <Router basename="/goit-react-hw-05-movies">
+      
         <SharedLayout />
         <Suspense
           fallback={
@@ -34,7 +34,7 @@ export const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
-      </Router>
+     
     </section>
   );
 };

@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieCredits, IMAGE_URL } from '../API/getAPI';
+import { getMovieCast, IMAGE_URL } from '../../redux/movies/getAPI';
 import Loader from '../Loader/Loader';
 import styles from './Cast.module.css';
+import { useDispatch } from 'react-redux';
+import noImage from '../Images/no_image.jpg';
 
 const Cast = () => {
   const [movieCredits, setMovieCredits] = useState([]);
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    async function fetchMovieCredits() {
+    const fetchMovieCredits = async () => {
       setIsLoading(true);
       try {
-        const response = await getMovieCredits(movieId);
-        setMovieCredits(response.cast);
+        const response = await dispatch(getMovieCast(movieId));
+        setMovieCredits(response.payload.cast);
       } catch (error) {
         console.error('Error fetching movie credits:', error);
       } finally {
@@ -23,7 +26,7 @@ const Cast = () => {
     }
 
     fetchMovieCredits();
-  }, [movieId]);
+  }, [dispatch, movieId]);
   return (
     <>
       {isLoading ? (
@@ -33,12 +36,13 @@ const Cast = () => {
           {movieCredits.map(movieCredit => (
             <li key={movieCredit.id} className={styles.actorInfo}>
               <img
-                src={IMAGE_URL + movieCredit.profile_path}
+                src={movieCredit.profile_path ? IMAGE_URL + movieCredit.profile_path : noImage}
                 alt={movieCredit.name}
               />
               <h3>{movieCredit.name}</h3>
               <p>
-                <b>Character:</b> {movieCredit.character}
+                <b>Character:</b> {movieCredit.character && movieCredit.character.length > 0 ? 
+                movieCredit.character : "No character to display" }
               </p>
             </li>
           ))}

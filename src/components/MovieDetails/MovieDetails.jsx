@@ -1,23 +1,27 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useParams, useLocation, Outlet, Link } from 'react-router-dom';
 import { BackLink } from '../API/Link.styled';
-import { getMovieDetails, IMAGE_URL } from '../API/getAPI';
+import { getMovieDetails, IMAGE_URL } from '../../redux/movies/getAPI';
 import Loader from '../Loader/Loader';
 import styles from './MovieDetails.module.css';
+import { useDispatch } from 'react-redux';
+import noImage from '../Images/no_image.jpg'
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  const dispatch = useDispatch();
+  const params = new URLSearchParams(location.search);
+  const page = params.get("page") || 1;
 
   useEffect(() => {
-    async function fetchMovieDetails() {
+    const fetchMovieDetails = async () => {
       setIsLoading(true);
       try {
-        const response = await getMovieDetails(movieId);
-        setMovie(response);
+        const response = await dispatch(getMovieDetails(movieId));
+        setMovie(response.payload);
       } catch (error) {
         console.error('Error fetching movie details:', error);
       } finally {
@@ -26,21 +30,21 @@ const MovieDetails = () => {
     }
 
     fetchMovieDetails();
-  }, [movieId]);
+  }, [dispatch, movieId]);
 
   return (
     <>
-      <BackLink to={backLinkHref}>❮ Go Back</BackLink>
+      <BackLink to={`/?page=${page}`}>❮ Go Back</BackLink>
       {isLoading ? (
         <Loader />
       ) : (
         movie && (
           <div className={styles.movieDetailsContainer}>
             <div className={styles.movieInfo}>
-              <img
-                src={`${IMAGE_URL}/${movie.poster_path}`}
-                alt={movie.title}
-              />
+                  <img
+                    src={movie.poster_path || movie.poster_path ? IMAGE_URL + movie.poster_path : noImage}
+                    alt={movie.title || movie.name}
+                  />
               <div>
                 <h1>{movie.title}</h1>
                 <p>User score: {movie.vote_average.toFixed(1)}%</p>
@@ -48,7 +52,9 @@ const MovieDetails = () => {
                 <p>{movie.overview}</p>
                 <p>
                   <b>Genre:</b>{' '}
-                  {movie.genres.map(genre => genre.name).join(', ')}
+                  {movie.genres && movie.genres.length > 0
+                    ? movie.genres.map(genre => genre.name).join(", ")
+                    : "Other"}
                 </p>
               </div>
             </div>

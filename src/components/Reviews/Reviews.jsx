@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieReviews } from '../API/getAPI';
+import { getMovieReviews } from '../../redux/movies/getAPI';
 import Loader from '../Loader/Loader';
+import { useDispatch } from 'react-redux';
 
 const Reviews = () => {
   const [movieReviews, setMovieReviews] = useState([]);
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    async function fetchMovieReviews() {
+    const fetchMovieReviews = async () => {
       setIsLoading(true);
       try {
-        const response = await getMovieReviews(movieId);
-        setMovieReviews(response.results);
+        const response = await dispatch(getMovieReviews(movieId));
+        setMovieReviews(response.payload);
       } catch (error) {
         console.error('Error fetching movie credits:', error);
       } finally {
@@ -22,7 +24,7 @@ const Reviews = () => {
     }
 
     fetchMovieReviews();
-  }, [movieId]);
+  }, [dispatch, movieId]);
   return (
     <>
       {isLoading ? (

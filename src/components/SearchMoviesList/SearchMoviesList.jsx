@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { IMAGE_URL } from '../API/getAPI';
+import { IMAGE_URL } from '../../redux/movies/getAPI';
 import styles from './SearchMoviesList.module.css';
 
 const SearchMoviesList = ({ movies }) => {
@@ -34,7 +34,7 @@ SearchMoviesList.propTypes = {
   movies: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      backdrop_path: PropTypes.string.isRequired,
+      backdrop_path: PropTypes.string,
       release_date: PropTypes.string.isRequired,
       vote_average: PropTypes.number.isRequired,
     })
