@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { IMAGE_URL } from '../../redux/movies/getAPI';
 import styles from './SearchMoviesList.module.css';
+import noImage from '../Images/no_image.jpg'
 
 const SearchMoviesList = ({ movies }) => {
   const location = useLocation();
@@ -16,7 +17,10 @@ const SearchMoviesList = ({ movies }) => {
             className={styles.moviesList}
           >
             <div>
-              <img src={IMAGE_URL + movie.backdrop_path} alt={movie.title} />
+              <img src={movie.poster_path || movie.backdrop_path ? 
+                IMAGE_URL + movie.poster_path : 
+                noImage} 
+                alt={movie.title} />
             </div>
             <div>
               <h3>{movie.title}</h3>

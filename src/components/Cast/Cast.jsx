@@ -27,13 +27,14 @@ const Cast = () => {
 
     fetchMovieCredits();
   }, [dispatch, movieId]);
+
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : (
         <ul className={styles.castContainer}>
-          {movieCredits.map(movieCredit => (
+          {movieCredits.length > 0 && movieCredits ? (movieCredits.map(movieCredit => (
             <li key={movieCredit.id} className={styles.actorInfo}>
               <img
                 src={movieCredit.profile_path ? IMAGE_URL + movieCredit.profile_path : noImage}
@@ -41,11 +42,11 @@ const Cast = () => {
               />
               <h3>{movieCredit.name}</h3>
               <p>
-                <b>Character:</b> {movieCredit.character && movieCredit.character.length > 0 ? 
-                movieCredit.character : "No character to display" }
+                <b>Character:</b> {
+                movieCredit.character}
               </p>
             </li>
-          ))}
+          ))) : (<p>no cast to desplay</p>)}
         </ul>
       )}
     </>
