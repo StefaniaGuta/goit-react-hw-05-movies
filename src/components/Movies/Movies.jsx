@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
-import { BackLink } from '../API/Link.styled';
+//import { useLocation } from 'react-router-dom';
+//import { BackLink } from '../API/Link.styled';
 import { getSearchMovies } from '../../redux/movies/getAPI';
 import Loader from '../Loader/Loader';
 import Searchbar from '../Searchbar/Searchbar';
@@ -15,8 +15,8 @@ const Movies = () => {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [resetQuery, setResetQuery] = useState(false);
-  const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  //const location = useLocation();
+//  const backLinkHref = location.state?.from ?? '/';
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -51,10 +51,10 @@ const Movies = () => {
     setResetQuery(false);
   };
 
+  //<BackLink to={backLinkHref}>❮ Go Back</BackLink>
   return (
     <>
       <div className={styles.back}>
-        <BackLink to={backLinkHref}>❮ Go Back</BackLink>
         <Searchbar onSubmit={handleSubmit} resetQuery={resetQuery} />
       </div>
 

@@ -6,7 +6,7 @@
   margin-top: 20px;
 }
 
-button {
+.pagination button {
   padding: 6px 12px;
   border: 1px solid #ccc;
   background: white;
@@ -14,16 +14,16 @@ button {
   border-radius: 4px;
 }
 
-button:hover:not(:disabled) {
+.pagination :hover:not(:disabled) {
   background: #eee;
 }
 
-button:disabled {
+.pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.active {
+.pagination .active {
   background: #007bff;
   color: white;
   border-color: #007bff;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './Searchbar.module.css';
+import finder from '../Images/finder.png';
 
 const Searchbar = ({ onSubmit, resetQuery }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -35,15 +36,17 @@ const Searchbar = ({ onSubmit, resetQuery }) => {
           value={inputValue}
           onChange={handleInputChange}
         />
-        <button type="submit">Search</button>
+        <button type="submit">
+          <img height="20px" width="20px" src={finder} alt='magnifying glass'/>
+        </button>
       </form>
     </>
   );
 };
 
 Searchbar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  resetQuery: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func,
+  resetQuery: PropTypes.bool,
 };
 
 export default Searchbar;

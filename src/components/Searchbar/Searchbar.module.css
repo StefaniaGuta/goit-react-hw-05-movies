@@ -1,21 +1,25 @@
 .searcbarForm {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  .searcbarForm input[type='text'] {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
-    outline: none;
-  }
-  .searcbarForm button {
-    margin-left: 8px;
-    padding: 8px 16px;
-    background-color: darkblue;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 416px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: #FFF;
+  padding: 0 10px;
+}
+.searcbarForm input[type='text'] {
+  border: none;
+  border-radius: 25px;
+  width: 100%;
+  outline: none;
+}
+.searcbarForm button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  padding: 0;
+}

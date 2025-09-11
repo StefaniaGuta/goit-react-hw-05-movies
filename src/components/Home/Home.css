@@ -1,0 +1,272 @@
+.homeSection {
+  display: flex;
+  flex-direction: column;
+  padding: 70px;
+  background-color: black;
+  color: #FFF;
+  gap: 150px;
+}
+
+.recentlyUpdatesContainer{
+  max-width: 100%;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  gap: 30px;
+}
+
+.sectionTitle{
+  font-family: 'Poppsins', sans-serif;
+  font-size: 24px;
+  font-weight: medium;
+  letter-spacing: 0%;
+  margin: 0;
+}
+
+.recentMovie{
+  width: 188px;
+  height: 103px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.recentryMoviesList,
+.trendingList,
+.newReleasedList{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+}
+
+.homeSection li {
+  list-style-type: none;
+}
+
+.homeSection a {
+  color: #FFF;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+
+.recentryMoviesList img{
+  height: 100px;
+} 
+
+.movieTitle{
+  margin: 0 0 10px 0;
+  white-space: nowrap;      
+  overflow: hidden;         
+  text-overflow: ellipsis; 
+  max-width: 100px;        
+  display: block;  
+  font-weight: bold;
+  font-size: inherit;
+}
+
+.recentMovie span{
+  font-size: 12px;
+}
+
+.recentMovieButton{
+  background-color: #D9D9D9;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+  text-align: center;
+}
+
+/*trending movie list*/
+.trendingContainer{
+  max-width: 100%;
+  height: 336px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 30px;
+}
+
+.title_viewAll{
+  display: flex;
+  align-items:baseline;
+  justify-content: space-between;
+}
+
+.title_viewAll a,
+.RecommendationContainer .viewAll{
+  color: hsla(0, 0%, 100%, 0.322);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight:600;
+}
+
+.movieInTrending{
+  width: 280px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 10px;
+}
+
+.movieInTrending img,
+.newReleasedItem img{
+  width: 100%;
+  height: 293px;
+  display: block;
+  object-fit: fill;
+  border-radius: 10px;
+}
+
+.titleSection,
+.runtime_vote{
+  height: 35px;
+  display: flex;
+  align-items:  first baseline;
+  justify-content: space-between;
+}
+
+.titleSection ul{
+  display: flex;
+  gap: 10px;
+  padding: 0;
+}
+
+.titleSection .movieTitle,
+.newReleasedItem .movieTitle{
+  max-width: 180px;
+  margin: 10px 0 0 0;
+}
+
+.runtime_vote{
+  width: 96.5%;
+  position: absolute;
+  padding: 0 5px;
+}
+
+.runtime_vote span{
+  display: flex;
+  gap: 3px;
+}
+
+.runtime_vote img{
+  width: 13px;
+  height: 13px;
+}
+
+.movieGenre{
+  border: 1px solid red;
+  border-radius: 8px;
+  background-color: red;
+  font-size: 10px;
+  min-width: 45px;
+  text-align: center;
+  padding: 4px;
+}
+
+/*newrealed*/
+
+.newReleasedContainer{
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.newReleasedItem{
+  width: 256px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.newReleasedItem img{
+  height: 344px;
+}
+
+.titleSection .seasonNumber{
+  border: 1px solid red;
+  margin: 0;
+  padding: 3px;
+  border-radius: 8px;
+  width: 70px;
+  height: 16px;
+  text-align: center;
+}
+
+.RecommendationContainer{
+  display: flex;
+  flex-direction: column;
+  height: 848px;
+  overflow-y: hidden;
+  position: relative;
+}
+
+.RecommendationContainer .viewAll{
+  position: absolute;
+  top: 9px;
+  right: 0;
+}
+
+/*Trailers*/
+.trailersContainer{
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.trailersWrapper{
+  display: flex;
+  height: 180px;
+  gap: 10px;
+  overflow-y: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .trendingContainer h1 {
+    display: flex;
+    justify-content: center;
+  }
+  
+ .trendind {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 20px;
+    padding: 10px;
+    list-style: none;
+    align-items: baseline;
+    justify-items: center;
+  }
+  
+  .trendingContainer .trendind li:hover {
+    transform: scale(1.02);
+  }
+  
+  .trendingContainer .trendind img {
+    width: 100%;
+    height: auto;
+  }
+  .trendingContainer .trendind p {
+    margin-top: 5px;
+    font-weight: 500;
+  }

@@ -1,8 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMovies, getMovieDetails, getMovieCast, getMovieReviews, getSearchMovies} from './getAPI';
+import { getMovies, 
+  getMovieDetails, 
+  getMovieCast, 
+  getMovieReviews, 
+  getSearchMovies,
+  getMostRecentMovie,
+  moviesRecommendations
+ } from './getAPI';
 
 const initialState = {
   movies: [],
+  recentMovies: [],
   isLoading: false,
   error: null,
 };
@@ -34,6 +42,16 @@ const moviesSlice = createSlice({
     })
     .addCase(getSearchMovies.fulfilled, (state, action) => {
       state.movies = action.payload
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(getMostRecentMovie.fulfilled, (state, action) => {
+      state.recentMovies = action.payload
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(moviesRecommendations.fulfilled, (state, action) => {
+      state.recentMovies = action.payload
       state.isLoading = false;
       state.error = null;
     })

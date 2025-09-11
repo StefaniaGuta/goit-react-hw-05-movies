@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import Notiflix from 'notiflix';
 
 
-const API_URL = 'https://my-application-backend.vercel.app/api/auth';
+const API_URL =  'https://backend-pro-beige.vercel.app/';
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
@@ -12,16 +13,40 @@ const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
+
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await axios.post(`${API_URL}/users/signup`, credentials);
-      const { token } = data;
-      setAuthHeader(token);
-      localStorage.setItem('token', token);
-      return data; 
+
+      const res = await axios.post(`${API_URL}api/auth/register`, credentials);
+
+      if (res.status === 201) {
+        console.log('Registration successfully!');
+
+        const loginResponse = await axios.post(`${API_URL}api/auth/login`, {
+          email: credentials.email,
+          password: credentials.password
+        });
+
+        if (loginResponse.status === 200 && loginResponse.data.token) {
+          localStorage.setItem('authToken', loginResponse.data.token);
+
+          setAuthHeader(loginResponse.data.token) 
+          return loginResponse.data;
+        }
+      }
+      console.log(res)
+
+      return res.data;
     } catch (error) {
+
+      if (error.response && error.response.status === 409) {
+        Notiflix.Notify.failure('Email already registered!');
+      } else {
+        Notiflix.Notify.failure('Registration failed.');
+      }
+      console.log(error)
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -31,13 +56,15 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await axios.post(`${API_URL}/users/login`, credentials);
-      const { token } = data;
+      const response = await axios.post(`${API_URL}api/auth/login`, credentials);
+      const { token } = response.data;
       setAuthHeader(token);
       localStorage.setItem('token', token);
-      return data;
+      return response.data;
     } catch (error) {
-      console.log(error)
+      if(error.response.status === 401){
+        return Notiflix.Notify.failure("Email or password is wrog")
+      }
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -55,7 +82,7 @@ export const logOut = createAsyncThunk(
     }
 
     try {
-      await axios.get(`${API_URL}/users/logout`, {
+      await axios.get(`${API_URL}api/auth/logout`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       clearAuthHeader();
@@ -65,7 +92,7 @@ export const logOut = createAsyncThunk(
   }
 );
 
-export const fetchCurrentUser = createAsyncThunk(
+export const currentUser = createAsyncThunk(
   'auth/current',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
@@ -77,7 +104,7 @@ export const fetchCurrentUser = createAsyncThunk(
   
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`${API_URL}/users/current`, {
+      const res = await axios.get(`${API_URL}api/auth/current`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.data;

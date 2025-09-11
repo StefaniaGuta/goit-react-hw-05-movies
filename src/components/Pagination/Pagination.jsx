@@ -40,7 +40,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
       {pageNumbers[0] > 1 && <span>...</span>}
       {pageNumbers.map((num) => (
-        <button
+        <button 
           key={num}
           className={num === currentPage ? styles.active : ""}
           onClick={() => onPageChange(num)}

@@ -1,11 +1,13 @@
 import React, { useEffect, useState, Suspense } from 'react';
-import { useParams, useLocation, Outlet, Link } from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { BackLink } from '../API/Link.styled';
 import { getMovieDetails, IMAGE_URL } from '../../redux/movies/getAPI';
 import Loader from '../Loader/Loader';
 import styles from './MovieDetails.module.css';
 import { useDispatch } from 'react-redux';
-import noImage from '../Images/no_image.jpg'
+import noImage from '../Images/no_image.jpg';
+import Reviews from 'components/Reviews/Reviews';
+import Cast from 'components/Cast/Cast';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -28,7 +30,6 @@ const MovieDetails = () => {
         setIsLoading(false);
       }
     }
-
     fetchMovieDetails();
   }, [dispatch, movieId]);
 
@@ -42,7 +43,7 @@ const MovieDetails = () => {
           <div className={styles.movieDetailsContainer}>
             <div className={styles.movieInfo}>
                   <img
-                    src={movie.poster_path || movie.poster_path ? IMAGE_URL + movie.poster_path : noImage}
+                    src={movie.poster_path || movie.backdrop_path ? IMAGE_URL + movie.poster_path : noImage}
                     alt={movie.title || movie.name}
                   />
               <div>
@@ -61,14 +62,10 @@ const MovieDetails = () => {
             <div className={styles.movieExtraInfo}>
               <h3>Additional information</h3>
               <div className={styles.castReviewDiv}>
-                <ul>
-                  <li>
-                    <Link to="cast">Cast</Link>
-                  </li>
-                  <li>
-                    <Link to="reviews">Reviews</Link>
-                  </li>
-                </ul>
+                
+                  <Cast/>
+                  <Reviews/>
+                
               </div>
               <Suspense fallback={<div>Loading subpage...</div>}>
                 <Outlet />

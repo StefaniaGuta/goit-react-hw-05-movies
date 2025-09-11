@@ -1,0 +1,63 @@
+.RecommendationSection{
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.recommendationList{
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 0;
+  margin: 0;
+}
+
+.Item{
+  width: 256px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.Item img{
+  display: block;
+  width: 100%;
+  height: 344px;
+  object-fit: fill;
+  border-radius: 10px;
+}
+
+.Item .movieTitle{
+  max-width: 180px;
+  margin: 10px 0 0 0;
+}
+
+.title_filters{
+  width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+}
+
+.title_filters button {
+  border: 1px solid #FF0000;
+  background-color: transparent;
+  color: #ffffff80;
+  width: 78px;
+  height: 31px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.title_filters button:hover,
+.title_filters button:active{
+  color: #FFFFFF;
+  border: none;
+  background-color: #FF0000;
+}

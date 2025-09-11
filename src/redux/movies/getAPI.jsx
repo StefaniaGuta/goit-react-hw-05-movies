@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const URL = 'https://api.themoviedb.org/3';
-const API_KEY = '046ac13b969fd43f0e6a6ee26ddbba59';
+export const URL = 'https://api.themoviedb.org/3';
+export const API_KEY = '046ac13b969fd43f0e6a6ee26ddbba59';
 export const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+export const day = new Date().toISOString().split("T")[0];
 
 export const getMovies = createAsyncThunk(
   'movies/getMovies',
   async(page = 1, thunkAPI) => {
     try{
-      const response = await axios.get(`${URL}/trending/movie/week?page=${page}&api_key=${API_KEY}`);
+      const response = await axios.get(`${URL}/trending/all/week?page=${page}&api_key=${API_KEY}`);
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -22,7 +23,6 @@ export const getMovies = createAsyncThunk(
     async (movieId, thunkAPI) => {
       try {
         const response = await axios.get(`${URL}/movie/${movieId}?api_key=${API_KEY}`);
-        console.log(response.data)
         if (response.status !== 200) {
           throw new Error('Error fetching credits movies!');
         }
@@ -58,7 +58,7 @@ export const getMovies = createAsyncThunk(
 );
   
   export const getSearchMovies = createAsyncThunk(
-    '<movies/getSearchMovies',
+    'movies/getSearchMovies',
     async (query, thunkAPI) => {
     try {
       const response = await axios.get(`${URL}/search/movie?query=${query}&api_key=${API_KEY}`);
@@ -68,3 +68,27 @@ export const getMovies = createAsyncThunk(
     }
   }
 );
+
+export const getMostRecentMovie = createAsyncThunk(
+  'movies/getMostRecentMovie',
+  async(_, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/discover/movie?api_key=${API_KEY}&sort_by=release_date.desc&release_date.lte=${day}`);
+      return response.data
+    }catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const moviesRecommendations = createAsyncThunk(
+  'movies/moviesRecommendations',
+  async(_, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/movie/1242011/recommendations?api_key=${API_KEY}`);
+      return response.data
+    } catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
