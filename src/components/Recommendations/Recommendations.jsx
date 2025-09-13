@@ -1,7 +1,8 @@
 import {moviesRecommendations, IMAGE_URL} from '../../redux/movies/getAPI';
 import {seriesRecommendations} from '../../redux/series/seriesApi';
 import { useDispatch } from 'react-redux';
-import { useState, useEffect  } from 'react';
+import { useState  } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 
 import './Recommendations.css';
@@ -24,9 +25,10 @@ const Recommendations = () => {
     setActiveTab("series");
   };
 
-  useEffect(() => {
-    getMovies();
-  }, []);
+  const { data: recommandedSeries,  } = useQuery({
+    queryKey: ['seriesRecommendations'],
+    queryFn: getSeries
+});
 
   return (
     <section className='RecommendationSection'>
@@ -56,7 +58,8 @@ const Recommendations = () => {
             </li>
           ))}
 
-        {activeTab === "series" &&
+        {recommandedSeries &&
+        activeTab === "series" &&
           recommSeries
           .filter(s => s.poster_path)
           .map((s) => (

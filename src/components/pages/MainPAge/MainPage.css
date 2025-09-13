@@ -1,53 +1,112 @@
 .mainSection{
-  position: relative;
+  max-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  align-items: center;
+  background-color: black;
+  color: aliceblue;
+  white-space: nowrap;
+  perspective: 1000px;
+  padding: 0;
+}
+
+.imageWrapper{
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-.imgCover{
+.mainImgCover {
   width: 100%;
-  height: 900px;
-  object-fit: cover;
-  object-position: center;
+  display: block;
+  object-fit: fill;
+  opacity: 0.6;
 }
 
-.recentMovieInfos{
-  height: 250px;
+.movieInfos{
+  display: flex;
+  width: 920px;
+  height: 217px;
+  padding: 0 40px;
   position: absolute;
-  bottom: 30%;
-  left: 40px;
+  bottom: 0;
   text-transform: uppercase;
-  color: aliceblue;
   font-family: "Poppins", sans-serif;
-}
-
-.releasedToday{
-  width: 240px;
-  height: 30px;
-  margin: 0;
-  font-size: 18px;
-  font-weight: unset;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .movieTitle{
-  font-size: 64px;
+  font-size: 30px;
   margin: 0;
+}
+
+.gen_rating_time{
+  width: 228px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.gen_rating_time img{
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
 }
 
 .movieOverview{
   text-transform: initial;
-  width: 430px;
-  max-height: 147px;
+  width: 480px;
+  height: 54px;
   overflow: hidden;
-  font-size: 14px;
-  margin: 20px 0;
+  font-size: 12px;
+  white-space: wrap;
+  text-align: justify;
+  margin: 0 0 10px 0;
+  text-indent: 2em;
+  letter-spacing: 0%;
 }
 
-.recentMovieInfos button{
+.movieGen,
+.movieSeasons li{
+  width: 90px;
+  text-align: center;
+  height: 18px;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  padding: 5px 0;
+  margin: 0;
+}
+
+.movieSeasons{
+  width: 335px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.movieSeasons li {
+  width: 100px;
+  font-size: 14px;
+}
+
+.movieInfos button{
   width: 180px;
   height: 50px;
-  background-color: rgb(18, 17, 17);
-  border: none;
+  background-color: transparent;
+  border: 1px solid aliceblue;
   color: aliceblue;
   text-transform: uppercase;
   font-weight: 600;
@@ -57,13 +116,60 @@
 
 .movieButtons{
   display: flex;
-  width: 500px;
-  gap: 30px;
-  align-items: center;
+  width: 400px;
+  align-items: baseline;
+  height: 70px;
+  justify-content: space-between;
 }
 
 .movieButtons button:hover{
-  background-color: transparent;
-  border: 1px solid aliceblue;
+  background-color: black;
+  border: none;
+  
 }
+
+.genresList,
+.actorsList{
+  display: flex;
+  max-width: 100%;
+  padding: 0;
+  list-style-type: none;
+  margin: 0 0 150px 0;
+  gap: 20px;
+  align-items: center;
+  animation: slide-left 30s linear infinite;
+  flex-wrap: nowrap;
+}
+
+.genresList li{
+  width: 360px;
+  height: 73px;
+  font-size: 64px;
+  text-transform: uppercase;
+}
+
+@keyframes slide-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.actorsList li{
+  width: 161px;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.actorsList img{
+  width: 150px;
+  height: 160px;
+  border-radius: 50%;
+  padding: 4px;
+  border: 1px solid white;
+}
+
+
 

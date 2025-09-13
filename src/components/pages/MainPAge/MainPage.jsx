@@ -1,80 +1,124 @@
-import { useEffect } from "react";
-import { getMostRecentMovie, getMovieDetails, day, IMAGE_URL } from "../../../redux/movies/getAPI";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getMostPopular, day, getGenres, popularActors, IMAGE_URL } from "../../../redux/movies/getAPI";
+import { seriesDetails } from "../../../redux/series/seriesApi";
 import { useDispatch } from "react-redux";
-import "./MainPage.css";
+import SphereScroll from "components/SphereScroll/SphereScroll";
 import { useNavigate } from "react-router-dom";
-import Loader from "components/Loader/Loader";
+import star from '../../Images/star.png';
+import calendar from '../../Images/calendar.png';
+import Trailers from "components/Trailer/Trailer";
+import "./MainPage.css";
+
 
 const MainPage = () => {
   const dispatch = useDispatch();
-  const [recentMovie, setRecentMovie] = useState(null);
+  const [recentMovie, setRecentMovie] = useState([]);
+  const [mainImag, setMainImag] = useState();
+  const [genres, setGenres] = useState([]);
+  const [actors, setActors] = useState([])
   const navigate = useNavigate();
-
 
  useEffect(() => {
   const fetchMostRecentMovie = async () => {
     try {
-      const response = await dispatch(getMostRecentMovie(day));
+      const response = await dispatch(getMostPopular(day));
       const moviesFiltered = response.payload.results.filter(m => m.poster_path);
+        setRecentMovie(moviesFiltered);
 
-      let foundMovie = null;
-
-      for (const movie of moviesFiltered) {
-        const detailsResponse = await dispatch(getMovieDetails(movie.id));
-        const details = detailsResponse.payload;
-
-        if (details.poster_path) {
-          foundMovie = details;
-        }
-      }
-
-      if (foundMovie) {
-        setRecentMovie(foundMovie);
-      } else {
-        console.warn("Nu există niciun film cu poster_path valid în detalii.");
-      }
+      const res = await dispatch(seriesDetails("194766"));
+      setMainImag(res.payload)
+      
     } catch (e) {
       console.error("Eroare la fetch:", e);
     }
   };
 
-  fetchMostRecentMovie();
-}, [dispatch]);
-
-
-
-  const watchTheTrailer = () => {
-  if (recentMovie?.homepage) {
-    window.open(recentMovie.homepage, "_blank", "noopener,noreferrer");
-    console.log(recentMovie.homepage);
-  } else {
-    navigate("*");
+  const fetchGenres = async () => {
+    try{
+      const res = await dispatch(getGenres());
+      setGenres(res.payload.genres)
+    } catch(e) {
+      console.log(e)
+    }
   }
-};
+
+  const fetchActors = async () => {
+    try{
+      const res = await dispatch(popularActors());
+      setActors(res.payload.results)
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
+  fetchMostRecentMovie();
+  fetchGenres();
+  fetchActors();
+}, [dispatch]);
 
 
   return (
     <section className="mainSection">
-      {recentMovie ? (
-        <>
-          <img className="imgCover"
-              src={IMAGE_URL + recentMovie.poster_path || recentMovie.backdrop_path}
-              alt={recentMovie.title || recentMovie.name}
+
+    {mainImag ? (
+      <div className="imageWrapper">
+          <img className="mainImgCover"
+              src={"https://image.tmdb.org/t/p/w1920_and_h800_multi_faces" + mainImag.backdrop_path}
+              alt={mainImag.name}
           />
-          <div className="recentMovieInfos">
-            <h2 className="releasedToday">released today</h2>
-            <h1 className="movieTitle">{recentMovie.title}</h1>
-            <p className="movieOverview">{recentMovie.overview}</p>
+          <div className="movieInfos">
             <div className="movieButtons">
               <button type="button" onClick={() => navigate(`/login`)}>Watch now</button>
-              <button type="button" onClick={() => watchTheTrailer()}>watch the trailer</button>
+              <Trailers id={mainImag}/>
             </div>
+            <div>
+              <h1 className="movieTitle">{mainImag.name}</h1>
+              <div className="gen_rating_time">
+                <p className="movieGen">{mainImag.genres[0].name}</p>
+                <span className="rating">
+                  <img src={star} alt="star"/>
+                  {mainImag.vote_average.toFixed(1)}
+                </span>
+                <span>
+                  <img src={calendar} alt="calendar"/>
+                  {new Date(mainImag.first_air_date).getFullYear()}
+                </span>
+              </div>
+              <p className="movieOverview">{mainImag.overview}</p>
+              <ul className="movieSeasons">
+                {mainImag.seasons.map(s => (
+                  <li key={s.id}>
+                    {s.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
           </div>
-        </>
-      ) : (
-        <Loader/>
-      )}
+        </div>
+    ) : (<p>no</p>)}
+    <ul className="genresList">
+      {genres.map(gen => (
+        <li key={gen.id}>{gen.name}</li>
+      ))}
+    </ul>
+      <h2>Popular People</h2>
+    <ul className="actorsList">
+      {actors.map(a => (
+        <li key={a.id}>
+          <img src={IMAGE_URL + a.profile_path}
+          alt={a.name}
+          />
+          {a.name}
+          </li>
+        
+      ))}
+    </ul>
+
+    <h2>What's Popular</h2> 
+    <SphereScroll  movies={recentMovie}/>
+
+      
     </section>
   );
 };

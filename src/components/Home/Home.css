@@ -37,7 +37,7 @@
 .trendingList,
 .newReleasedList{
   display: flex;
-  align-items: center;
+  height: 386px;
   justify-content: space-between;
   padding: 0;
   margin: 0;
@@ -86,7 +86,7 @@
 /*trending movie list*/
 .trendingContainer{
   max-width: 100%;
-  height: 336px;
+  height: 392px;
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -108,8 +108,8 @@
 }
 
 .movieInTrending{
-  width: 280px;
-  height: 280px;
+  width: 265px;
+  height: 255px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -127,9 +127,9 @@
 
 .titleSection,
 .runtime_vote{
-  height: 35px;
+  height: 20px;
   display: flex;
-  align-items:  first baseline;
+  align-items: flex-end;
   justify-content: space-between;
 }
 
@@ -175,6 +175,7 @@
 
 .newReleasedContainer{
   max-width: 100%;
+  height: 450px;
   display: flex;
   flex-direction: column;
   gap: 30px;

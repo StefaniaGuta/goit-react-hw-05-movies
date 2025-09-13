@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const URL = 'https://api.themoviedb.org/3';
 export const API_KEY = '046ac13b969fd43f0e6a6ee26ddbba59';
-export const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+export const IMAGE_URL = 'https://media.themoviedb.org/t/p/w220_and_h330_face/';
 export const day = new Date().toISOString().split("T")[0];
 
 export const getMovies = createAsyncThunk(
@@ -69,11 +69,12 @@ export const getMovies = createAsyncThunk(
   }
 );
 
-export const getMostRecentMovie = createAsyncThunk(
-  'movies/getMostRecentMovie',
+export const getMostPopular = createAsyncThunk(
+  'movies/getMostPopular',
   async(_, thunkAPI) => {
     try{
-      const response = await axios.get(`${URL}/discover/movie?api_key=${API_KEY}&sort_by=release_date.desc&release_date.lte=${day}`);
+      const response = await axios.get(`${URL}/trending/all/day?api_key=${API_KEY}`);
+
       return response.data
     }catch(e){
       return thunkAPI.rejectWithValue(e.response.data)
@@ -87,6 +88,42 @@ export const moviesRecommendations = createAsyncThunk(
     try{
       const response = await axios.get(`${URL}/movie/1242011/recommendations?api_key=${API_KEY}`);
       return response.data
+    } catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const getGenres = createAsyncThunk(
+  'movies/getGenres',
+  async(_, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/genre/movie/list?api_key=${API_KEY}`);
+      return response.data
+    } catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const popularActors = createAsyncThunk(
+    'movies/popularActors',
+  async(_, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/person/popular?api_key=${API_KEY}`);
+      return response.data
+    } catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const getTrailer = createAsyncThunk(
+  'series/getTrailer',
+  async({id,show }, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/${show}/${id}/videos?api_key=${API_KEY}`);
+      return response.data;
     } catch(e){
       return thunkAPI.rejectWithValue(e.response.data)
     }

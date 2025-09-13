@@ -1,0 +1,8 @@
+.trailer-item {
+  position: absolute;
+  top: -344px;
+  left: 170px;
+  width: 600px;
+  height: 800px;
+  z-index: 1111111111111;
+}

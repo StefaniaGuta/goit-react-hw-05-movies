@@ -4,7 +4,7 @@ import { getMovies,
   getMovieCast, 
   getMovieReviews, 
   getSearchMovies,
-  getMostRecentMovie,
+  getMostPopular,
   moviesRecommendations
  } from './getAPI';
 
@@ -45,7 +45,7 @@ const moviesSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     })
-    .addCase(getMostRecentMovie.fulfilled, (state, action) => {
+    .addCase(getMostPopular.fulfilled, (state, action) => {
       state.recentMovies = action.payload
       state.isLoading = false;
       state.error = null;
