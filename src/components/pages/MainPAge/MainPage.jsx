@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import star from '../../Images/star.png';
 import calendar from '../../Images/calendar.png';
 import Trailers from "components/Trailer/Trailer";
+import url from '../../Images/icons.svg';
 import "./MainPage.css";
-
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -96,29 +96,63 @@ const MainPage = () => {
             
           </div>
         </div>
-    ) : (<p>no</p>)}
-    <ul className="genresList">
-      {genres.map(gen => (
-        <li key={gen.id}>{gen.name}</li>
-      ))}
-    </ul>
-      <h2>Popular People</h2>
-    <ul className="actorsList">
-      {actors.map(a => (
-        <li key={a.id}>
-          <img src={IMAGE_URL + a.profile_path}
-          alt={a.name}
-          />
-          {a.name}
+    ) : (<p></p>)}
+
+    <div className="genresSection">
+      <div>
+        <h2 className="sectionTitle">choose the type of film you liked</h2>
+        <p className="sectionText">We present many films from various main categories, let's chooose and search film of you liked</p>
+      </div>
+      <ul className="genresList">
+        {genres.map(gen => (
+          <li key={gen.id}>
+            <svg width="29" height="32"><use xlinkHref={`${url}#${gen.name}`}/></svg>
+            <span>
+            {gen.name}
+            <a href="/">View more</a>
+            </span>
+            </li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="devicesSection">
+        <h2 className="title">Any time, Anywhere</h2>
+        <p className="text">Watch your favorite movie or TV series on all types of devices<br></br>
+        Stream and enjoy your favorites on your device
+        </p>
+        <ul className="devicesList">
+          <li>
+            <svg width="60" height="60"><use xlinkHref={`${url}#TV`}/></svg>
+            TV
           </li>
-        
-      ))}
-    </ul>
+          <li>
+            <svg width="60" height="60"><use xlinkHref={`${url}#laptop`}/></svg>
+            Laptop & Desktop
+          </li>
+          <li>
+            <svg width="60" height="60"><use xlinkHref={`${url}#mobil`}/></svg>
+            Tablet & Mobil
+          </li>
+        </ul>
+    </div>
+
+      <h2>Most popular celebrities</h2>
+      <ul className="actorsList">
+        {actors.map(a => (
+          <li key={a.id}>
+            <img src={IMAGE_URL + a.profile_path}
+            alt={a.name}
+            />
+            <h3>{a.name}</h3>
+            <p>{a.known_for_department}</p>
+            </li>
+          
+        ))}
+      </ul>
 
     <h2>What's Popular</h2> 
     <SphereScroll  movies={recentMovie}/>
-
-      
     </section>
   );
 };

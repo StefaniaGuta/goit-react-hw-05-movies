@@ -5,11 +5,18 @@
   flex-direction: column;
   overflow: hidden;
   align-items: center;
-  background-color: black;
   color: aliceblue;
   white-space: nowrap;
   perspective: 1000px;
   padding: 0;
+}
+
+.mainSection h2{
+  width: 335px;
+  height: 51px;
+  font-size: 35px;
+  margin: 0;
+  text-align: center;
 }
 
 .imageWrapper{
@@ -18,6 +25,7 @@
   display: flex;
   align-items: center;
   position: relative;
+  margin-bottom: 150px;
 }
 
 .mainImgCover {
@@ -128,24 +136,122 @@
   
 }
 
-.genresList,
+.genresSection{
+  max-width: 100%;
+  height: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 150px;
+}
+
+.genresSection div{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  white-space: wrap;
+  align-items: center;
+}
+
+.genresSection .sectionTitle{
+  font-size: 35px;
+  text-transform: capitalize;
+  width: 345px;
+  height: 79px;
+  text-align: justify;
+}
+
+.genresSection .sectionText,
+.devicesSection .text{
+  width: 429px;
+  font-size: 18px;
+  margin: 0;
+  line-height: 26px;
+  height: 57px;
+  opacity: 0.7;
+}
+
+.genresList{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+}
+
+.genresList li{
+  width: 150px;
+  height: 73px;
+  list-style-type: none;
+  background-color: rgb(31, 20, 129);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.genresList li svg{
+  fill: transparent;
+}
+.genresList span{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 37px;
+}
+
+.genresList span a{
+  font-size: 12px;
+  color: #6c58ca;
+  font-weight: bold;
+}
+
+.devicesSection{
+  max-width: 100%;
+  height: 265px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 150px;
+  align-items: center;
+  text-align: center;
+}
+
+.devicesSection .devicesList{
+  width: 600px;
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin: 50px 0 0 0;
+}
+
+.devicesSection .devicesList li{
+  max-width: 150px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 600;
+}
+
 .actorsList{
   display: flex;
   max-width: 100%;
+  height: 250px;
   padding: 0;
   list-style-type: none;
   margin: 0 0 150px 0;
   gap: 20px;
   align-items: center;
-  animation: slide-left 30s linear infinite;
   flex-wrap: nowrap;
-}
-
-.genresList li{
-  width: 360px;
-  height: 73px;
-  font-size: 64px;
-  text-transform: uppercase;
+  overflow-x: scroll;
+  scrollbar-color: rgb(17, 12, 40) transparent;
 }
 
 @keyframes slide-left {
@@ -161,14 +267,18 @@
   align-items: center;
   font-size: 20px;
   font-weight: bold;
+  text-align: center;
 }
 
 .actorsList img{
   width: 150px;
   height: 160px;
   border-radius: 50%;
-  padding: 4px;
-  border: 1px solid white;
+}
+
+.actorsList p{
+  font-weight: 400;
+  font-size: 18px;
 }
 
 

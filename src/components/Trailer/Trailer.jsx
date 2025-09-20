@@ -14,7 +14,6 @@ const Trailers = ( movieId ) => {
       try {
         const res = await dispatch(getTrailer({show: "tv", id: movieId.id.id}));
         
-        // filtrăm doar trailerele oficiale sau YouTube
         const filtered = res.payload.results.filter(
           (v) => v.site === "YouTube" && v.type === "Teaser"
         );
@@ -40,10 +39,6 @@ const Trailers = ( movieId ) => {
   if (!trailers.length) return null;
 
 const handleOpen = () => setOpen(!open)
-
-
-
-
 
   return (
     <div className="trailers">

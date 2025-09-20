@@ -11,7 +11,7 @@ const MovieDetails = lazy(() =>import('./MovieDetails/MovieDetails'));
 const NotFound = lazy(() => import('./NotFound/NotFound'));
 const Registration = lazy(() =>import('./Registration/Registration'));
 const LogIn = lazy(() => import('./Login/Login'));
-const MainPage = lazy(() => import('./pages/MainPAge/MainPage'))
+const MainPage = lazy(() => import('./pages/MainPage/MainPage'))
 
 export const App = () => {
   return (
