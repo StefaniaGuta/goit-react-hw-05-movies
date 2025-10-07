@@ -1,17 +1,18 @@
-import { Outlet, Link } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Suspense, useState } from 'react';
 import Loader from '../Loader/Loader';
 import './SharedLayout.css';
 import Searchbar from 'components/Searchbar/Searchbar';
 import bell from "../Images/bell.png";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {logOut} from "../../redux/auth/operations";
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+
 
 const SharedLayout = () => {
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
   const userAvatar = useSelector((state => state.auth.user.avatarURL));
+  const genres = useSelector((state) => state?.movies.genres?.genres);
+  const [open, setOpen] = useState(null);
   
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -23,8 +24,15 @@ const SharedLayout = () => {
     } catch(e) {
       console.log(e)
     }
-
   }
+
+  const handleOpen = () => setOpen(!open);
+
+  const handleNavigate = (gen) => {
+    navigate(`/genres/${gen.name}/${gen.id}`);
+    setOpen(!open)
+  }
+  
   return (
     <>
       <header className='header'>
@@ -32,7 +40,14 @@ const SharedLayout = () => {
           <Link to="/home" className="link">
             Home
           </Link>
-          <Link className="link">Genre</Link>
+          <Link onClick={handleOpen} className="link">Genre</Link>
+          {open ?(
+            <ul className='genList'>
+              {genres.map(gen => (
+                <li onClick={() => handleNavigate(gen)} key={gen.id}>{gen.name}</li>
+              ))}
+            </ul>
+          ) : null}
           <Searchbar/>
           <Link className="link">Movies</Link>
           <Link className="link">Series</Link>

@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { getMovies, getMostPopular, day, getGenres, popularActors, IMAGE_URL } from "../../../redux/movies/getAPI";
-
 import { useDispatch } from "react-redux";
 import SphereScroll from "components/SphereScroll/SphereScroll";
 import url from '../../Images/icons.svg';
 import MainPoster from "components/MainPoster/MainPoster";
+import noImg from '../../Images/no_image.jpg';
 import "./MainPage.css";
 
 const MainPage = () => {
@@ -133,7 +133,7 @@ const scroll = (dir) => {
         <ul className="actorsList" ref={ref}>
           {actors.map(a => (
             <li key={a.id}>
-              <img src={IMAGE_URL + a.profile_path} alt={a.name}/>
+              <img src={a.profile_path ? IMAGE_URL + a.profile_path : noImg} alt={a.name}/>
               <h3>{a.name}</h3>
               <p>{a.known_for_department}</p>
             </li>

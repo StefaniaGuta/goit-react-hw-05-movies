@@ -19,7 +19,7 @@ const MainPoster = () => {
     const fetchSeries = async () => {
       const ser = await dispatch(newSeriesFetch());
       if (ser?.payload?.length) {
-        setMain(ser.payload);
+        setMain(ser.payload.filter(s =>s.backdrop_path));
         setHighlight(ser.payload[0]);
       }
     };

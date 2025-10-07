@@ -16,6 +16,27 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
+  position: relative;
+}
+
+.genList{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: #19066e;
+  text-decoration: none;
+  list-style-type: none;
+  color: #d8d6ea;
+  z-index: 1111111111;
+  top: 46px;
+  left: 239px;
+  width: 150px;
+  padding: 5px;
+  height: 182px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  border-radius: 14px;
+  cursor: pointer;
 }
 
 .link,

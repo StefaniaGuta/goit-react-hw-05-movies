@@ -5,7 +5,8 @@ import { getMovies,
   getMovieReviews, 
   getSearchMovies,
   getMostPopular,
-  moviesRecommendations
+  moviesRecommendations,
+  getGenres,
  } from './getAPI';
 
 const initialState = {
@@ -52,6 +53,11 @@ const moviesSlice = createSlice({
     })
     .addCase(moviesRecommendations.fulfilled, (state, action) => {
       state.recentMovies = action.payload
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(getGenres.fulfilled, (state, action) => {
+      state.genres = action.payload;
       state.isLoading = false;
       state.error = null;
     })
