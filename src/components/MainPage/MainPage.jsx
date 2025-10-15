@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { getAll, getTrendingAll, day, getGenres, popularActors, IMAGE_URL } from "../../../redux/movies/getAPI";
+import { getAll, getTrendingAll, day, getGenres, popularActors, IMAGE_URL } from "../../redux/movies/getAPI";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import SphereScroll from "components/SphereScroll/SphereScroll";
-import url from '../../Images/icons.svg';
+import url from '../Images/icons.svg';
 import MainPoster from "components/MainPoster/MainPoster";
-import noImg from '../../Images/no_image.jpg';
+import noImg from '../Images/no_image.jpg';
 import "./MainPage.css";
 
 const MainPage = () => {
