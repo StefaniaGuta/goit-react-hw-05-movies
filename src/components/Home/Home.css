@@ -2,12 +2,11 @@
   display: flex;
   flex-direction: column;
   padding: 70px;
-  background-color: black;
   color: #FFF;
   gap: 150px;
 }
 
-.recentlyUpdatesContainer{
+.homeSection .recentlyUpdatesContainer{
   max-width: 100%;
   height: 170px;
   display: flex;
@@ -17,7 +16,7 @@
   gap: 30px;
 }
 
-.sectionTitle{
+.homeSection .sectionTitle{
   font-family: 'Poppsins', sans-serif;
   font-size: 24px;
   font-weight: medium;
@@ -25,7 +24,7 @@
   margin: 0;
 }
 
-.recentMovie{
+.homeSection .recentMovie{
   width: 188px;
   height: 103px;
   display: flex;
@@ -33,14 +32,15 @@
   align-items: center;
 }
 
-.recentryMoviesList,
-.trendingList,
-.newReleasedList{
+.homeSection .recentryMoviesList,
+.homeSection .movieInTrendingList,
+.homeSection .newReleasedList{
   display: flex;
   height: 386px;
   justify-content: space-between;
   padding: 0;
   margin: 0;
+  gap: 10px;
 }
 
 .homeSection li {
@@ -54,11 +54,11 @@
   font-size: 14px;
 }
 
-.recentryMoviesList img{
+.homeSection .recentryMoviesList img{
   height: 100px;
 } 
 
-.movieTitle{
+.homeSection .movieTitle{
   margin: 0 0 10px 0;
   white-space: nowrap;      
   overflow: hidden;         
@@ -69,11 +69,11 @@
   font-size: inherit;
 }
 
-.recentMovie span{
+.homeSection .recentMovie span{
   font-size: 12px;
 }
 
-.recentMovieButton{
+.homeSection .recentMovieButton{
   background-color: #D9D9D9;
   width: 60px;
   height: 60px;
@@ -81,10 +81,11 @@
   border: none;
   font-size: 18px;
   text-align: center;
+  cursor: pointer;
 }
 
 /*trending movie list*/
-.trendingContainer{
+.homeSection .trendingContainer{
   max-width: 100%;
   height: 392px;
   display: flex;
@@ -93,31 +94,34 @@
   gap: 30px;
 }
 
-.title_viewAll{
+.homeSection .title_viewAll{
   display: flex;
   align-items:baseline;
   justify-content: space-between;
 }
 
-.title_viewAll a,
-.RecommendationContainer .viewAll{
+.homeSection .title_viewAll button,
+.homeSection .RecommendationContainer .viewAll{
   color: hsla(0, 0%, 100%, 0.322);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight:600;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
-.movieInTrending{
+.homeSection .movieInTrending{
   width: 265px;
-  height: 255px;
+  height: 330px;
   display: flex;
   flex-direction: column;
   position: relative;
   gap: 10px;
 }
 
-.movieInTrending img,
-.newReleasedItem img{
+.homeSection .movieInTrending img,
+.homeSection .newReleasedItem img{
   width: 100%;
   height: 293px;
   display: block;
@@ -125,55 +129,56 @@
   border-radius: 10px;
 }
 
-.titleSection,
-.runtime_vote{
+.homeSection .titleSection,
+.homeSection .runtime_vote{
   height: 20px;
   display: flex;
-  align-items: flex-end;
+  align-items: last baseline;
   justify-content: space-between;
+  padding: 0 5px;
 }
 
-.titleSection ul{
+.homeSection .titleSection ul{
   display: flex;
   gap: 10px;
   padding: 0;
 }
 
-.titleSection .movieTitle,
-.newReleasedItem .movieTitle{
-  max-width: 180px;
+.homeSection .titleSection .movieTitle,
+.homeSection .newReleasedItem .movieTitle{
+  max-width: 146px;
   margin: 10px 0 0 0;
 }
 
-.runtime_vote{
+.homeSection .runtime_vote{
   width: 96.5%;
   position: absolute;
-  padding: 0 5px;
 }
 
-.runtime_vote span{
+.homeSection .runtime_vote span{
   display: flex;
   gap: 3px;
 }
 
-.runtime_vote img{
+.homeSection .runtime_vote img{
   width: 13px;
   height: 13px;
 }
 
-.movieGenre{
-  border: 1px solid red;
+.homeSection .movieGenre{
   border-radius: 8px;
-  background-color: red;
-  font-size: 10px;
-  min-width: 45px;
+  font-size: 11px;
+  min-width: 35px;
   text-align: center;
+  white-space: nowrap;
+  font-weight: bold;
+  border: 1px solid red;
   padding: 4px;
 }
 
 /*newrealed*/
 
-.newReleasedContainer{
+.homeSection .newReleasedContainer{
   max-width: 100%;
   height: 450px;
   display: flex;
@@ -181,7 +186,7 @@
   gap: 30px;
 }
 
-.newReleasedItem{
+.homeSection .newReleasedItem{
   width: 256px;
   height: 400px;
   display: flex;
@@ -189,11 +194,11 @@
   gap: 10px;
 }
 
-.newReleasedItem img{
+.homeSection .newReleasedItem img{
   height: 344px;
 }
 
-.titleSection .seasonNumber{
+.homeSection .titleSection .seasonNumber{
   border: 1px solid red;
   margin: 0;
   padding: 3px;
@@ -203,7 +208,7 @@
   text-align: center;
 }
 
-.RecommendationContainer{
+.homeSection .RecommendationContainer{
   display: flex;
   flex-direction: column;
   height: 848px;
@@ -211,21 +216,21 @@
   position: relative;
 }
 
-.RecommendationContainer .viewAll{
+.homeSection .RecommendationContainer .viewAll{
   position: absolute;
   top: 9px;
   right: 0;
 }
 
 /*Trailers*/
-.trailersContainer{
+.homeSection .trailersContainer{
   width: 100%;
   height: 300px;
   display: flex;
   flex-direction: column;
 }
 
-.trailersWrapper{
+.homeSection .trailersWrapper{
   display: flex;
   height: 180px;
   gap: 10px;

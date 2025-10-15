@@ -10,7 +10,7 @@ import {logOut} from "../../redux/auth/operations";
 
 const SharedLayout = () => {
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
-  const userAvatar = useSelector((state => state.auth.user.avatarURL));
+  //const userAvatar = useSelector((state => state.auth.user.avatarURL));
   const genres = useSelector((state) => state?.movies.genres?.genres);
   const [open, setOpen] = useState(null);
   
@@ -54,7 +54,7 @@ const SharedLayout = () => {
           {isLogin ? ((
             <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
               <button onClick={() => logout()} className='logOutButton' type='submit'>Logout</button>
-              <img height="28px" width="28px" src={userAvatar} alt='avatar of the user'/>
+              
             </div>)) 
               : 
           (

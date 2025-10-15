@@ -61,11 +61,11 @@ const MainPoster = () => {
               </button>
               <Trailers id={highlight} />
             </div>
-            <div>
+            <div className="infos">
               <h1 className="movieTitle">{highlight.name}</h1>
               <div className="gen_rating_time">
                 <ul className="movieGen">
-                  {highlight.genres.map(g => (
+                  {highlight.genres.slice(0, 2).map(g => (
                     <li key={g.id}>{g.name}</li>
                   ))}
                 </ul>

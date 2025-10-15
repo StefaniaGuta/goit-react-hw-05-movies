@@ -6,8 +6,8 @@ export const API_KEY = '046ac13b969fd43f0e6a6ee26ddbba59';
 export const IMAGE_URL = 'https://media.themoviedb.org/t/p/w220_and_h330_face/';
 export const day = new Date().toISOString().split("T")[0];
 
-export const getMovies = createAsyncThunk(
-  'movies/getMovies',
+export const getAll = createAsyncThunk(
+  'movies/getAll',
   async(page = 1, thunkAPI) => {
     try{
       const response = await axios.get(`${URL}/trending/all/week?page=${page}&api_key=${API_KEY}`);
@@ -16,6 +16,30 @@ export const getMovies = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
+)
+
+export const getTrendingAll = createAsyncThunk(
+  'movies/getTrendingAll',
+  async(_, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/trending/all/day?&api_key=${API_KEY}`);
+      return response.data
+    }catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const theNewRealedMovie = createAsyncThunk(
+  'movies/getTheNewReleasedMovie',
+  async(page=1, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/movie/now_playing?page=${page}&api_key=${API_KEY}`);
+      return response.data
+    } catch(e)  {
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  } 
 )
   
   export const getMovieDetails = createAsyncThunk(
@@ -69,18 +93,6 @@ export const getMovies = createAsyncThunk(
   }
 );
 
-export const getMostPopular = createAsyncThunk(
-  'movies/getMostPopular',
-  async(_, thunkAPI) => {
-    try{
-      const response = await axios.get(`${URL}/trending/all/day?api_key=${API_KEY}`);
-
-      return response.data
-    }catch(e){
-      return thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
-)
 
 export const moviesRecommendations = createAsyncThunk(
   'movies/moviesRecommendations',

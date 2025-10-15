@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { getMovies, IMAGE_URL, getMovieDetails } from '../../redux/movies/getAPI';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAll, IMAGE_URL, getMovieDetails, theNewRealedMovie } from '../../redux/movies/getAPI';
 import { newSeriesFetch } from '../../redux/series/seriesApi';
 import {useDispatch, useSelector} from 'react-redux';
 import time from '../Images/time.png';
@@ -12,13 +12,15 @@ import './Home.css';
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
+  const [releasedMovie, setReleasedMovie] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const recentMovies = useSelector(state => state?.movies.recentMovies.results) || [];
 
   useEffect(() => { 
     const fetchMovies = async () => {
       try {
-        const response = await dispatch(getMovies());
+        const response = await dispatch(getAll());
         const allMovies = response.payload.results;
         
         const detailsArray = [];
@@ -26,13 +28,22 @@ const Home = () => {
           const detailsResponse = await dispatch(getMovieDetails(m.id));
           detailsArray.push(detailsResponse.payload);
         }
-
         setMovies(detailsArray);
       } catch (error) {
         console.error('Error fetching trending movies:', error);
       }
     };
+
+    const newReleasedMovies = async () => {
+      try{
+        const response = await dispatch(theNewRealedMovie());
+        setReleasedMovie(response.payload.results)
+      } catch(e) {
+        console.log(e)
+      }
+    }
     fetchMovies();
+    newReleasedMovies();
   }, [dispatch]);
 
   const formatRuntime = (minutes) => {
@@ -50,6 +61,10 @@ const Home = () => {
     fetchSeries();
   }, [dispatch])
 
+  const handlerNavigate = (type) => {
+  navigate("/movies", { state: { type } });
+};
+  
   return (
     <section className="homeSection">
       <div className="recentlyUpdatesContainer">
@@ -67,25 +82,24 @@ const Home = () => {
               />
               <div>
               <h2 className='movieTitle'>{movie.title || movie.name}</h2>
-              <span>{movie.release_date}</span>
               </div>
             </Link>
           </li>
           
           </>
         )) ) : (<p>no</p>)}
-        <button className='recentMovieButton' type='button'>&#10230;</button>
+        <button onClick={() => handlerNavigate("popular")} className='recentMovieButton' type='button'>&#10230;</button>
       </ul>
       </div>
 
       <div className='trendingContainer'>
         <span className='title_viewAll'>
           <h2 className='sectionTitle'>In trending today</h2>
-          <a href='home'>View all &#10230;</a>
+          <button onClick={() => handlerNavigate("inTrending")}>View all &#10230;</button>
         </span>
-        <ul className="trendingList">
+        <ul className="movieInTrendingList">
           {movies
-          .filter(m => m.poster_path)
+          .filter(m => m.poster_path && m.genres.length > 0)
           .sort((a, b) => b.vote_average - a.vote_average)
           .slice(0, 4)
           .map(movie => (
@@ -110,7 +124,7 @@ const Home = () => {
                   <h2 className='movieTitle'>{movie.title || movie.name}</h2>
                   <ul>
                     {movie.genres
-                    .slice(0, 2)
+                    .slice(0, 1)
                     .map(gen => (
                       <li className='movieGenre' key={gen.id}>{gen.name}</li>
                     ))}
@@ -125,10 +139,10 @@ const Home = () => {
       <div className='newReleasedContainer'>
         <span className='title_viewAll'>
           <h2 className='sectionTitle'>New Release - Movies</h2>
-          <a href='home'>View all &#10230;</a>
+          <button onClick={() => handlerNavigate("newReleaseMovie")}>View all &#10230;</button>
         </span>
         <ul className='newReleasedList'>
-          {recentMovies.filter(m => m.poster_path)
+          {releasedMovie.filter(m => m.poster_path)
           .sort((a, b) => b.vote_average - a.vote_average)
           .slice(0, 4)
           .map(movie => (
@@ -150,7 +164,7 @@ const Home = () => {
       <div className='newReleasedContainer'>
           <span className='title_viewAll'>
             <h2 className='sectionTitle'>New Release - Series</h2>
-            <a href='home'>View all &#10230;</a>
+            <button>View all &#10230;</button>
         </span>
         <ul className='newReleasedList'>
           {series.filter(m => m.poster_path)
@@ -176,7 +190,7 @@ const Home = () => {
       </div>
 
       <div className='RecommendationContainer'>
-        <a className='viewAll' href='home'>View all &#10230;</a>
+        <button className='viewAll'>View all &#10230;</button>
         <Recommendations/>
       </div>
     </section>

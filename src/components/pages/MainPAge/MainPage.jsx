@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { getMovies, getMostPopular, day, getGenres, popularActors, IMAGE_URL } from "../../../redux/movies/getAPI";
+import { getAll, getTrendingAll, day, getGenres, popularActors, IMAGE_URL } from "../../../redux/movies/getAPI";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import SphereScroll from "components/SphereScroll/SphereScroll";
 import url from '../../Images/icons.svg';
 import MainPoster from "components/MainPoster/MainPoster";
@@ -19,9 +20,9 @@ const MainPage = () => {
  useEffect(() => {
   const fetchMostRecentMovie = async () => {
     try {
-      const response = await dispatch(getMostPopular(day));
+      const response = await dispatch(getTrendingAll(day));
       const moviesFiltered = response.payload.results.filter(m => m.poster_path);
-        setRecentMovie(moviesFiltered);
+      setRecentMovie(moviesFiltered);
 
      
       
@@ -47,7 +48,7 @@ const MainPage = () => {
     }
   }
   const fetchTrending = async () => {
-    const response = await dispatch(getMovies())
+    const response = await dispatch(getAll())
     const sorted = response.payload.results
       .filter(m => m.poster_path || m.backdrop_path)
       .sort((a, b) => b.vote_average - a.vote_average)
@@ -92,7 +93,7 @@ const scroll = (dir) => {
               <svg width="29" height="32"><use xlinkHref={`${url}#${gen.name}`}/></svg>
               <span>
                 {gen.name}
-                <a href="/">View more</a>
+                <Link to={`/genres/${gen.name}/${gen.id}`} >View more</Link>
               </span>
             </li>
           ))}

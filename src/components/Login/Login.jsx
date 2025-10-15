@@ -56,7 +56,7 @@ const LogIn = () => {
           <label>
             Password*
             <Field id="password"
-              type="text"
+              type="password"
               className="input"
               placeholder="Enter your password"
               value={form.password}

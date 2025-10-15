@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import Notiflix from 'notiflix';
 
 
-const API_URL =  'https://backend-pro-beige.vercel.app/';
+const API_URL =  'https://my-application-backend.vercel.app/api/auth';
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
@@ -19,7 +19,7 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
 
-      const res = await axios.post(`${API_URL}api/auth/register`, credentials);
+      const res = await axios.post(`${API_URL}/users/signup`, credentials);
 
       if (res.status === 201) {
         console.log('Registration successfully!');
@@ -56,7 +56,7 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post(`${API_URL}api/auth/login`, credentials);
+      const response = await axios.post(`${API_URL}/users/login`, credentials);
       const { token } = response.data;
       setAuthHeader(token);
       localStorage.setItem('token', token);
@@ -82,7 +82,7 @@ export const logOut = createAsyncThunk(
     }
 
     try {
-      await axios.get(`${API_URL}api/auth/logout`, {
+      await axios.get(`${API_URL}/users/logout`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       clearAuthHeader();
@@ -104,7 +104,7 @@ export const currentUser = createAsyncThunk(
   
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`${API_URL}api/auth/current`, {
+      const res = await axios.get(`${API_URL}/users/current`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.data;

@@ -1,7 +1,7 @@
 import {moviesRecommendations, IMAGE_URL} from '../../redux/movies/getAPI';
 import {seriesRecommendations} from '../../redux/series/seriesApi';
 import { useDispatch } from 'react-redux';
-import { useState  } from 'react';
+import { useState, useCallback  } from 'react';
 //import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -20,16 +20,20 @@ const Recommendations = () => {
     setActiveTab("movies");
   };
 
-  const getSeries = async () => {
-    const res = await dispatch(seriesRecommendations());
-    setRecommSeries(res.payload.results);
-    setActiveTab("series");
-  };
+  
+  const getSeries = useCallback(async () => {
+    try {
+      const res = await dispatch(seriesRecommendations());
+      setRecommSeries(res.payload?.results || []);
+      setActiveTab("series");
+    } catch (err) {
+      console.error("Error fetching series recommendations", err);
+    }
+  }, [dispatch]);
 
  useEffect(() => {
-  
     getSeries()
- })
+ }, [getSeries])
 
   return (
     <section className='RecommendationSection'>

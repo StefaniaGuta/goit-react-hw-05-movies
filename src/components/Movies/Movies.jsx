@@ -1,70 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-//import { useLocation } from 'react-router-dom';
-//import { BackLink } from '../API/Link.styled';
-import { getSearchMovies } from '../../redux/movies/getAPI';
-import Loader from '../Loader/Loader';
-import Searchbar from '../Searchbar/Searchbar';
-import SearchMoviesList from '../SearchMoviesList/SearchMoviesList';
-import Notiflix from 'notiflix';
-import styles from './Movies.module.css';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { useLocation, Link } from "react-router-dom";
+import { usePaginatedFetch } from "../Pagination/usePaginatedFetch";
+import { getAll, getTrendingAll, IMAGE_URL, theNewRealedMovie } from "../../redux/movies/getAPI";
+import Pagination from "components/Pagination/Pagination";
+//import { noImage } from "../Images/no_image.jpg";
+import "./Movies.css";
 
 const Movies = () => {
-  const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [resetQuery, setResetQuery] = useState(false);
-  //const location = useLocation();
-//  const backLinkHref = location.state?.from ?? '/';
-  const dispatch = useDispatch();
+  const location = useLocation();
+  const category = location.state?.type || "popular";
 
-  useEffect(() => {
-    const searchMovies = async () => {
-      if (query === '') {
-        setIsLoading(false);
-        return;
-      }
+  const fetchAction =
+    category === "popular" ? getTrendingAll :
+    category === "inTrending" ? getAll :
+    category === "newReleaseMovie" ? theNewRealedMovie :
+    getAll;
 
-      setIsLoading(true);
-      try {
-        const response = await dispatch(getSearchMovies(query));
-        console.log("search", response.payload)
-        if (response.payload.length === 0) {
-          Notiflix.Notify.failure('No movies found with the given title!');
-        }
-        setMovies(response.payload);
-      } catch (error) {
-        console.error('Error fetching trending movies:', error);
-        Notiflix.Notify.failure('An error occurred while searching for movies!');
-      } finally {
-        setIsLoading(false);
-        setResetQuery(true); 
-      }
-    }
-    searchMovies();
-  }, [dispatch, query]);
-
-  const handleSubmit = newQuery => {
-    setMovies([]);
-    setQuery(newQuery);
-    setResetQuery(false);
-  };
-
-  //<BackLink to={backLinkHref}>❮ Go Back</BackLink>
+  const { data: movies, totalPages, page, setPage } = usePaginatedFetch(fetchAction, category);
   return (
     <>
-      <div className={styles.back}>
-        <Searchbar onSubmit={handleSubmit} resetQuery={resetQuery} />
-      </div>
+    <section className="moviesPage">
+      <h1 className="sectionTitle">Movies - {category.toUpperCase()}</h1>
+      <ul className="moviesList">
+        {movies.map((movie) => (
+          <li
+          key={movie.id}
+          className="movieItem"
+          >
+              <Link to={`/movies/${movie.id}`}>
+                <img
+                  src={IMAGE_URL + movie.poster_path}
+                  alt={movie.title || movie.name}
+                  />
+                <h2>{movie.title || movie.name}</h2>
+              </Link>
+            </li>
+          )
+        )}
+      </ul>
 
-      {isLoading ? <Loader /> : <SearchMoviesList movies={movies} />}
-    </>
-  );
-};
+      
+    </section>
 
-Movies.propTypes = {
-  movies: PropTypes.array,
+  <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+        />
+        </>
+      );
 };
 
 export default Movies;

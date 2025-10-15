@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { getMovies, IMAGE_URL } from '../../../redux/movies/getAPI';
+import { getAll, IMAGE_URL } from '../../../redux/movies/getAPI';
 import { useDispatch } from 'react-redux';
 import Pagination from '../../Pagination/Pagination';
 import noImage from '../../Images/no_image.jpg';
@@ -22,7 +22,7 @@ const MovieByGenPage = () => {
   useEffect(() => {
   const fetchMovies = async () => {
     try {
-      const response = await dispatch(getMovies(page));
+      const response = await dispatch(getAll(page));
       const allMovies = response.payload.results;
 
       const genreIdNumber = parseInt(genId);

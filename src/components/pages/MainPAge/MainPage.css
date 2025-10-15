@@ -20,7 +20,7 @@
 
 /*genres Section*/
 
-.genresSection{
+.mainSection .genresSection{
   max-width: 100%;
   height: 440px;
   display: flex;
@@ -30,7 +30,7 @@
   margin-bottom: 150px;
 }
 
-.genresSection div{
+.mainSection .genresSection div{
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -46,8 +46,8 @@
   text-align: justify;
 }
 
-.genresSection .sectionText,
-.devicesSection .text{
+.mainSection .genresSection .sectionText,
+.mainSection .devicesSection .text{
   width: 429px;
   font-size: 18px;
   margin: 0;
@@ -56,7 +56,7 @@
   opacity: 0.7;
 }
 
-.genresList{
+.mainSection .genresList{
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   padding: 0;
@@ -64,7 +64,7 @@
   gap: 10px;
 }
 
-.genresList li{
+.mainSection .genresList li{
   width: 150px;
   height: 73px;
   list-style-type: none;
@@ -75,10 +75,10 @@
   justify-content: space-evenly;
 }
 
-.genresList li svg{
+.mainSection .genresList li svg{
   fill: transparent;
 }
-.genresList span{
+.mainSection .genresList span{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,7 +86,7 @@
   height: 37px;
 }
 
-.genresList span a{
+.mainSection .genresList span a{
   font-size: 12px;
   color: #6c58ca;
   font-weight: bold;
@@ -94,7 +94,7 @@
 
 /*devices Section*/
 
-.devicesSection{
+.mainSection .devicesSection{
   max-width: 100%;
   height: 265px;
   display: flex;
@@ -105,7 +105,7 @@
   text-align: center;
 }
 
-.devicesSection .devicesList{
+.mainSection .devicesSection .devicesList{
   width: 600px;
   list-style-type: none;
   display: flex;
@@ -115,7 +115,7 @@
   margin: 50px 0 0 0;
 }
 
-.devicesSection .devicesList li{
+.mainSection .devicesSection .devicesList li{
   max-width: 150px;
   height: 90px;
   display: flex;
@@ -127,20 +127,20 @@
 }
 
 /*actors list*/
-.popularCelebritiesSection,
-.isPopularSection{
+.mainSection .popularCelebritiesSection,
+.mainSection .isPopularSection{
   width: 100%;
   height: 328px;
   margin-bottom: 150px;
   position: relative;
 }
 
-.popularCelebritiesSection h2,
-.isPopularSection h2{
+.mainSection .popularCelebritiesSection h2,
+.mainSection .isPopularSection h2{
   margin-bottom: 15px;
 }
 
-.moveBtn{
+.mainSection .moveBtn{
   width: 100%;
   height: 74px;
   display: flex;
@@ -149,7 +149,7 @@
   top: 50%;
 }
 
-.moveBtn button{
+.mainSection .moveBtn button{
   width: 50px;
   height: 70px;
   border-radius: 24px;
@@ -159,11 +159,11 @@
   cursor: pointer;
 }
 
-.moveBtn button:hover{
+.mainSection .moveBtn button:hover{
   background-color: #f0f8ffed;
   color: rgb(14, 14, 60);
 }
-.actorsList{
+.mainSection .actorsList{
   display: flex;
   height: 276px;
   padding: 0;
@@ -181,7 +181,7 @@
   100% { transform: translateX(-50%); }
 }
 
-.actorsList li{
+.mainSection .actorsList li{
   width: 160px;
   height: 240px;
   display: flex;
@@ -192,13 +192,13 @@
   justify-content: space-evenly;
 }
 
-.actorsList li h3{
+.mainSection .actorsList li h3{
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.actorsList img{
+.mainSection .actorsList img{
   width: 160px;
   height: 180px;
   border-radius: 50%;
@@ -206,7 +206,7 @@
 
 /*trending Section*/
 
-.trendingSection{
+.mainSection .trendingSection{
   width: 100%;
   height: 650px;
   margin-bottom: 150px;
@@ -217,7 +217,7 @@
   gap: 50px;
 }
 
-.trendingList{
+.mainSection .trendingList{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -226,7 +226,7 @@
   gap: 50px;
 }
 
-.trendingList li{
+.mainSection .trendingList li{
   width: 330px;
   height: 490px;
   display: flex;
@@ -236,13 +236,13 @@
   position: relative;
 }
 
-.trendingList .titleMovieInTrending{
+.mainSection .trendingList .titleMovieInTrending{
   font-size: 18px;
   width: 100%;
   height: 30px;
 }
 
-.trendingList .recentMovie img{
+.mainSection .trendingList .recentMovie img{
   box-shadow: 0px 0px 60px 0px #d3d1f0;
   border-radius: 100%;
   width: 257px;
@@ -254,18 +254,18 @@
   top: 69px;
 }
 
-.trendingList .recentMovie:nth-child(2){
+.mainSection .trendingList .recentMovie:nth-child(2){
   transform: scale(1.2);
 }
 
-.trendingList .recentMovie .titleArc {
+.mainSection .trendingList .recentMovie .titleArc {
   width: 475px;
   height: 307px;
   pointer-events: none;
   z-index: 111;
 }
 
-.isPopularSection{
+.mainSection .isPopularSection{
   margin-bottom: 0;
   height: 370px;
 }

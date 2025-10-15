@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMovies, 
+import { getAll, 
   getMovieDetails, 
   getMovieCast, 
   getMovieReviews, 
   getSearchMovies,
-  getMostPopular,
+  getTrendingAll,
   moviesRecommendations,
   getGenres,
  } from './getAPI';
@@ -21,7 +21,7 @@ const moviesSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-    .addCase(getMovies.fulfilled, (state, action) => {
+    .addCase(getAll.fulfilled, (state, action) => {
       state.movies = action.payload
       state.isLoading = false;
       state.error = null;
@@ -46,7 +46,7 @@ const moviesSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     })
-    .addCase(getMostPopular.fulfilled, (state, action) => {
+    .addCase(getTrendingAll.fulfilled, (state, action) => {
       state.recentMovies = action.payload
       state.isLoading = false;
       state.error = null;
