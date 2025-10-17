@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './Searchbar.module.css';
-import finder from '../Images/finder.png';
+import url from '../Images/icons.svg'
 
 const Searchbar = ({ onSubmit, resetQuery }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +37,7 @@ const Searchbar = ({ onSubmit, resetQuery }) => {
           onChange={handleInputChange}
         />
         <button type="submit">
-          <img height="20px" width="20px" src={finder} alt='magnifying glass'/>
+          <svg width="20" height="20"><use xlinkHref={`${url}#magnifying`}/></svg>
         </button>
       </form>
     </>

@@ -33,7 +33,6 @@
 }
 
 .homeSection .recentryMoviesList,
-.homeSection .movieInTrendingList,
 .homeSection .newReleasedList{
   display: flex;
   height: 386px;
@@ -84,16 +83,6 @@
   cursor: pointer;
 }
 
-/*trending movie list*/
-.homeSection .trendingContainer{
-  max-width: 100%;
-  height: 392px;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  gap: 30px;
-}
-
 .homeSection .title_viewAll{
   display: flex;
   align-items:baseline;
@@ -111,16 +100,6 @@
   cursor: pointer;
 }
 
-.homeSection .movieInTrending{
-  width: 265px;
-  height: 330px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  gap: 10px;
-}
-
-.homeSection .movieInTrending img,
 .homeSection .newReleasedItem img{
   width: 100%;
   height: 293px;
@@ -149,22 +128,6 @@
   max-width: 146px;
   margin: 10px 0 0 0;
 }
-
-.homeSection .runtime_vote{
-  width: 96.5%;
-  position: absolute;
-}
-
-.homeSection .runtime_vote span{
-  display: flex;
-  gap: 3px;
-}
-
-.homeSection .runtime_vote img{
-  width: 13px;
-  height: 13px;
-}
-
 .homeSection .movieGenre{
   border-radius: 8px;
   font-size: 11px;
@@ -173,7 +136,7 @@
   white-space: nowrap;
   font-weight: bold;
   border: 1px solid red;
-  padding: 4px;
+  padding: 4px 5px;
 }
 
 /*newrealed*/
@@ -192,6 +155,20 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+}
+
+.newReleasedItem .epNumber{
+  border: 1px solid red;
+  background-color: red;
+  color: #FFF;
+  width: 50px;
+  padding: 2px;
+  text-align: center;
+  border-radius: 4px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 
 .homeSection .newReleasedItem img{
@@ -206,6 +183,21 @@
   width: 70px;
   height: 16px;
   text-align: center;
+}
+
+.homeSection .runtime_vote{
+  width: 96.5%;
+  position: absolute;
+}
+
+.homeSection .runtime_vote span{
+  display: flex;
+  gap: 3px;
+}
+
+.homeSection .runtime_vote svg{
+  width: 13px;
+  height: 13px;
 }
 
 .homeSection .RecommendationContainer{
@@ -236,43 +228,3 @@
   gap: 10px;
   overflow-y: hidden;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  .trendingContainer h1 {
-    display: flex;
-    justify-content: center;
-  }
-  
- .trendind {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 20px;
-    padding: 10px;
-    list-style: none;
-    align-items: baseline;
-    justify-items: center;
-  }
-  
-  .trendingContainer .trendind li:hover {
-    transform: scale(1.02);
-  }
-  
-  .trendingContainer .trendind img {
-    width: 100%;
-    height: auto;
-  }
-  .trendingContainer .trendind p {
-    margin-top: 5px;
-    font-weight: 500;
-  }

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const URL = 'https://api.themoviedb.org/3';
-export const API_KEY = '046ac13b969fd43f0e6a6ee26ddbba59';
+export const API_KEY = '522a85804afc455b1edd9d5e4b52e3fb';
 export const IMAGE_URL = 'https://media.themoviedb.org/t/p/w220_and_h330_face/';
 export const day = new Date().toISOString().split("T")[0];
 
@@ -22,7 +22,7 @@ export const getTrendingAll = createAsyncThunk(
   'movies/getTrendingAll',
   async(_, thunkAPI) => {
     try{
-      const response = await axios.get(`${URL}/trending/all/day?&api_key=${API_KEY}`);
+      const response = await axios.get(`${URL}/trending/all/day?api_key=${API_KEY}`);
       return response.data
     }catch(e){
       return thunkAPI.rejectWithValue(e.response.data)
@@ -135,6 +135,54 @@ export const getTrailer = createAsyncThunk(
   async({id,show }, thunkAPI) => {
     try{
       const response = await axios.get(`${URL}/${show}/${id}/videos?api_key=${API_KEY}`);
+      return response.data;
+    } catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const getPopularMovies = createAsyncThunk(
+  'movies/getPopularMovies',
+  async(page=1, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/movie/popular?page=${page}&api_key=${API_KEY}`);
+      return response.data;
+    } catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const getNowPlayingMovies = createAsyncThunk(
+  'movies/getMowPlayingMovies',
+  async(page=1, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/movie/now_playing?region=RO&api_key=${API_KEY}`);
+      return response.data;
+    } catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const getUpcomingMovies = createAsyncThunk(
+  'movies/getUpcomingMovies',
+  async(page=1, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/movie/upcoming?region=RO&api_key=${API_KEY}`);
+      return response.data;
+    } catch(e){
+      return thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const getTopRatedMovies = createAsyncThunk(
+  'movies/getTopRatedMovies',
+  async(page=1, thunkAPI) => {
+    try{
+      const response = await axios.get(`${URL}/movie/top_rated?page=${page}&region=RO&api_key=${API_KEY}`);
       return response.data;
     } catch(e){
       return thunkAPI.rejectWithValue(e.response.data)

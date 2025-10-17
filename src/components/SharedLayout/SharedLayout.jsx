@@ -3,16 +3,17 @@ import { Suspense, useState } from 'react';
 import Loader from '../Loader/Loader';
 import './SharedLayout.css';
 import Searchbar from 'components/Searchbar/Searchbar';
-import bell from "../Images/bell.png";
 import { useSelector, useDispatch } from 'react-redux';
 import {logOut} from "../../redux/auth/operations";
+import url from '../Images/icons.svg';
 
 
 const SharedLayout = () => {
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
-  //const userAvatar = useSelector((state => state.auth.user.avatarURL));
   const genres = useSelector((state) => state?.movies.genres?.genres);
   const [open, setOpen] = useState(null);
+  const [openMovieModal, setOpenMovieModal] = useState(null)
+  const [openSeriesModal, setOpenSeriesModal] = useState(null)
   
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -27,12 +28,22 @@ const SharedLayout = () => {
   }
 
   const handleOpen = () => setOpen(!open);
+  const handleOpenMovie = () => setOpenMovieModal(!openMovieModal);
+  const handleOpenSeries = () => setOpenSeriesModal(!openSeriesModal);
 
   const handleNavigate = (gen) => {
     navigate(`/genres/${gen.name}/${gen.id}`);
     setOpen(!open)
   }
-  
+  const navigateToMoviesPage = (type) => {
+    navigate(`/movies/${type}`, { state: { type } });
+    setOpenMovieModal(!openMovieModal);
+  };
+
+  const navigateToSeriesPage = (type) => {
+    navigate(`/series/${type}`, { state: { type } });
+    setOpenSeriesModal(!openSeriesModal);
+  }
   return (
     <>
       <header className='header'>
@@ -49,8 +60,25 @@ const SharedLayout = () => {
             </ul>
           ) : null}
           <Searchbar/>
-          <Link className="link">Movies</Link>
-          <Link className="link">Series</Link>
+          <Link onClick={handleOpenMovie} className="link"> Movies</Link>
+          {openMovieModal ?(
+          <ul className='moviesTypes'>
+            <li onClick={() => navigateToMoviesPage("popularMovies")}>Popular</li>
+             <li onClick={() => navigateToMoviesPage("nowPlayingMovies")}>Now Playing</li>
+              <li onClick={() => navigateToMoviesPage("upcomingMovies")}>Upcoming</li>
+               <li onClick={() => navigateToMoviesPage("topRatedMovies")}>Top Rated</li>
+          </ul>
+          ) : null}
+          
+          <Link onClick={handleOpenSeries} className="link">Series</Link>
+          {openSeriesModal ?(
+          <ul className='seriesTypes'>
+            <li onClick={() => navigateToSeriesPage("popularSeries")}>Popular</li>
+            <li onClick={() => navigateToSeriesPage("airingTodaySeries")}>Airing Today</li>
+            <li onClick={() => navigateToSeriesPage("onTvSeries")}>On TV</li>
+            <li onClick={() => navigateToSeriesPage("topRatedSeries")}>Top Rated</li>
+          </ul>
+          ) : null}
           {isLogin ? ((
             <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
               <button onClick={() => logout()} className='logOutButton' type='submit'>Logout</button>
@@ -61,7 +89,7 @@ const SharedLayout = () => {
             <div style={{display: 'flex', width: '140px', alignItems: 'center', gap: "5px"}}>
               <Link to="/login" className="link">Login</Link> / 
               <Link to="/registration" className="link">Singup</Link>
-            <img height="16px" width="14px" src={bell} alt='bell'/>
+              <svg width="24" height="24"><use xlinkHref={`${url}#bell`}/></svg>
           </div>
           )
           }

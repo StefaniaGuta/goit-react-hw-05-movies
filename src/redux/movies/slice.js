@@ -7,6 +7,10 @@ import { getAll,
   getTrendingAll,
   moviesRecommendations,
   getGenres,
+  getPopularMovies,
+  getNowPlayingMovies,
+  getUpcomingMovies,
+  getTopRatedMovies
  } from './getAPI';
 
 const initialState = {
@@ -43,6 +47,26 @@ const moviesSlice = createSlice({
     })
     .addCase(getSearchMovies.fulfilled, (state, action) => {
       state.movies = action.payload
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(getPopularMovies.fulfilled, (state, action) => {
+      state.movies = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(getNowPlayingMovies.fulfilled, (state, action) => {
+      state.movies = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(getUpcomingMovies.fulfilled, (state, action) => {
+      state.movies = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(getTopRatedMovies.fulfilled, (state, action) => {
+      state.movies = action.payload;
       state.isLoading = false;
       state.error = null;
     })

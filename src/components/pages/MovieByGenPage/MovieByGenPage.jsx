@@ -49,11 +49,11 @@ const MovieByGenPage = () => {
 
 
   return (
-    <section className='movieByGenSection'>
+    <section className='page'>
       <h1 >Movie gen: {genreName}</h1>
-      <ul className='movies'>
+      <ul className='pageList'>
         {movies.map(movie => (
-            <Link className='movie' key={movie.id} to={`/movies/${movie.id}`}>
+            <Link className='pageItem' key={movie.id} to={`/movie/${movie.id}`}>
               <img
                 src={movie.poster_path || movie.poster_path ? IMAGE_URL + movie.poster_path : noImage}
                 alt={movie.title || movie.name}

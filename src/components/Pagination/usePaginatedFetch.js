@@ -8,6 +8,7 @@ export const usePaginatedFetch = (fetchAction, category = "", deps = []) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
         const response = await dispatch(fetchAction(page, category));
@@ -20,7 +21,7 @@ export const usePaginatedFetch = (fetchAction, category = "", deps = []) => {
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page, ...deps]);
+  }, [dispatch, page, fetchAction, category, ...deps]);
 
   return { data, totalPages, page, setPage };
 };

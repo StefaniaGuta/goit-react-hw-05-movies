@@ -1,10 +1,11 @@
 import { useEffect, useState} from "react";
 import {  newSeriesFetch } from "../../redux/series/seriesApi";
 import { useDispatch } from "react-redux";
-import star from '../../components/Images/star.png';
-import calendar from '../../components/Images/calendar.png';
+//import star from '../../components/Images/star.png';
+//import calendar from '../../components/Images/calendar.png';
 import { useNavigate } from "react-router-dom";
 import Trailers from "components/Trailer/Trailer";
+import url from '../Images/icons.svg';
 import "./MainPoster.css";
 
 const MainPoster = () => {
@@ -70,11 +71,11 @@ const MainPoster = () => {
                   ))}
                 </ul>
                 <span className="rating">
-                  <img src={star} alt="star" />
+                  <svg width="14" height="14"><use xlinkHref={`${url}#star`}/></svg>
                   {highlight.vote_average?.toFixed(1)}
                 </span>
                 <span>
-                  <img src={calendar} alt="calendar" />
+                  <svg width="20" height="20"><use xlinkHref={`${url}#calendar`}/></svg>
                   {new Date(highlight.first_air_date).getFullYear()}
                 </span>
               </div>

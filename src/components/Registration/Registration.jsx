@@ -5,8 +5,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Notiflix from 'notiflix';
 import "./Registration.css";
-import profilePicture from "../Images/profileImg.png";
-import photo from "../Images/photo.png";
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -73,15 +71,6 @@ const Registration = () => {
         onSubmit={handleSubmit}
       >
         <Form className="registrationForm">
-          <div className="profilePicture">
-            <div className="profileImg">
-              <img width="50px" height="50px" src={profilePicture} alt="profilepicture"/>
-            </div>
-            <span>
-              <img width="25px" height="20px" src={photo} alt="un aparat foto"/>
-              Add an avatar
-            </span>
-          </div>
           <label>
             Name*
             <Field id="name"

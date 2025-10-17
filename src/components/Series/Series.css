@@ -1,4 +1,4 @@
-.page{
+.seriesPage{
   max-width: 100vw;
   height: 100%;
   display: flex;
@@ -9,7 +9,7 @@
   padding: 50px 0;
 }
 
-.pageList{
+.seriesPageList{
   width: 90%;
   height: 100%;
   display: grid;
@@ -21,7 +21,7 @@
   margin: 20px 0 60px 0;
 }
 
-.pageItem{
+.seriesPageItem{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,14 +29,14 @@
   text-decoration: none;
 }
 
-.pageItem img {
+.seriesPageItem img {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.pageItem h2{
-  margin: 20px 0 0 0;
+.seriesPageItem h2{
+ margin: 20px 0 0 0;
   color: aliceblue;
   font-size: 20px;
   white-space: nowrap;

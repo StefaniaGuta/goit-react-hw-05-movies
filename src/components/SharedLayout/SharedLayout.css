@@ -19,7 +19,9 @@
   position: relative;
 }
 
-.genList{
+.genList,
+.moviesTypes,
+.seriesTypes{
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -67,4 +69,16 @@
   border: none;
   color: #FFF;
   cursor: pointer;
+}
+
+.moviesTypes,
+.seriesTypes{
+  width: 100px;
+  height: 100px;
+  justify-content: space-between;
+  padding: 10px;
+  left: 723px;
+}
+.seriesTypes{
+  left: 844px;
 }

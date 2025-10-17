@@ -147,7 +147,7 @@ const scroll = (dir) => {
         <ul className="trendingList">
           {trending 
             .map(t => (
-              <li key={t.id} className="recentMovie" to={`/movies/${t.id}`}>
+              <li key={t.id} className="recentMovie">
                 <svg viewBox="0 0 300 150" className="titleArc">
                   <defs>
                     <path id={`arcPath-${t.id}`} d="M 20 130 A 130 130 0 0 1 280 130" />

@@ -53,7 +53,7 @@ const Recommendations = () => {
           .filter(m => m.poster_path)
           .map((m) => (
             <li key={m.id}>
-            <Link className="Item" to={`/movies/${m.id}`}>
+            <Link className="Item" to={`/movie/${m.id}`}>
               <img
                 src={IMAGE_URL + m.poster_path}
                 alt={m.title || m.name}

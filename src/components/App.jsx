@@ -7,6 +7,7 @@ import PublicRoute from 'routes/PublicRoute';
 
 const Home = lazy(() => import('./Home/Home'));
 const Movies = lazy(() => import('./Movies/Movies'));
+const Series = lazy(() => import('./Series/Series'));
 const MovieDetails = lazy(() =>import('./MovieDetails/MovieDetails'));
 const NotFound = lazy(() => import('./NotFound/NotFound'));
 const Registration = lazy(() =>import('./Registration/Registration'));
@@ -23,11 +24,12 @@ export const App = () => {
           <Route path="/" element={<PublicRoute component={<MainPage/>}/>}/>
           <Route path="/login" element={<PublicRoute component={<LogIn/>}/>}/>
           <Route path="registration" element={<PublicRoute component={<Registration/>}/>}/>
-          <Route path="genres/:genName/:genId" element={<PublicRoute component={<MovieByGenPage/>}/>}/>
+          <Route path="genres/:genName/:genId" element={<MovieByGenPage/>}/>
 
           <Route path="/home" element={<PrivateRoute component={<Home />}/>}/>
-          <Route path="/movies" element={<PrivateRoute component={<Movies />}/>}/>
-          <Route path="/movies/:movieId" element={<PrivateRoute component={<MovieDetails />}/>}/>
+          <Route path="/movies/:type" element={<Movies />}/>
+          <Route path="/series/:type" element={<Series />}/>
+          <Route path="/movie/:movieId" element={<MovieDetails />}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </Suspense>

@@ -54,10 +54,12 @@
   margin: 10px 0;
 }
 
-.gen_rating_time img{
-  height: 15px;
-  width: 15px;
-  margin-right: 5px;
+.gen_rating_time span{
+  display: flex;
+  align-items: center;
+  max-width: 60px;
+  justify-content: space-between;
+  gap: 5px;
 }
 
 .movieOverview{
