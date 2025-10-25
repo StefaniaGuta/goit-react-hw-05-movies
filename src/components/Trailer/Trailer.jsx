@@ -12,7 +12,7 @@ const Trailers = ( movieId ) => {
   useEffect(() => {
     const loadTrailers = async () => {
       try {
-        const res = await dispatch(getTrailer({show: "tv", id: movieId.id.id}));
+        const res = await dispatch(getTrailer({show: movieId.show, id: movieId.id.id}));
         
         const filtered = res.payload.results.filter(
           (v) => v.site === "YouTube" && v.type === "Teaser"

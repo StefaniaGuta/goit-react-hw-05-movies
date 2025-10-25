@@ -1,0 +1,76 @@
+.movie-cast{
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 260px;
+  position: relative;
+}
+.movie-cast .movieCastActor{
+  display: flex;
+  justify-content: flex-start;
+  list-style-type: none;
+  width: 250px;
+  gap: 15px;
+  height: 43px;
+}
+
+.movie-cast .actorPhoto{
+  width: 35px;
+  height: 35px;
+  border-radius: 50px;
+}
+
+.movieActorName{
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.movieActorCharacterName{
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.viewMoreCastBtn{
+  width: 100%;
+  border: none;
+  background-color: #ffffff96;
+  color: aliceblue;
+  cursor: pointer;
+}
+
+.viewMoreCastBtn:hover,
+.viewMoreCastBtn:active{
+  background-color: #ffffffe1;
+}
+
+.castModal{
+  position: absolute;
+  bottom: 28px;
+  background-color: #0d0f21;
+  width: 400px;
+  left: -62px;
+  height: 448px;
+  overflow-y: scroll;
+  padding: 15px;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  scrollbar-width: none;
+}
+
+.castModal .castModalActor{
+  display: flex;
+  justify-content: flex-start;
+  list-style-type: none;
+  width: 400px;
+  gap: 15px;
+  height: 62px;
+  align-items: center;
+}
+
+.castModal .castModalActorPhoto{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}

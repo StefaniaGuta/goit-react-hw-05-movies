@@ -60,7 +60,7 @@ const MainPoster = () => {
               <button type="button" onClick={() => navigate(`/login`)}>
                 Watch now
               </button>
-              <Trailers id={highlight} />
+              <Trailers id={highlight} show={"tv"}/>
             </div>
             <div className="infos">
               <h1 className="movieTitle">{highlight.name}</h1>

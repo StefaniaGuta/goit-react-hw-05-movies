@@ -1,0 +1,90 @@
+.reviewsSection{
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  padding: 33px 0;
+  position: relative;
+}
+
+.reviewsList{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.review{
+  display: flex;
+  align-items: flex-start;
+  width: 800px;
+  max-height: 160px;
+  overflow: hidden;
+  gap: 15px;
+}
+
+.review img,
+.reviewModal img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50px;
+}
+
+.reviewContent{
+  max-height: 154px;
+  background-color: #061064;
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.review .reviewAuthor,
+.reviewModal .reviewAuthor{
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.reviewText{
+  font-size: 14px;
+  max-height: 116px;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+
+.seeMoreReviwsBtn{
+  width: 800px;
+  margin-top: 25px;
+  border: none;
+  background-color: #ffffff96;
+  color: aliceblue;
+}
+
+.reviewsModal{
+  position: absolute;
+  bottom: 65px;
+  background-color: #0d0f21;
+  width: 930px;
+  left: -62px;
+  height: 548px;
+  overflow-y: scroll;
+  padding: 15px;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  scrollbar-color: rgba(0, 0, 0, 0.379) transparent;
+}
+
+.reviewModal{
+  width: 900px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.modalReviewContent{
+  background-color: #061064;
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.modalReviewText{
+  font-size: 14px;
+}
