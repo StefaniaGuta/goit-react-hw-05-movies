@@ -8,6 +8,7 @@ import Reviews from 'components/Reviews/Reviews';
 import Cast from 'components/Cast/Cast';
 import url from '../Images/icons.svg';
 import Trailers from 'components/Trailer/Trailer';
+import RatingStars from 'components/RatingStars/RatingStars';
 import './MovieDetails.css';
 
 const MovieDetails = () => {
@@ -46,6 +47,8 @@ const MovieDetails = () => {
     return `${h}h ${m}m`;
   };
 
+  console.log(movie)
+
   return (
     <>
       {isLoading ? (
@@ -79,14 +82,14 @@ const MovieDetails = () => {
                   <h2 className='movieName'>{movie.name || movie.title}</h2>
                   <p>{movie.tagline || "One step. One decision. A new world."}</p>
                   <div className='movie-in-numbers'>
-                    <p>
-                      <svg width="15" height="15"><use xlinkHref={`${url}#clock`}/></svg>
-                      {formatRuntime(movie.runtime)}
-                    </p>
-                    <p><svg width="15" height="15"><use xlinkHref={`${url}#star`}/></svg>{movie.vote_average.toFixed(1)}</p>
+                    <RatingStars voteAverage={movie.vote_average.toFixed(1)} />
                     <p>
                       <svg width="20" height="20"><use xlinkHref={`${url}#eye`}/></svg>
                       {movie.vote_count}
+                    </p>
+                    <p>
+                      <svg width="15" height="15"><use xlinkHref={`${url}#clock`}/></svg>
+                      {formatRuntime(movie.runtime)}
                     </p>
                   </div>
 
@@ -95,7 +98,7 @@ const MovieDetails = () => {
                       <h3 className='movieDetailsContainerSectionTitle'>DETAILS</h3>
                       <p>
                         <b>Country:</b> 
-                        {movie.production_countries[0].name}
+                        {movie.production_countries.length > 0 ? movie.production_countries[0].name : movie.origin_country}
                       </p>
                       <p>
                         <b>Genre:</b>    
@@ -107,7 +110,7 @@ const MovieDetails = () => {
                         <b>Language:</b>
                         {movie.spoken_languages && movie.spoken_languages.length > 0
                           ? movie.spoken_languages.map(lang => lang.english_name).join(", ")
-                          : "Other"}
+                          : movie.original_language}
                       </p>
                       <p>
                         <b>Date Release:</b> 
@@ -123,12 +126,12 @@ const MovieDetails = () => {
                         <b>Colection:</b>
                         {movie.belongs_to_collection
                           ? movie.belongs_to_collection.name
-                          : "Not specified"}
+                          : "Other"}
                       </p>
                     </div>
                     <div className='movie-cast'>
                       <h3 className='movieDetailsContainerSectionTitle'>CAST</h3>
-                      <Cast/>
+                      <Cast show={"movie"}/>
                     </div>
                   </div>
                 </div>
@@ -154,10 +157,13 @@ const MovieDetails = () => {
                         <h2 className='specificMovieTitle'>{m.title || m.name}</h2>
                       </Link>
                   ))}
-                  <button className='viewMoreRecommendationMovies'>View more</button>
+                  <button className='viewMoreRecommendationMovies'>
+                    <svg width="27" height="15"><use xlinkHref={`${url}#down-btn`}/></svg>
+                    View more
+                  </button>
                 </ul>
               </div>
-              <Reviews/>
+              <Reviews show={"movie"}/>
             </div>
           </div>
         )

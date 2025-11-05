@@ -4,24 +4,26 @@ import { getMovieReviews } from '../../redux/movies/getAPI';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import noImg from '../Images/no_image.jpg';
+import url from '../Images/icons.svg';
 import './Reviews.css';
 
-const Reviews = () => {
+const Reviews = (show) => {
   const [open, setOpen] = useState()
   const [movieReviews, setMovieReviews] = useState([]);
   const { movieId } = useParams();
   const dispatch = useDispatch();
+  
   useEffect(() => {
     const fetchMovieReviews = async () => {
       try {
-        const response = await dispatch(getMovieReviews(movieId));
+        const response = await dispatch(getMovieReviews({show: show.show, movieId:movieId}));
         setMovieReviews(response.payload);
       } catch (error) {
         console.error('Error fetching movie credits:', error);
       }
     }
   fetchMovieReviews();
-  }, [dispatch, movieId]);
+  }, [dispatch, movieId, show]);
 
   const openModal = () => {
     setOpen(!open)
@@ -42,7 +44,10 @@ const Reviews = () => {
             </li>
           ))
         ) : (<p>We do not have any reviews to diplay for this movie!</p>)}
-        {movieReviews.length > 4 ? <button className='seeMoreReviwsBtn' onClick={openModal}>See more Reviews</button> : null}
+        {movieReviews.length > 4 ? <button className='seeMoreReviwsBtn' onClick={openModal}>
+          <svg width="27" height="15"><use xlinkHref={`${url}#down-btn`}/></svg>
+          See more Reviews
+          </button> : null}
       </ul>
 
       {open ? (

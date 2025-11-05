@@ -3,25 +3,26 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getMovieCast, IMAGE_URL } from '../../redux/movies/getAPI';
 import noImage from '../Images/no_image.jpg';
+import url from '../Images/icons.svg';
 import './Cast.css';
 
-const Cast = () => {
+const Cast = (show) => {
   const [movieCredits, setMovieCredits] = useState([]);
   const [open, setOpen] = useState();
   const { movieId } = useParams();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchMovieCredits = async () => {
       try {
-        const response = await dispatch(getMovieCast(movieId));
+        const response = await dispatch(getMovieCast({show: show.show, movieId: movieId}));
         setMovieCredits(response.payload.cast);
       } catch (error) {
         console.error('Error fetching movie credits:', error);
       }
     }
     fetchMovieCredits();
-  }, [dispatch, movieId]);
+  }, [dispatch, movieId, show]);
 
 const openModal = () => {
     setOpen(!open)
@@ -40,7 +41,12 @@ const openModal = () => {
             <h3 className='movieActorName'>{movieCredit.name}</h3>
           </li>
         ))) : (<p>We do not have any information to display about this production!</p>)}
-        <button onClick={openModal} className='viewMoreCastBtn'>View more</button>
+        {movieCredits.length > 5 
+        ? <button onClick={openModal} className='viewMoreCastBtn'>
+          <svg width="27" height="15"><use xlinkHref={`${url}#down-btn`}/></svg>
+          View more
+          </button>
+        : null }
       </ul>
       {open ? (
         <ul className='castModal'>

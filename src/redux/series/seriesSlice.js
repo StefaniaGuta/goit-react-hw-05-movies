@@ -5,7 +5,8 @@ import { newSeriesFetch,
   popularSeries,
   onTvSeries,
   topRatedSeries,
-  airingTodaySeries
+  airingTodaySeries,
+  getSeriesSeason
  } from './seriesApi';
 
 const initialState = {
@@ -52,6 +53,11 @@ const seriesSlice = createSlice({
     })
     .addCase(airingTodaySeries.fulfilled, (state, action) => {
       state.series = action.payload
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(getSeriesSeason.fulfilled, (state, action) => {
+      state.series = action.payload;
       state.isLoading = false;
       state.error = null;
     })

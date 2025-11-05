@@ -30,7 +30,7 @@ return (
   <section className='seriesPage'> 
     <ul className='seriesPageList'>
       {series.map((s) => (
-          <Link to={`/series/${s.id}`} 
+          <Link to={`/serie/${s.id}`} 
           key={s.id}
           className="seriesPageItem">
             <img

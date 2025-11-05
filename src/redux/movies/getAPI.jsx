@@ -59,9 +59,9 @@ export const theNewRealedMovie = createAsyncThunk(
   
   export const getMovieCast = createAsyncThunk(
     'movies/getMovieCredits',
-    async (movieId, thunkAPI) => {
+    async ({show, movieId}, thunkAPI) => {
     try {
-      const response = await axios.get(`${URL}/movie/${movieId}/credits?api_key=${API_KEY}`);
+      const response = await axios.get(`${URL}/${show}/${movieId}/credits?api_key=${API_KEY}`);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -71,9 +71,9 @@ export const theNewRealedMovie = createAsyncThunk(
   
   export const getMovieReviews = createAsyncThunk(
     'movies/getMovieReviews',
-    async (movieId, thunkAPI) => {
+    async ({show, movieId}, thunkAPI) => {
     try {
-      const response = await axios.get(`${URL}/movie/${movieId}/reviews?api_key=${API_KEY}`);
+      const response = await axios.get(`${URL}/${show}/${movieId}/reviews?api_key=${API_KEY}`);
       return response.data.results;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

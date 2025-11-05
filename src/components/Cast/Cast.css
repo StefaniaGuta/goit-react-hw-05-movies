@@ -36,16 +36,23 @@
   background-color: #ffffff96;
   color: aliceblue;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 22px;
+  border-radius: 4px;
 }
 
 .viewMoreCastBtn:hover,
 .viewMoreCastBtn:active{
   background-color: #ffffffe1;
+  color:#0d0f21;
 }
 
 .castModal{
   position: absolute;
-  bottom: 28px;
+  bottom: 55px;
   background-color: #0d0f21;
   width: 400px;
   left: -62px;

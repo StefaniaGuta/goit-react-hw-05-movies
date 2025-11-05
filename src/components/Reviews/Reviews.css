@@ -54,6 +54,18 @@
   border: none;
   background-color: #ffffff96;
   color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.seeMoreReviwsBtn:active,
+.seeMoreReviwsBtn:hover{
+  background-color: #ffffffe1;
+  color:#0d0f21
 }
 
 .reviewsModal{

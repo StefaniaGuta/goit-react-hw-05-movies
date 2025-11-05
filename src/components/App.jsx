@@ -14,6 +14,7 @@ const Registration = lazy(() =>import('./Registration/Registration'));
 const LogIn = lazy(() => import('./Login/Login'));
 const MainPage = lazy(() => import('./MainPage/MainPage'));
 const MovieByGenPage = lazy(() => import('./pages/MovieByGenPage/MovieByGenPage'));
+const SeriesDetails = lazy(() => import('./SeriesDetails/SeriesDetails'));
 
 export const App = () => {
   return (
@@ -30,6 +31,7 @@ export const App = () => {
           <Route path="/movies/:type" element={<Movies />}/>
           <Route path="/series/:type" element={<Series />}/>
           <Route path="/movie/:movieId" element={<MovieDetails />}/>
+          <Route path="/serie/:movieId" element={<SeriesDetails />}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </Suspense>

@@ -93,3 +93,15 @@ export const airingTodaySeries = createAsyncThunk(
     }
   }
 )
+
+export const getSeriesSeason = createAsyncThunk(
+  'series/getSeriesSeason',
+  async({id, seasonNumber}, thunkAPI) => {
+    try{
+      const res = await axios.get(`${URL}/tv/${id}/season/${seasonNumber}?api_key=${API_KEY}`);
+      return res.data;
+    } catch(e){
+      thunkAPI.rejectWithValue(e.response.message);
+    }
+  }
+)

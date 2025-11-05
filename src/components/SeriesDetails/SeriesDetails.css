@@ -1,0 +1,349 @@
+.seriesDetailsContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color:aliceblue;
+  align-items: center;
+}
+
+.seriesDetailsContainer .seriesDetailsContainerSectionTitle{
+  margin-bottom: 15px;
+}  
+.seriesInfo {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 500px;
+}
+
+.seriesInfo::after{
+  content: "";
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  background-color: #000000;
+box-shadow: 0px 0px 65px 108px #000000f7;
+}
+
+
+.title-watchlist-container{
+  display: flex;
+  height: 50px;
+  min-width: 800px;
+  border-bottom: 1px solid  var(--border-color);
+  padding-bottom: 15px;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 15px;
+}
+
+.seriesInfo .seriesName{
+  margin: 0;
+}
+
+.title-watchlist-container span{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 65px;
+  height: 30px;
+}
+
+.infoAbtseries{
+  position: absolute;
+  width: 800px;
+  top: 297px;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: flex-start;
+  z-index: 111;
+}
+
+.poster_trailer_network_series_wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.network_company_name{
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.infoAbtseries .infoAbtseriesImg{
+  width: 200px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.infoAbtseries .series-in-numbers{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 10px 0;
+  border-top: 1px solid  var(--border-color);
+  border-bottom: 1px solid  var(--border-color);
+  padding: 11px 0;
+}
+
+.infoAbtseries .series-in-numbers p{
+  display: flex;
+  align-items: center;
+  min-width: 45px;
+  height: 22px;
+  gap: 5px;
+}
+ 
+
+.seriesExtraInfo {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 219px;
+  border-top: 1px solid  var(--border-color);
+  padding-top: 33px;
+}
+
+.seriesExtraInfo .storyLine{
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 50px;
+  margin-bottom: 16px;
+}
+
+
+.seriesInfo .seriesExtraInfoImg{
+  width: 200px;
+}
+
+.castReviewDiv li a {
+  text-decoration: none;
+  font-weight: 500;
+  color: black;
+  cursor: pointer;
+}
+
+.castReviewDiv li a:hover {
+  color: blue;
+}
+
+.series-details-cast{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 280px;
+}
+
+.series-details{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  line-height: 150%;
+  font-size: 16px;
+}
+
+.recommendationList{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 2fr));
+  border-top: 1px solid var(--border-color);
+  padding-top: 33px;
+}
+
+.recommendationList a{
+  width: 150px;
+  height: 218px;
+  overflow: hidden;
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.recommendationList img{
+  width: 150px;
+  height: 180px;
+  display: block;
+}
+
+.recommendationList .specificseriesTitle{
+  font-size: 12px;
+  margin: 10px 0 0 0;
+}
+
+.recommendationList .viewMoreRecommendationseriess{
+  width: 800px;
+  margin-top: 25px;
+  border: none;
+  background-color: #ffffff96;
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.recommendationList .viewMoreRecommendationseriess:active,
+.recommendationList .viewMoreRecommendationseriess:hover{
+   background-color: #ffffffe1;
+   color:#0d0f21
+}
+.addToListSvg{
+  fill: #ffffff;
+  cursor: pointer;
+}
+.addToListSvg:hover{
+  fill: var(--addToListcolor);
+}
+
+.networkSection{
+  width: 200px;
+  padding: 6px 0;
+  background-color: #100b4fbd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border-radius: 0 0 8px 8px;
+}
+
+.seriesInfo .trailers button{
+  width: 200px;
+  height: 60px;
+  border: none;
+  background: #ffffff96;
+}
+.seriesInfo .trailers button:hover{
+  background-color: #ffffffe1;
+}
+
+.seriesExtraInfo .seriesSeasons{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 33px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 21px;
+}
+
+.seriesSeason{
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  color: aliceblue;
+  font-size: 18px;
+  min-width: 180px;
+  gap: 10px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.seriesEpisodesList{
+  width: 100%;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.seriesEpisodes{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.seriesEpisodName{
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  gap: 10px;
+  border-radius: 8px;
+  background-color: #080624;
+  height: 20px;
+  width: 377px;
+  padding: 10px;
+  cursor: pointer;
+  margin: 0;
+  font-weight: 500;
+}
+
+
+.episodeDetails{
+  width: 377px;
+  border-radius: 8px;
+  background-color: #080624;
+  padding: 10px;
+  margin-top: 5px;
+  display: flex;
+  grid-column: 1 / -1;
+  gap: 6px;
+  font-size: 14px;
+  color: #ffffffc2;
+  font-style: italic;
+}
+
+.episodeDetails span{
+  width: 374px;
+}
+
+.episodeDetails strong{
+  color: #ffffff;
+  font-style: normal;
+}
+
+.episodeImg{
+  width: 180px;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.productionWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.productionText {
+  cursor: pointer;
+  display: inline;
+}
+
+/* Tooltip ascuns implicit */
+.productionTooltip {
+  display: none;
+  position: absolute;
+  right: 0px;
+  top: 28px;
+  background-color: #080624;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  width: max-content;
+  max-width: 300px;
+  white-space: normal;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Afișare la hover */
+.productionWrapper:hover .productionTooltip {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stil pentru fiecare companie */
+.productionTooltip span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.productionTooltip span:last-child {
+  margin-bottom: 0;
+}
