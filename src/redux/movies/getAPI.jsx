@@ -96,11 +96,13 @@ export const theNewRealedMovie = createAsyncThunk(
 
 export const moviesRecommendations = createAsyncThunk(
   'movies/moviesRecommendations',
-  async(id, thunkAPI) => {
+  async({id, page=1}, thunkAPI) => {
     try{
-      const response = await axios.get(`${URL}/movie/${id}/recommendations?api_key=${API_KEY}`);
+      const response = await axios.get(`${URL}/movie/${id}/recommendations?page=${page}&api_key=${API_KEY}`);
+      console.log(id)
       return response.data
     } catch(e){
+      console.log(id)
       return thunkAPI.rejectWithValue(e.response.data)
     }
   }
@@ -144,7 +146,7 @@ export const getTrailer = createAsyncThunk(
 
 export const getPopularMovies = createAsyncThunk(
   'movies/getPopularMovies',
-  async(page=1, thunkAPI) => {
+  async({page=1}, thunkAPI) => {
     try{
       const response = await axios.get(`${URL}/movie/popular?page=${page}&api_key=${API_KEY}`);
       return response.data;
@@ -180,7 +182,7 @@ export const getUpcomingMovies = createAsyncThunk(
 
 export const getTopRatedMovies = createAsyncThunk(
   'movies/getTopRatedMovies',
-  async(page=1, thunkAPI) => {
+  async({page=1}, thunkAPI) => {
     try{
       const response = await axios.get(`${URL}/movie/top_rated?page=${page}&region=RO&api_key=${API_KEY}`);
       return response.data;

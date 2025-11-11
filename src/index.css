@@ -35,3 +35,16 @@ ul{
 button{
   cursor: pointer;
 }
+.viewAll{
+  color: hsla(0, 0%, 100%, 0.322);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight:600;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.viewAll:hover{
+  color: aliceblue;
+}

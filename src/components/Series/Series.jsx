@@ -2,7 +2,8 @@ import {
   airingTodaySeries,
   popularSeries,
   onTvSeries, 
-  topRatedSeries
+  topRatedSeries,
+  seriesRecommendations
  } from '../../redux/series/seriesApi';
 import React from "react";
 import { useLocation, Link } from "react-router-dom";
@@ -13,18 +14,22 @@ import './Series.css';
 
 const Series = () => {
   const location = useLocation();
-  const pathParts = location.pathname.split('/');
+  const pathParts = location?.pathname.split('/');
   const categoryFromPath = pathParts[pathParts.length - 1]; 
-  const category = location.state?.seriesType || categoryFromPath || "popularSeries";
+  const category = location?.state?.seriesType || categoryFromPath || "popularSeries";
+  const id =  location?.state?.id?.movieId
+  console.log(id)
   
   const fetchAction =
     category === "popularSeries" ? popularSeries :
     category === "airingTodaySeries" ? airingTodaySeries :
     category === "onTvSeries" ? onTvSeries :
     category === "topRatedSeries" ? topRatedSeries :
+    category === "recommendations" ? seriesRecommendations :
     popularSeries;
   
-  const { data: series, totalPages, page, setPage } = usePaginatedFetch(fetchAction, category);
+  const { data: series, totalPages, page, setPage } = usePaginatedFetch(fetchAction, category, id);
+  console.log(series)
 
 return (
   <section className='seriesPage'> 

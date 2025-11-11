@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams,  Link } from 'react-router-dom';
+import { useParams,  Link, useNavigate } from 'react-router-dom';
 import { getMovieDetails, IMAGE_URL, moviesRecommendations } from '../../redux/movies/getAPI';
 import Loader from '../Loader/Loader';
 import { useDispatch } from 'react-redux';
@@ -17,6 +17,18 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const [recommendation, setRecommendation] = useState([]);
+  const [visibleHeight, setVisibleHeight] = useState(218);
+  const navigate = useNavigate();
+
+const handleSeeMore = () => {
+  const maxHeight = recommendation.slice(0, 15).length * 43;
+  setVisibleHeight(prev =>
+    Math.min(prev + 218, maxHeight)
+  );
+  if(maxHeight === visibleHeight){
+    setVisibleHeight(218)
+  }
+};
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -32,7 +44,8 @@ const MovieDetails = () => {
     }
 
     const getMovies = async () => {
-      const res = await dispatch(moviesRecommendations(movieId));
+      const res = await dispatch(moviesRecommendations({id: movieId}));
+      console.log(res)
       setRecommendation(res.payload.results);
     };    
     fetchMovieDetails();
@@ -46,8 +59,10 @@ const MovieDetails = () => {
     const m = minutes % 60;
     return `${h}h ${m}m`;
   };
-
-  console.log(movie)
+   
+  const handlerNavigate = (type) => {
+    navigate(`/movies/${type}`, { state: { type, movieId } });
+  };
 
   return (
     <>
@@ -143,11 +158,14 @@ const MovieDetails = () => {
                 {movie.overview}
               </span>
               <div>
-                <h3 className='movieDetailsContainerSectionTitle'>Similar Movies</h3>
-                <ul className='recommendationList'>
+                <h3 className='movieDetailsContainerSectionTitle'>
+                  Similar Movies
+                  <button className='viewAll' onClick={() => handlerNavigate("moviesrecommended")}>View all &#10230;</button>  
+                </h3>
+                <ul className='recommendationList' style={{ height: `${visibleHeight}px` }}>
                   {recommendation
                     .filter(m => m.poster_path)
-                    .slice(0, 5)
+                    .slice(0, 15)
                     .map((m) => (
                       <Link key={m.id} to={`/movie/${m.id}`}>
                         <img className='movieExtraInfoImg'
@@ -157,11 +175,11 @@ const MovieDetails = () => {
                         <h2 className='specificMovieTitle'>{m.title || m.name}</h2>
                       </Link>
                   ))}
-                  <button className='viewMoreRecommendationMovies'>
+                </ul>
+                  <button className='viewMoreRecommendationMovies' onClick={handleSeeMore}>
                     <svg width="27" height="15"><use xlinkHref={`${url}#down-btn`}/></svg>
                     View more
                   </button>
-                </ul>
               </div>
               <Reviews show={"movie"}/>
             </div>

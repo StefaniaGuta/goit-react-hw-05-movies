@@ -36,9 +36,10 @@ export const newSeriesFetch = createAsyncThunk(
 
 export const seriesRecommendations = createAsyncThunk(
   'series/seriesRecommendations',
-  async(_, thunkAPI) => {
+  async({id, page=1}, thunkAPI) => {
     try{
-      const response = await axios.get(`${URL}/tv/119051/recommendations?api_key=${API_KEY}`);
+      const response = await axios.get(`${URL}/tv/${id}/recommendations?page=${page}&api_key=${API_KEY}`);
+      console.log(id)
       return response.data
     } catch(e){
       return thunkAPI.rejectWithValue(e.response.data)
@@ -48,7 +49,7 @@ export const seriesRecommendations = createAsyncThunk(
 
 export const popularSeries = createAsyncThunk(
   'series/popularSeries',
-  async(page=1, thunkAPI) => {
+  async({page=1}, thunkAPI) => {
     try{
       const res = await axios.get(`${URL}/tv/popular?page=${page}&api_key=${API_KEY}`);
       return res.data;
@@ -60,7 +61,7 @@ export const popularSeries = createAsyncThunk(
 
 export const onTvSeries = createAsyncThunk(
   'series/onTvSeries',
-  async(page=1, thunkAPI) => {
+  async({page=1}, thunkAPI) => {
     try{
       const res = await axios.get(`${URL}/tv/on_the_air?page=${page}&api_key=${API_KEY}`);
       return res.data;
@@ -72,7 +73,7 @@ export const onTvSeries = createAsyncThunk(
 
 export const topRatedSeries = createAsyncThunk(
   'series/topRatederies',
-  async(page=1, thunkAPI) => {
+  async({page=1}, thunkAPI) => {
     try{
       const res = await axios.get(`${URL}/tv/top_rated?page=${page}&api_key=${API_KEY}`);
       return res.data;
@@ -84,7 +85,7 @@ export const topRatedSeries = createAsyncThunk(
 
 export const airingTodaySeries = createAsyncThunk(
   'series/airingTodaySeries',
-  async(page=1, thunkAPI) => {
+  async({page=1}, thunkAPI) => {
     try{
       const res = await axios.get(`${URL}/tv/airing_today?page=${page}&api_key=${API_KEY}`);
       return res.data;

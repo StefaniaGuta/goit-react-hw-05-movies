@@ -15,7 +15,7 @@ const Recommendations = () => {
   const [activeTab, setActiveTab] = useState(null);
 
   const getMovies = async () => {
-    const res = await dispatch(moviesRecommendations());
+    const res = await dispatch(moviesRecommendations({id: "1038392"}));
     setRecommMovie(res.payload.results);
     setActiveTab("movies");
   };
@@ -23,7 +23,7 @@ const Recommendations = () => {
   
   const getSeries = useCallback(async () => {
     try {
-      const res = await dispatch(seriesRecommendations());
+      const res = await dispatch(seriesRecommendations({id: "71912"}));
       setRecommSeries(res.payload?.results || []);
       setActiveTab("series");
     } catch (err) {

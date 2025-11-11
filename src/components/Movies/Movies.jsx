@@ -5,16 +5,18 @@ import { getAll, getTrendingAll, IMAGE_URL, theNewRealedMovie,
   getPopularMovies,
   getNowPlayingMovies,
   getUpcomingMovies,
-  getTopRatedMovies
+  getTopRatedMovies,
+  moviesRecommendations
  } from "../../redux/movies/getAPI";
 import Pagination from "components/Pagination/Pagination";
 import "../pages/MovieByGenPage/MovieByGenPage.css";
 
 const Movies = () => {
   const location = useLocation();
-  const pathParts = location.pathname.split('/');
+  const pathParts = location?.pathname.split('/');
   const categoryFromPath = pathParts[pathParts.length - 1]; 
-  const category = location.state?.type || categoryFromPath || "popular";
+  const category = location?.state?.type || categoryFromPath || "popular";
+  const id = location?.state?.movieId;
 
   const fetchAction =
     category === "popular" ? getTrendingAll :
@@ -24,10 +26,14 @@ const Movies = () => {
     category === "nowPlayingMovies" ? getNowPlayingMovies :
     category === "upcomingMovies" ? getUpcomingMovies :
     category === "topRatedMovies" ? getTopRatedMovies :
+    category === "moviesrecommended" ? moviesRecommendations :
     getAll;
 
-  const { data: movies, totalPages, page, setPage } = usePaginatedFetch(fetchAction, category);
+  //const extraParam = category === "moviesrecommended" ? id : undefined;
 
+  const { data: movies, totalPages, page, setPage } = usePaginatedFetch(fetchAction, category, id);
+console.log("id", id)
+//console.log("extraParam", extraParam)
   return (
     <>
     <section className="page">

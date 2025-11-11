@@ -9,6 +9,9 @@
 
 .seriesDetailsContainer .seriesDetailsContainerSectionTitle{
   margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }  
 .seriesInfo {
   display: flex;
@@ -153,6 +156,9 @@ box-shadow: 0px 0px 65px 108px #000000f7;
   grid-template-columns: repeat(auto-fill, minmax(150px, 2fr));
   border-top: 1px solid var(--border-color);
   padding-top: 33px;
+  height: 218px;
+  overflow: hidden;
+  transition: height 0.4s ease;
 }
 
 .recommendationList a{
@@ -172,9 +178,10 @@ box-shadow: 0px 0px 65px 108px #000000f7;
 .recommendationList .specificseriesTitle{
   font-size: 12px;
   margin: 10px 0 0 0;
+  white-space: nowrap;
 }
 
-.recommendationList .viewMoreRecommendationseriess{
+.viewMoreRecommendationseriess{
   width: 800px;
   margin-top: 25px;
   border: none;
@@ -188,8 +195,8 @@ box-shadow: 0px 0px 65px 108px #000000f7;
   border-radius: 4px;
 }
 
-.recommendationList .viewMoreRecommendationseriess:active,
-.recommendationList .viewMoreRecommendationseriess:hover{
+.viewMoreRecommendationseriess:active,
+.viewMoreRecommendationseriess:hover{
    background-color: #ffffffe1;
    color:#0d0f21
 }

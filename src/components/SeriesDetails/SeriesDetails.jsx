@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams,  Link } from 'react-router-dom';
+import { useParams,  Link, useNavigate } from 'react-router-dom';
 import { IMAGE_URL } from '../../redux/movies/getAPI';
 import {seriesDetails, seriesRecommendations, getSeriesSeason} from "../../redux/series/seriesApi";
 import Loader from '../Loader/Loader';
@@ -21,6 +21,18 @@ const SeriesDetails = () => {
   const [episodes, setEpisodes] = useState([]);
   const [openSeason, setOpenSeason] = useState(null);
   const [openEpisode, setOpenEpisode] = useState(null);
+  const [visibleHeight, setVisibleHeight] = useState(218);
+  const navigate = useNavigate();
+  
+  const handleSeeMore = () => {
+    const maxHeight = recommendation.slice(0, 15).length * 43;
+    setVisibleHeight(prev =>
+      Math.min(prev + 218, maxHeight)
+    );
+    if(maxHeight === visibleHeight){
+      setVisibleHeight(218)
+    }
+  };
 
   useEffect(() => {
     const fetchseriesDetails = async () => {
@@ -28,7 +40,6 @@ const SeriesDetails = () => {
       try {
         const response = await dispatch(seriesDetails(id.movieId));
         setSeries(response.payload);
-        console.log(response.payload)
       } catch (error) {
         console.error('Error fetching series details:', error);
       } finally {
@@ -37,7 +48,7 @@ const SeriesDetails = () => {
     }
 
     const getseries = async () => {
-      const res = await dispatch(seriesRecommendations(id));
+      const res = await dispatch(seriesRecommendations(id.movieId));
       setRecommendation(res.payload.results);
     };    
     fetchseriesDetails();
@@ -66,7 +77,10 @@ const getSeasonsEpisodes = async (seasonNumber) => {
     setOpenEpisode(episodeNumber);
   }
 };
-console.log(episodes)
+
+  const navigateToSeriesPage = (seriesType) => {
+    navigate(`/series/${seriesType}`, { state: { seriesType, id } });
+  }
   return (
     <>
       {isLoading ? (
@@ -96,8 +110,8 @@ console.log(episodes)
                   />
                   <Trailers id={series} show={"tv"}/>
                   <div className='networkSection'>
-                    <p>You can watch me on:</p>
-                    {series.networks && series.networks.map(net => (
+                    <p>You can watch on:</p>
+                    {series.networks && series.networks.slice(0, 2).map(net => (
                         <li key={net.id} className='network_company_name'>
                             <img  height="25"
                               src={'https://image.tmdb.org/t/p/w500' + net.logo_path}
@@ -234,11 +248,14 @@ console.log(episodes)
                 ))}
               </div>
               <div>
-                <h3 className='seriesDetailsContainerSectionTitle'>Similar seriess</h3>
-                <ul className='recommendationList'>
+                <h3 className='seriesDetailsContainerSectionTitle'>
+                  Similar series
+                   <button className='viewAll' onClick={() => navigateToSeriesPage("recommendations")}>View all &#10230;</button>  
+                </h3>
+                <ul className='recommendationList' style={{ height: `${visibleHeight}px` }}>
                   {recommendation
                     .filter(m => m.poster_path)
-                    .slice(0, 5)
+                    .slice(0, 15)
                     .map((m) => (
                       <Link key={m.id} to={`/serie/${m.id}`}>
                         <img className='seriesExtraInfoImg'
@@ -248,11 +265,11 @@ console.log(episodes)
                         <h2 className='specificseriesTitle'>{m.title || m.name}</h2>
                       </Link>
                   ))}
-                  <button className='viewMoreRecommendationseriess'>
+                </ul>
+                  <button className='viewMoreRecommendationseriess' onClick={handleSeeMore}>
                     <svg width="27" height="15"><use xlinkHref={`${url}#down-btn`}/></svg>
                     View more
                   </button>
-                </ul>
               </div>
               <Reviews show={"tv"}/>
             </div>

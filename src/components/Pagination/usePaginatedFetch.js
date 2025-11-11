@@ -1,19 +1,29 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-export const usePaginatedFetch = (fetchAction, category = "", deps = []) => {
+
+
+export const usePaginatedFetch = (fetchAction, category = "", param = null) => {
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-  const [page, setPage] = useState(1);
-  const dispatch = useDispatch();
 
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
-        const response = await dispatch(fetchAction(page, category));
-        setData(response.payload.results || []);
-        setTotalPages(response.payload.total_pages || 1);
+        let response;
+
+        if (param) {
+          response = await dispatch(fetchAction({ id: param, page, category }));
+        } else {
+          response = await dispatch(fetchAction({ page, category }));
+        }
+
+        if (response?.payload) {
+          setData(response.payload.results || []);
+          setTotalPages(response.payload.total_pages || 1);
+        }
       } catch (error) {
         console.error("Error fetching paginated data:", error);
       }
@@ -21,7 +31,7 @@ export const usePaginatedFetch = (fetchAction, category = "", deps = []) => {
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page, fetchAction, category, ...deps]);
+  }, [dispatch, fetchAction, page, category, param, ]);
 
   return { data, totalPages, page, setPage };
 };
