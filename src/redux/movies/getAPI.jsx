@@ -8,7 +8,7 @@ export const day = new Date().toISOString().split("T")[0];
 
 export const getAll = createAsyncThunk(
   'movies/getAll',
-  async(page = 1, thunkAPI) => {
+  async(page=1, thunkAPI) => {
     try{
       const response = await axios.get(`${URL}/trending/all/week?page=${page}&api_key=${API_KEY}`);
       return response.data

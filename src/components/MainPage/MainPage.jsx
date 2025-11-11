@@ -14,8 +14,8 @@ const MainPage = () => {
   const [genres, setGenres] = useState([]);
   const [actors, setActors] = useState([]);
   const [trending, setTrending] = useState([]);
-  const ref = useRef(null);
   const [scrollAmount, setScrollAmount] = useState(0);
+  const ref = useRef(null);
 
  useEffect(() => {
   const fetchMostRecentMovie = async () => {
@@ -23,9 +23,6 @@ const MainPage = () => {
       const response = await dispatch(getTrendingAll(day));
       const moviesFiltered = response.payload.results.filter(m => m.poster_path);
       setRecentMovie(moviesFiltered);
-
-     
-      
     } catch (e) {
       console.error("Eroare la fetch:", e);
     }

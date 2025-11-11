@@ -52,15 +52,13 @@ const Recommendations = () => {
           recommMovies
           .filter(m => m.poster_path)
           .map((m) => (
-            <li key={m.id}>
-            <Link className="Item" to={`/movie/${m.id}`}>
+            <Link key={m.id} className="Item" to={`/movie/${m.id}`}>
               <img
                 src={IMAGE_URL + m.poster_path}
                 alt={m.title || m.name}
               />
               <h2 className='movieTitle'>{m.title || m.name}</h2>
             </Link>
-            </li>
           ))}
 
         {
@@ -68,8 +66,7 @@ const Recommendations = () => {
           recommSeries
           .filter(s => s.poster_path)
           .map((s) => (
-            <li key={s.id}>
-              <Link className="Item" to={`/tv/${s.id}`}>
+              <Link key={s.id} className="Item" to={`/tv/${s.id}`}>
                 <img
                   src={IMAGE_URL + s.poster_path}
                   alt={s.title || s.name}
@@ -78,7 +75,6 @@ const Recommendations = () => {
                   <h2 className='movieTitle'>{s.title || s.name}</h2>
                 </div>
               </Link>
-            </li>
           ))}
       </ul>
     </section >
