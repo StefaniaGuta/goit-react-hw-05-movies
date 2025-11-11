@@ -15,6 +15,7 @@ const LogIn = lazy(() => import('./Login/Login'));
 const MainPage = lazy(() => import('./MainPage/MainPage'));
 const MovieByGenPage = lazy(() => import('./pages/MovieByGenPage/MovieByGenPage'));
 const SeriesDetails = lazy(() => import('./SeriesDetails/SeriesDetails'));
+const ActorsPage = lazy(() => import('./pages/ActorsPage/ActorsPage'));
 
 export const App = () => {
   return (
@@ -32,6 +33,7 @@ export const App = () => {
           <Route path="/series/:type/:id?" element={<Series />}/>
           <Route path="/movie/:movieId" element={<MovieDetails />}/>
           <Route path="/serie/:movieId" element={<SeriesDetails />}/>
+          <Route path="/people/:actorId" element={<ActorsPage />}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </Suspense>

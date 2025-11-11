@@ -1,0 +1,39 @@
+.searchResultsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+  position: absolute;
+  z-index: 7777777777777777777777777;
+  background-color: #0d0f21;
+  width: 416px;
+  padding: 10px;
+  border-radius: 14px;
+  height: 478px;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+.searchResultsContainer a {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.searchResultsList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 5px;
+}
+.searchResultsList:hover {
+  transform: scale(1.01);
+}
+
+.searchResultsList img {
+  width: 50px;
+  height: 50px;
+  display: block;
+  border-radius: 3px;
+}
+.searchResultsList h3:hover {
+  color: orangered;
+}

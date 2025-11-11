@@ -1,48 +1,54 @@
-import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { IMAGE_URL } from '../../redux/movies/getAPI';
-import styles from './SearchMoviesList.module.css';
+import './SearchMoviesList.css';
+import { useNavigate } from 'react-router-dom';
 import noImage from '../Images/no_image.jpg'
 
-const SearchMoviesList = ({ movies }) => {
+const SearchMoviesList = ({ searchResults}) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavigateToSpecificPage = (movie) => {
+    if(movie.media_type === "tv"){
+      navigate(`/serie/${movie.id}`, { state: { from: location } });
+    } else if(movie.media_type === "movie"){
+      navigate(`/movie/${movie.id}`, { state: { from: location } });
+    } else if (movie.media_type === "person"){
+      navigate(`/people/${movie.id}`, { state: { from: location } });
+    } else {
+      navigate(`/`);
+    }
+  }
   return (
     <>
-      <div className={styles.moviesListContainer}>
-        {movies.map(movie => (
-          <Link
-            to={`/movies/${movie.id}`}
+      <div className="searchResultsContainer">
+        {searchResults.map(movie => (
+          <li
+            onClick={() => handleNavigateToSpecificPage(movie)}
             state={{ from: location }}
             key={movie.id}
-            className={styles.moviesList}
+            className="searchResultsList"
           >
             <div>
-              <img src={movie.poster_path || movie.backdrop_path ? 
-                IMAGE_URL + movie.poster_path : 
+              {movie.media_type === "person" ? (
+                <img src={movie.profile_path ? 
+                IMAGE_URL + movie.profile_path : 
                 noImage} 
-                alt={movie.title} />
+                alt={movie.title || movie.name} />) : (
+              <img src={(movie.poster_path || movie.backdrop_path) ? 
+                IMAGE_URL + (movie.poster_path || movie.backdrop_path) : 
+                noImage} 
+                alt={movie.title || movie.name} />
+                )}
             </div>
             <div>
-              <h3>{movie.title}</h3>
-              <p>Release data: {movie.release_date}</p>
-              <p>User score: {movie.vote_average.toFixed(1)} %</p>
+              <h3>{movie.title || movie.name}</h3>
             </div>
-          </Link>
+          </li>
         ))}
       </div>
     </>
   );
-};
-
-SearchMoviesList.propTypes = {
-  movies: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      backdrop_path: PropTypes.string,
-      release_date: PropTypes.string.isRequired,
-      vote_average: PropTypes.number.isRequired,
-    })
-  ).isRequired,
 };
 
 export default SearchMoviesList;

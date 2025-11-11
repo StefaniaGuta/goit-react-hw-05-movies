@@ -1,3 +1,7 @@
+.searchBarSection{
+  position: relative;
+}
+
 .searcbarForm {
   display: flex;
   justify-content: center;

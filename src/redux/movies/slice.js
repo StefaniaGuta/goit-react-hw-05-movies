@@ -3,14 +3,15 @@ import { getAll,
   getMovieDetails, 
   getMovieCast, 
   getMovieReviews, 
-  getSearchMovies,
+  searchForMovies,
   getTrendingAll,
   moviesRecommendations,
   getGenres,
   getPopularMovies,
   getNowPlayingMovies,
   getUpcomingMovies,
-  getTopRatedMovies
+  getTopRatedMovies,
+  persorDetails
  } from './getAPI';
 
 const initialState = {
@@ -45,7 +46,7 @@ const moviesSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     })
-    .addCase(getSearchMovies.fulfilled, (state, action) => {
+    .addCase(searchForMovies.fulfilled, (state, action) => {
       state.movies = action.payload
       state.isLoading = false;
       state.error = null;
@@ -81,6 +82,11 @@ const moviesSlice = createSlice({
       state.error = null;
     })
     .addCase(getGenres.fulfilled, (state, action) => {
+      state.genres = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    })
+    .addCase(persorDetails.fulfilled, (state, action) => {
       state.genres = action.payload;
       state.isLoading = false;
       state.error = null;

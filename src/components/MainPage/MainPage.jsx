@@ -130,11 +130,11 @@ const scroll = (dir) => {
         </div>
         <ul className="actorsList" ref={ref}>
           {actors.map(a => (
-            <li key={a.id}>
+            <Link key={a.id} to={`/people/${a.id}`}>
               <img src={a.profile_path ? IMAGE_URL + a.profile_path : noImg} alt={a.name}/>
               <h3>{a.name}</h3>
               <p>{a.known_for_department}</p>
-            </li>
+            </Link>
           ))}
         </ul>
       </div>    
@@ -156,8 +156,7 @@ const scroll = (dir) => {
                   </text>
                 </svg>
                 <img
-                  src={IMAGE_URL + t.poster_path || t.backdrop_path
-                  }
+                  src={IMAGE_URL + t.poster_path || t.backdrop_path}
                   alt={t.title || t.name}
                 />
               </li>
