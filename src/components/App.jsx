@@ -28,8 +28,8 @@ export const App = () => {
           <Route path="genres/:genName/:genId" element={<MovieByGenPage/>}/>
 
           <Route path="/home" element={<PrivateRoute component={<Home />}/>}/>
-          <Route path="/movies/:type" element={<Movies />}/>
-          <Route path="/series/:type" element={<Series />}/>
+          <Route path="/movies/:type/:id?" element={<Movies />}/>
+          <Route path="/series/:type/:id?" element={<Series />}/>
           <Route path="/movie/:movieId" element={<MovieDetails />}/>
           <Route path="/serie/:movieId" element={<SeriesDetails />}/>
           <Route path="*" element={<NotFound/>}/>

@@ -6,19 +6,17 @@ import {
   seriesRecommendations
  } from '../../redux/series/seriesApi';
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import {  Link, useParams } from "react-router-dom";
 import { usePaginatedFetch } from "../Pagination/usePaginatedFetch";
 import Pagination from "components/Pagination/Pagination";
 import { IMAGE_URL } from "../../redux/movies/getAPI";
 import './Series.css';
 
 const Series = () => {
-  const location = useLocation();
-  const pathParts = location?.pathname.split('/');
-  const categoryFromPath = pathParts[pathParts.length - 1]; 
-  const category = location?.state?.seriesType || categoryFromPath || "popularSeries";
-  const id =  location?.state?.id?.movieId
-  console.log(id)
+  const param = useParams();
+  const id = param.id;
+  const type = param.type;
+  const category = type || "popularSeries";
   
   const fetchAction =
     category === "popularSeries" ? popularSeries :
@@ -29,7 +27,6 @@ const Series = () => {
     popularSeries;
   
   const { data: series, totalPages, page, setPage } = usePaginatedFetch(fetchAction, category, id);
-  console.log(series)
 
 return (
   <section className='seriesPage'> 

@@ -99,10 +99,8 @@ export const moviesRecommendations = createAsyncThunk(
   async({id, page=1}, thunkAPI) => {
     try{
       const response = await axios.get(`${URL}/movie/${id}/recommendations?page=${page}&api_key=${API_KEY}`);
-      console.log(id)
       return response.data
     } catch(e){
-      console.log(id)
       return thunkAPI.rejectWithValue(e.response.data)
     }
   }

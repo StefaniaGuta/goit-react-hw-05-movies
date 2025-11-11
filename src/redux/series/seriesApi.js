@@ -5,7 +5,7 @@ import { URL, API_KEY } from "../movies/getAPI";
 
 export const seriesDetails = createAsyncThunk(
   'series/seriesDetails',
-  async(id, thunkAPI) => {
+  async({id}, thunkAPI) => {
     try{
       const res = await axios.get(`${URL}/tv/${id}?api_key=${API_KEY}`);
       return res.data;
@@ -39,7 +39,6 @@ export const seriesRecommendations = createAsyncThunk(
   async({id, page=1}, thunkAPI) => {
     try{
       const response = await axios.get(`${URL}/tv/${id}/recommendations?page=${page}&api_key=${API_KEY}`);
-      console.log(id)
       return response.data
     } catch(e){
       return thunkAPI.rejectWithValue(e.response.data)

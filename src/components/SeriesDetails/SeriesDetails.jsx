@@ -23,6 +23,8 @@ const SeriesDetails = () => {
   const [openEpisode, setOpenEpisode] = useState(null);
   const [visibleHeight, setVisibleHeight] = useState(218);
   const navigate = useNavigate();
+  const [recommendationId, setRecommendationId] = useState(id.movieId);
+  const fallbackId = "71912";
   
   const handleSeeMore = () => {
     const maxHeight = recommendation.slice(0, 15).length * 43;
@@ -38,7 +40,7 @@ const SeriesDetails = () => {
     const fetchseriesDetails = async () => {
       setIsLoading(true);
       try {
-        const response = await dispatch(seriesDetails(id.movieId));
+        const response = await dispatch(seriesDetails({id: id.movieId}));
         setSeries(response.payload);
       } catch (error) {
         console.error('Error fetching series details:', error);
@@ -48,8 +50,15 @@ const SeriesDetails = () => {
     }
 
     const getseries = async () => {
-      const res = await dispatch(seriesRecommendations(id.movieId));
-      setRecommendation(res.payload.results);
+      const res = await dispatch(seriesRecommendations({id: id.movieId}));
+      const secondRes = await dispatch(seriesRecommendations({id: fallbackId}));
+      if(res.payload.results.length !== 0) {
+        setRecommendation(res.payload.results);
+        setRecommendationId(id.movieId);
+      } else{
+        setRecommendation(secondRes.payload.results);
+        setRecommendationId(fallbackId);
+      }
     };    
     fetchseriesDetails();
     getseries();
@@ -79,8 +88,13 @@ const getSeasonsEpisodes = async (seasonNumber) => {
 };
 
   const navigateToSeriesPage = (seriesType) => {
-    navigate(`/series/${seriesType}`, { state: { seriesType, id } });
+  if (seriesType === "recommendations" && recommendationId) {
+    navigate(`/series/${seriesType}/${recommendationId}`);
+  } else {
+    navigate(`/series/${seriesType}`);
   }
+
+};
   return (
     <>
       {isLoading ? (
@@ -250,7 +264,7 @@ const getSeasonsEpisodes = async (seasonNumber) => {
               <div>
                 <h3 className='seriesDetailsContainerSectionTitle'>
                   Similar series
-                   <button className='viewAll' onClick={() => navigateToSeriesPage("recommendations")}>View all &#10230;</button>  
+                   <button className='viewAll' onClick={() => navigateToSeriesPage("recommendations", id.movieId)}>View all &#10230;</button>  
                 </h3>
                 <ul className='recommendationList' style={{ height: `${visibleHeight}px` }}>
                   {recommendation

@@ -19,16 +19,18 @@ const MovieDetails = () => {
   const [recommendation, setRecommendation] = useState([]);
   const [visibleHeight, setVisibleHeight] = useState(218);
   const navigate = useNavigate();
+  const [recommendationId, setRecommendationId] = useState(movieId);
+  const fallbackId = "1038392";
 
-const handleSeeMore = () => {
-  const maxHeight = recommendation.slice(0, 15).length * 43;
-  setVisibleHeight(prev =>
-    Math.min(prev + 218, maxHeight)
-  );
-  if(maxHeight === visibleHeight){
-    setVisibleHeight(218)
-  }
-};
+  const handleSeeMore = () => {
+    const maxHeight = recommendation.slice(0, 15).length * 43;
+    setVisibleHeight(prev =>
+      Math.min(prev + 218, maxHeight)
+    );
+    if(maxHeight === visibleHeight){
+      setVisibleHeight(218)
+    }
+  };
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -45,9 +47,16 @@ const handleSeeMore = () => {
 
     const getMovies = async () => {
       const res = await dispatch(moviesRecommendations({id: movieId}));
-      console.log(res)
-      setRecommendation(res.payload.results);
+      const response = await dispatch(moviesRecommendations({id: fallbackId})) 
+      if(res.payload.results.length !== 0){
+        setRecommendation(res.payload.results);
+        setRecommendationId(movieId);
+      } else {
+        setRecommendation(response.payload.results);
+        setRecommendationId(fallbackId);
+      }
     };    
+
     fetchMovieDetails();
     getMovies();
   }, [dispatch, movieId]);
@@ -60,9 +69,13 @@ const handleSeeMore = () => {
     return `${h}h ${m}m`;
   };
    
-  const handlerNavigate = (type) => {
-    navigate(`/movies/${type}`, { state: { type, movieId } });
-  };
+  const handlerNavigate = (seriesType) => {
+  if (seriesType === "moviesrecommended" && recommendationId) {
+    navigate(`/movies/${seriesType}/${recommendationId}`);
+  } else {
+    navigate(`/movies/${seriesType}`);
+  }
+};
 
   return (
     <>
@@ -160,7 +173,7 @@ const handleSeeMore = () => {
               <div>
                 <h3 className='movieDetailsContainerSectionTitle'>
                   Similar Movies
-                  <button className='viewAll' onClick={() => handlerNavigate("moviesrecommended")}>View all &#10230;</button>  
+                  <button className='viewAll' onClick={() => handlerNavigate("moviesrecommended", movieId)}>View all &#10230;</button>  
                 </h3>
                 <ul className='recommendationList' style={{ height: `${visibleHeight}px` }}>
                   {recommendation

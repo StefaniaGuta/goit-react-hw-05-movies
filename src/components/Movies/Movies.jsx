@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { usePaginatedFetch } from "../Pagination/usePaginatedFetch";
 import { getAll, getTrendingAll, IMAGE_URL, theNewRealedMovie,
   getPopularMovies,
@@ -12,11 +12,10 @@ import Pagination from "components/Pagination/Pagination";
 import "../pages/MovieByGenPage/MovieByGenPage.css";
 
 const Movies = () => {
-  const location = useLocation();
-  const pathParts = location?.pathname.split('/');
-  const categoryFromPath = pathParts[pathParts.length - 1]; 
-  const category = location?.state?.type || categoryFromPath || "popular";
-  const id = location?.state?.movieId;
+  const param = useParams();
+  const id = param.id;
+  const type = param.type;
+  const category = type || "popularSeries";
 
   const fetchAction =
     category === "popular" ? getTrendingAll :
@@ -29,15 +28,10 @@ const Movies = () => {
     category === "moviesrecommended" ? moviesRecommendations :
     getAll;
 
-  //const extraParam = category === "moviesrecommended" ? id : undefined;
-
   const { data: movies, totalPages, page, setPage } = usePaginatedFetch(fetchAction, category, id);
-console.log("id", id)
-//console.log("extraParam", extraParam)
   return (
     <>
     <section className="page">
-      <h1 className="sectionTitle">Movies - {category.toLowerCase()}</h1>
       <ul className="pageList">
         {movies.map((movie) => (
               <Link 
