@@ -13,6 +13,7 @@ const Home = () => {
   const [releasedMovie, setReleasedMovie] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(null);
   const recentMovies = useSelector(state => state?.movies.recentMovies.results) || [];
 
   useEffect(() => { 
@@ -33,7 +34,7 @@ const Home = () => {
     }
     newReleasedMovies();
   }, [dispatch]);
-const formatRuntime = (minutes) => {
+  const formatRuntime = (minutes) => {
     if (!minutes || minutes <= 0) return "N/A";
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
@@ -53,6 +54,16 @@ const formatRuntime = (minutes) => {
 
   const navigateToSeriesPage = (seriesType) => {
     navigate(`/series/${seriesType}`, { state: { seriesType } });
+  }
+
+  console.log(activeTab)
+  const navigateToRemmendationPage = () => {
+    if(activeTab === "movies") {
+      navigate(`/movies/moviesrecommended/1038392`)
+    } else {
+       navigate(`/series/recommendations/71912`);
+    }
+
   }
 
   return (
@@ -157,8 +168,8 @@ const formatRuntime = (minutes) => {
       </div>
 
       <div className='RecommendationContainer'>
-        <button className='viewAll'>View all &#10230;</button>
-        <Recommendations/>
+        <button onClick={navigateToRemmendationPage} className='viewAll'>View all &#10230;</button>
+        <Recommendations activeTab={activeTab} setActiveTab={setActiveTab}/>
       </div>
     </section>
   );

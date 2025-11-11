@@ -8,11 +8,11 @@ import { Link } from 'react-router-dom';
 
 import './Recommendations.css';
 
-const Recommendations = () => {
+const Recommendations = ({setActiveTab, activeTab}) => {
   const dispatch = useDispatch();
   const [recommMovies, setRecommMovie] = useState([]);
   const [recommSeries, setRecommSeries] = useState([]);
-  const [activeTab, setActiveTab] = useState(null);
+  
 
   const getMovies = async () => {
     const res = await dispatch(moviesRecommendations({id: "1038392"}));
@@ -29,7 +29,7 @@ const Recommendations = () => {
     } catch (err) {
       console.error("Error fetching series recommendations", err);
     }
-  }, [dispatch]);
+  }, [dispatch, setActiveTab]);
 
  useEffect(() => {
     getSeries()
