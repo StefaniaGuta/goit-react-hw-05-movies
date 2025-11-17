@@ -34,12 +34,14 @@ const Home = () => {
     }
     newReleasedMovies();
   }, [dispatch]);
+
   const formatRuntime = (minutes) => {
     if (!minutes || minutes <= 0) return "N/A";
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
     return `${h}h ${m}m`;
   };
+  
   useEffect(() => {
     const fetchSeries = async () => {
       const res = await dispatch(newSeriesFetch());
@@ -56,7 +58,6 @@ const Home = () => {
     navigate(`/series/${seriesType}`, { state: { seriesType } });
   }
 
-  console.log(activeTab)
   const navigateToRemmendationPage = () => {
     if(activeTab === "movies") {
       navigate(`/movies/moviesrecommended/1038392`)
@@ -74,10 +75,8 @@ const Home = () => {
         {recentMovies ? (recentMovies.filter(m => m.poster_path)
         .sort((a, b) => b.release_date - a.release_date)
         .slice(0, 5)
-        .map(movie => (
-          <>
-          <li key={movie.id}>
-            <Link className="recentMovie" to={`/movie/${movie.id}`}>
+        .map((movie, i) => (
+            <Link key={i} className="recentMovie" to={`/movie/${movie.id}`}>
               <img
                 src={IMAGE_URL + movie.poster_path}
                 alt={movie.title || movie.name}
@@ -86,9 +85,6 @@ const Home = () => {
                 <h2 className='movieTitle'>{movie.title || movie.name}</h2>
               </div>
             </Link>
-          </li>
-          
-          </>
         )) ) : (<p>no</p>)}
         <button onClick={() => handlerNavigate("popular")} className='recentMovieButton' type='button'>&#10230;</button>
       </ul>
@@ -104,8 +100,6 @@ const Home = () => {
           .sort((a, b) => b.vote_average - a.vote_average)
           .slice(0, 4)
           .map((movie, i) => (
-            <>
-            
               <Link key={i} className="newReleasedItem" to={`/movie/${movie.id}`}>
                 <img
                   src={IMAGE_URL + movie.poster_path}
@@ -132,8 +126,6 @@ const Home = () => {
                   </ul>
                 </div>
               </Link>
-            
-            </>
           ))}
         </ul>
       </div>    
@@ -147,10 +139,8 @@ const Home = () => {
           {series.filter(m => m.poster_path)
           .sort((a, b) => b.popularity - a.popularity)
           .slice(0, 4)
-          .map(s => (
-            <>
-            <li key={s.id}>
-              <Link className="newReleasedItem" to={`/tv/${s.id}`}>
+          .map((s, i) => (
+              <Link key={i} className="newReleasedItem" to={`/tv/${s.id}`}>
                 <img
                   src={IMAGE_URL + s.poster_path}
                   alt={s.title || s.name}
@@ -161,8 +151,6 @@ const Home = () => {
                   <p className='seasonNumber'>Season {s.last_episode_to_air.season_number}</p>
                 </div>
               </Link>
-            </li>
-            </>
           ))}
         </ul>
       </div>

@@ -51,8 +51,8 @@ const Recommendations = ({setActiveTab, activeTab}) => {
         {activeTab === "movies" &&
           recommMovies
           .filter(m => m.poster_path)
-          .map((m) => (
-            <Link key={m.id} className="Item" to={`/movie/${m.id}`}>
+          .map((m, i) => (
+            <Link key={i} className="Item" to={`/movie/${m.id}`}>
               <img
                 src={IMAGE_URL + m.poster_path}
                 alt={m.title || m.name}
@@ -65,8 +65,8 @@ const Recommendations = ({setActiveTab, activeTab}) => {
         activeTab === "series" &&
           recommSeries
           .filter(s => s.poster_path)
-          .map((s) => (
-              <Link key={s.id} className="Item" to={`/tv/${s.id}`}>
+          .map((s, i) => (
+              <Link key={i} className="Item" to={`/tv/${s.id}`}>
                 <img
                   src={IMAGE_URL + s.poster_path}
                   alt={s.title || s.name}

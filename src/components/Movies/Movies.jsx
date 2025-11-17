@@ -33,10 +33,10 @@ const Movies = () => {
     <>
     <section className="page">
       <ul className="pageList">
-        {movies.map((movie) => (
+        {movies.map((movie, i) => (
               <Link 
                 to={`/movie/${movie.id}`} 
-                key={movie.id}
+                key={i}
                 className="pageItem"
               >
                 <img

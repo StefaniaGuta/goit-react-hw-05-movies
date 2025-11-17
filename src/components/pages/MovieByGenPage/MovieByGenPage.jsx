@@ -10,36 +10,31 @@ import Loader from 'components/Loader/Loader';
 import './MovieByGenPage.css';
 
 
-const ITEMS_PER_PAGE = 20; // Numărul de elemente pe care dorești să le afișezi
+const ITEMS_PER_PAGE = 20;
 
 const MovieByGenPage = () => {
-  // Stări
-  const [allFilteredMovies, setAllFilteredMovies] = useState([]); // 🔥 NOU: Toate filmele filtrate, colectate
-  const [movies, setMovies] = useState([]); // Filmele afișate pe pagina curentă (20 bucăți)
-  const [currentPage, setCurrentPage] = useState(1); // Indexul paginii locale (1, 2, 3...)
-  const [totalPages, setTotalPages] = useState(1); // Total pagini locale
+  const [allFilteredMovies, setAllFilteredMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
   const params = useParams();
   const genId = params.genId;
-  const genreName = params.genName; // Presupunând că ai și genName în params
+  const genreName = params.genName;
 
-  // Funcție ajutătoare pentru filtrare (preluată din soluția anterioară)
   const filterByGenre = (items, genId) => {
     const genreId = parseInt(genId);
     return items.filter(item => (
-      // Verifică pentru Filme: 'genre_ids'
       item.genre_ids && item.genre_ids.includes(genreId)
     ));
   };
 
-  // 1. Colectarea tuturor filmelor filtrate (se rulează o singură dată)
   useEffect(() => {
     const fetchAndAggregateMovies = async () => {
       setIsLoading(true);
       try {
-        // A. Găsește paginile relevante din API
         const relevantPages = await findPagesWithGenre(dispatch, genId, 500);
 
         if (relevantPages.length === 0) {
@@ -48,14 +43,12 @@ const MovieByGenPage = () => {
           return;
         }
 
-        // B. Descarcă datele de pe TOATE paginile relevante în paralel
         const responses = await Promise.all(
           relevantPages.map(page => dispatch(getAll(page)))
         );
 
         let aggregatedMovies = [];
-        
-        // C. Filtrează și colectează toate filmele într-o singură matrice
+
         responses.forEach(response => {
           if (response.payload?.results) {
             const filtered = filterByGenre(response.payload.results, genId);
@@ -63,11 +56,10 @@ const MovieByGenPage = () => {
           }
         });
 
-        // D. Setează lista totală și calculează paginarea locală
         setAllFilteredMovies(aggregatedMovies);
         const newTotalPages = Math.ceil(aggregatedMovies.length / ITEMS_PER_PAGE);
         setTotalPages(newTotalPages);
-        setCurrentPage(1); // Reset la prima pagină după o nouă căutare
+        setCurrentPage(1);
         
       } catch (error) {
         console.error("Error fetching and aggregating movies:", error);
@@ -79,7 +71,6 @@ const MovieByGenPage = () => {
     fetchAndAggregateMovies();
   }, [dispatch, genId]);
 
-  // 2. Afișarea filmelor pentru pagina curentă (se rulează la schimbarea paginii sau a listei totale)
   useEffect(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -88,8 +79,6 @@ const MovieByGenPage = () => {
     setMovies(moviesToShow);
   }, [allFilteredMovies, currentPage]);
 
-
-  // 3. Funcția pentru schimbarea paginii locale
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -106,8 +95,8 @@ const MovieByGenPage = () => {
             <p>Nu au fost găsite rezultate pentru acest gen.</p>
           ) : (
             <ul className='pageList'>
-              {movies.map(movie => (
-                <Link className='pageItem' key={movie.id} to={`/movie/${movie.id}`}>
+              {movies.map((movie, i) => (
+                <Link className='pageItem' key={i} to={`/movie/${movie.id}`}>
                   <img
                     src={movie.poster_path ? IMAGE_URL + movie.poster_path : noImage}
                     alt={movie.title || movie.name}
@@ -122,7 +111,7 @@ const MovieByGenPage = () => {
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
-              onPageChange={handlePageChange} // Trimitem direct indexul paginii
+              onPageChange={handlePageChange}
             />
           )}
         </>

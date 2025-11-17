@@ -19,41 +19,31 @@ const MainPage = () => {
   const ref = useRef(null);
 
  useEffect(() => {
-  const fetchMostRecentMovie = async () => {
+  const fetchResponse = async () => {
     try {
-      const response = await dispatch(getTrendingAll(day));
-      const moviesFiltered = response.payload.results.filter(m => m.poster_path);
+      const responseMostRecentMovie = await dispatch(getTrendingAll(day));
+      const moviesFiltered = responseMostRecentMovie.payload.results.filter(m => m.poster_path);
       setRecentMovie(moviesFiltered);
+
+      const resGen = await dispatch(getGenres());
+      setGenres(resGen.payload.genres)
+    
+      const resActor = await dispatch(popularActors());
+      setActors(resActor.payload.results)
+
+      const responseTrending = await dispatch(getAll())
+      const sortedTrending = responseTrending.payload.results
+        .filter(m => m.poster_path || m.backdrop_path)
+        .sort((a, b) => b.vote_average - a.vote_average)
+        .slice(0, 3);
+      
+      setTrending(sortedTrending);
     } catch (e) {
       console.error("Eroare la fetch:", e);
     }
   };
 
-  const fetchGenres = async () => {
-    try{
-      const res = await dispatch(getGenres());
-      setGenres(res.payload.genres)
-    } catch(e) {
-      console.log(e)
-    }
-  }
-  const fetchActors = async () => {
-    try{
-      const res = await dispatch(popularActors());
-      setActors(res.payload.results)
-    } catch(e) {
-      console.log(e)
-    }
-  }
-  const fetchTrending = async () => {
-    const response = await dispatch(getAll())
-    const sorted = response.payload.results
-      .filter(m => m.poster_path || m.backdrop_path)
-      .sort((a, b) => b.vote_average - a.vote_average)
-      .slice(0, 3);
-    
-    setTrending(sorted);
-  }
+
 const updateScrollAmount = () => {
       const width = window.innerWidth;
       setScrollAmount(Math.floor(width));
@@ -61,10 +51,7 @@ const updateScrollAmount = () => {
 
     updateScrollAmount();
     window.addEventListener("resize", updateScrollAmount);
-    fetchMostRecentMovie();
-    fetchGenres();
-    fetchActors();
-    fetchTrending();
+    fetchResponse();
     return () => window.removeEventListener("resize", updateScrollAmount);
 }, [dispatch]);
 
@@ -86,8 +73,8 @@ const scroll = (dir) => {
         </div>
         <ul className="genresList">
           {genres
-          .map(gen => (
-            <li key={gen.id}>
+          .map((gen, i) => (
+            <li key={i}>
               <svg width="29" height="32"><use xlinkHref={`${url}#${gen.name}`}/></svg>
               <span>
                 {gen.name}
@@ -130,8 +117,8 @@ const scroll = (dir) => {
           </button>
         </div>
         <ul className="actorsList" ref={ref}>
-          {actors.map(a => (
-            <Link key={a.id} to={`/people/${a.id}`} className="actor">
+          {actors.map((a, i) => (
+            <Link key={i} to={`/people/${a.id}`} className="actor">
               <img src={a.profile_path ? IMAGE_URL + a.profile_path : noImg} alt={a.name}/>
               <h3>{a.name}</h3>
               <p>{a.known_for_department}</p>
@@ -144,8 +131,8 @@ const scroll = (dir) => {
         <h2>Top 3 the most wanted movies this week</h2>
         <ul className="trendingList">
           {trending 
-            .map(t => (
-              <li key={t.id} className="recentMovie">
+            .map((t, i) => (
+              <li key={i} className="recentMovie">
                 <svg viewBox="0 0 300 150" className="titleArc">
                   <defs>
                     <path id={`arcPath-${t.id}`} d="M 20 130 A 130 130 0 0 1 280 130" />

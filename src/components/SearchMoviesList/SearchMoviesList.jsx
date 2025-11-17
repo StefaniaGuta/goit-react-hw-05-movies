@@ -22,11 +22,11 @@ const SearchMoviesList = ({ searchResults}) => {
   return (
     <>
       <div className="searchResultsContainer">
-        {searchResults.map(movie => (
+        {searchResults.map((movie, i) => (
           <li
             onClick={() => handleNavigateToSpecificPage(movie)}
             state={{ from: location }}
-            key={movie.id}
+            key={i}
             className="searchResultsList"
           >
             <div>

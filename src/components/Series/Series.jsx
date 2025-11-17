@@ -31,9 +31,9 @@ const Series = () => {
 return (
   <section className='seriesPage'> 
     <ul className='seriesPageList'>
-      {series.map((s) => (
+      {series.map((s, i) => (
           <Link to={`/serie/${s.id}`} 
-          key={s.id}
+          key={i}
           className="seriesPageItem">
             <img
               src={IMAGE_URL + s.poster_path || s.backdrop_path}

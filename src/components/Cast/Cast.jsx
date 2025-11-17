@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getMovieCast, IMAGE_URL } from '../../redux/movies/getAPI';
 import noImage from '../Images/no_image.jpg';
@@ -11,6 +11,7 @@ const Cast = (show) => {
   const [open, setOpen] = useState();
   const { movieId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovieCredits = async () => {
@@ -32,8 +33,8 @@ const openModal = () => {
     <section className='movie-cast'>
       <ul>
         {movieCredits.length > 0 && movieCredits ? 
-          (movieCredits.slice(0, 5).map(movieCredit => (
-            <li className='movieCastActor' key={movieCredit.id} >
+          (movieCredits.slice(0, 5).map((movieCredit, i) => (
+            <li className='movieCastActor' key={i} onClick={() => navigate(`/people/${movieCredit.id}`)}>
             <img className='actorPhoto'
               src={movieCredit.profile_path ? IMAGE_URL + movieCredit.profile_path : noImage}
               alt={movieCredit.name}
@@ -50,8 +51,8 @@ const openModal = () => {
       </ul>
       {open ? (
         <ul className='castModal'>
-          {movieCredits.map(cast => (
-            <li className='castModalActor' key={cast.id} >
+          {movieCredits.map((cast, i) => (
+            <li className='castModalActor' key={i} onClick={() => navigate(`/people/${cast.id}`)}>
             <img className='castModalActorPhoto'
               src={cast.profile_path ? IMAGE_URL + cast.profile_path : noImage}
               alt={cast.name}

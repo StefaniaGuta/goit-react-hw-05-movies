@@ -125,8 +125,8 @@ const getSeasonsEpisodes = async (seasonNumber) => {
                   <Trailers id={series} show={"tv"}/>
                   <div className='networkSection'>
                     <p>You can watch on:</p>
-                    {series.networks && series.networks.slice(0, 2).map(net => (
-                        <li key={net.id} className='network_company_name'>
+                    {series.networks && series.networks.slice(0, 2).map((net, i) => (
+                        <li key={i} className='network_company_name'>
                             <img  height="25"
                               src={'https://image.tmdb.org/t/p/w500' + net.logo_path}
                               alt={net.title || net.name}
@@ -179,8 +179,8 @@ const getSeasonsEpisodes = async (seasonNumber) => {
 
                         {series.production_companies?.length > 2 && (
                           <div className="productionTooltip">
-                            {series.production_companies.map(prod => (
-                              <span key={prod.id}>{prod.name}</span>
+                            {series.production_companies.map((prod, i) => (
+                              <span key={i}>{prod.name}</span>
                             ))}
                           </div>
                         )}
@@ -221,19 +221,19 @@ const getSeasonsEpisodes = async (seasonNumber) => {
 
               <div className='seriesSeasons'>
                 <h3 className='seriesDetailsContainerSectionTitle'>Seasons</h3>
-                {series.seasons.map(season => (
+                {series.seasons.map((season, i) => (
                     <>
                     <button className='seriesSeason' onClick={() => getSeasonsEpisodes(season.season_number)}>
                         {season.name}
                         <svg width="25" height="15"><use xlinkHref={`${url}#down-arrow`}/></svg>
                     </button>
 
-                        <ul key={season.id} className='seriesEpisodesList'>
+                        <ul key={i} className='seriesEpisodesList'>
                         {openSeason === season.season_number ? (
                             episodes[season.season_number] ? (
-                            episodes[season.season_number].map(ep => (
+                            episodes[season.season_number].map((ep, i) => (
                               <li className='seriesEpisodes'>
-                                <h4 key={ep.id} className='seriesEpisodName' onClick={() => handleEpisodeClick(ep.episode_number)}>
+                                <h4 key={i} className='seriesEpisodName' onClick={() => handleEpisodeClick(ep.episode_number)}>
                                     <svg width="14" height="14"><use xlinkHref={`${url}#full-arrow`}/></svg>
                                     Episode {ep.episode_number}: {ep.name}
                                     </h4>
@@ -270,8 +270,8 @@ const getSeasonsEpisodes = async (seasonNumber) => {
                   {recommendation
                     .filter(m => m.poster_path)
                     .slice(0, 15)
-                    .map((m) => (
-                      <Link key={m.id} to={`/serie/${m.id}`}>
+                    .map((m, i) => (
+                      <Link key={i} to={`/serie/${m.id}`}>
                         <img className='seriesExtraInfoImg'
                           src={IMAGE_URL + m.poster_path}
                           alt={m.title || m.name}
