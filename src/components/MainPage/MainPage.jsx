@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { getAll, getTrendingAll, day, getGenres, popularActors, IMAGE_URL } from "../../redux/movies/getAPI";
+import { getAll, getTrendingAll, day, getGenres, IMAGE_URL } from "../../redux/movies/getAPI";
+import {popularActors} from '../../redux/actors/actors';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import SphereScroll from "components/SphereScroll/SphereScroll";
@@ -130,7 +131,7 @@ const scroll = (dir) => {
         </div>
         <ul className="actorsList" ref={ref}>
           {actors.map(a => (
-            <Link key={a.id} to={`/people/${a.id}`}>
+            <Link key={a.id} to={`/people/${a.id}`} className="actor">
               <img src={a.profile_path ? IMAGE_URL + a.profile_path : noImg} alt={a.name}/>
               <h3>{a.name}</h3>
               <p>{a.known_for_department}</p>

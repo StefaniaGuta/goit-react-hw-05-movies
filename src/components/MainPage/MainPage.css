@@ -11,6 +11,11 @@
   padding: 0;
 }
 
+.sideContainer{
+  max-width: 100%;
+  height: 100%;
+}
+
 .mainSection h2{
   height: 51px;
   font-size: 35px;
@@ -181,7 +186,7 @@
   100% { transform: translateX(-50%); }
 }
 
-.mainSection .actorsList li{
+.mainSection .actorsList .actor{
   width: 160px;
   height: 240px;
   display: flex;
@@ -190,15 +195,17 @@
   font-weight: 400;
   text-align: center;
   justify-content: space-evenly;
+  color: white;
+  text-decoration: none;
 }
 
-.mainSection .actorsList li h3{
+.mainSection .actorsList .actor h3{
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.mainSection .actorsList img{
+.mainSection .actorsList .actor img{
   width: 160px;
   height: 180px;
   border-radius: 50%;

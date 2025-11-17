@@ -19,8 +19,8 @@ const Searchbar = ({ onSubmit, resetQuery }) => {
 
   const handleInputChange =async event => {
     const query = event.target.value;
-    console.log(query)
-    console.log(inputValue)
+    //console.log(query)
+    //console.log(inputValue)
     setInputValue(query);
     const nextParams = query !== '' ? { query } : {};
     setSearchParams(nextParams);
@@ -33,7 +33,7 @@ const Searchbar = ({ onSubmit, resetQuery }) => {
     event.preventDefault();
   };
   
-  console.log("results", searchResults)
+  //console.log("results", searchResults)
   return (
     <section className='searchBarSection'>
       <form className="searcbarForm">

@@ -10,8 +10,7 @@ import { getAll,
   getPopularMovies,
   getNowPlayingMovies,
   getUpcomingMovies,
-  getTopRatedMovies,
-  persorDetails
+  getTopRatedMovies
  } from './getAPI';
 
 const initialState = {
@@ -82,11 +81,6 @@ const moviesSlice = createSlice({
       state.error = null;
     })
     .addCase(getGenres.fulfilled, (state, action) => {
-      state.genres = action.payload;
-      state.isLoading = false;
-      state.error = null;
-    })
-    .addCase(persorDetails.fulfilled, (state, action) => {
       state.genres = action.payload;
       state.isLoading = false;
       state.error = null;

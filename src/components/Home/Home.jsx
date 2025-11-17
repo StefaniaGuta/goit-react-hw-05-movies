@@ -103,10 +103,10 @@ const Home = () => {
           {releasedMovie.filter(m => m.poster_path)
           .sort((a, b) => b.vote_average - a.vote_average)
           .slice(0, 4)
-          .map(movie => (
+          .map((movie, i) => (
             <>
-            <li key={movie.id}>
-              <Link className="newReleasedItem" to={`/movie/${movie.id}`}>
+            
+              <Link key={i} className="newReleasedItem" to={`/movie/${movie.id}`}>
                 <img
                   src={IMAGE_URL + movie.poster_path}
                   alt={movie.title || movie.name}
@@ -132,7 +132,7 @@ const Home = () => {
                   </ul>
                 </div>
               </Link>
-            </li>
+            
             </>
           ))}
         </ul>
