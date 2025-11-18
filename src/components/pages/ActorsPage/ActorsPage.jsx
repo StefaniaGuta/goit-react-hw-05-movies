@@ -92,6 +92,8 @@ const navigateToDetailsPage = (credit) => {
     navigate(`/*`)
   }
 }
+
+console.log("clg")
   return (
     <section className="actorsPageSection">
       <div className="aboutActorWrapper">
