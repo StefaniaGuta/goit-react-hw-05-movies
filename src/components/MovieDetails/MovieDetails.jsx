@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams,  Link, useNavigate } from 'react-router-dom';
-import { getMovieDetails, IMAGE_URL, moviesRecommendations } from '../../redux/movies/getAPI';
+import { getMovieDetails, IMAGE_URL, moviesRecommendations, formatDate } from '../../redux/movies/getAPI';
 import Loader from '../Loader/Loader';
 import { useDispatch } from 'react-redux';
 import noImage from '../Images/no_image.jpg';
@@ -142,7 +142,7 @@ const MovieDetails = () => {
                       </p>
                       <p>
                         <b>Date Release:</b> 
-                        {movie.release_date}
+                        {formatDate(movie.release_date)}
                       </p>
                       <p>
                         <b>Production: </b>

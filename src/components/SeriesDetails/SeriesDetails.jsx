@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams,  Link, useNavigate } from 'react-router-dom';
-import { IMAGE_URL } from '../../redux/movies/getAPI';
+import { IMAGE_URL, formatDate } from '../../redux/movies/getAPI';
 import {seriesDetails, seriesRecommendations, getSeriesSeason} from "../../redux/series/seriesApi";
 import Loader from '../Loader/Loader';
 import { useDispatch } from 'react-redux';
@@ -167,7 +167,7 @@ const getSeasonsEpisodes = async (seasonNumber) => {
                       </p>
                       <p>
                         <b>Date Release:</b> 
-                        {series.first_air_date}
+                        {formatDate(series.first_air_date)}
                       </p>
                       <div className="productionWrapper">
                         <p className="productionText">
@@ -200,7 +200,7 @@ const getSeasonsEpisodes = async (seasonNumber) => {
                       <p>
                         <b>Next episode:</b>    
                       {series.next_episode_to_air 
-                      ? series.next_episode_to_air.air_date
+                      ? formatDate(series.next_episode_to_air.air_date)
                       : "no informations"}
                       </p>
                       : null}
@@ -240,7 +240,7 @@ const getSeasonsEpisodes = async (seasonNumber) => {
                                     {openEpisode === ep.episode_number && (
                                       <div className="episodeDetails">
                                         <span>
-                                          <p><strong>Air date:</strong> {ep.air_date}</p>
+                                          <p><strong>Air date:</strong> {formatDate(ep.air_date)}</p>
                                           <p><strong>StoryLine</strong><br></br>{ep.overview}</p>
                                           <p><strong>Rating:</strong> {ep.vote_average}</p>
 

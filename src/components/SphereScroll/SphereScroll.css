@@ -9,12 +9,18 @@
   margin: 0;
  scrollbar-color: rgb(17, 12, 40) transparent;
   perspective: 1200px;
+  align-items: center;
 }
 
 .movieList li {
   flex: 0 0 auto;
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.movieList li:hover img{
+  box-shadow: 0px 0px 20px 0px #d3d1f0;
 }
 
 .imgCover {

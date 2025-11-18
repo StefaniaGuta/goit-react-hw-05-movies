@@ -5,58 +5,179 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
  
 }
-
-.Img-accounts-wrapper{
+.actorBiography{
+  width: 410px;
+  height: 178px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: justify;
+  font-size: 12px;
+  color: #ffffffa8;
+  white-space: break-spaces;
+}
+.aboutActorWrapper{
   display: flex;
-  width: 100%;
   height: 400px;
-  gap: 30px;
+  gap: 147px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialsAccountsImageWrapper{
+  width: 180px;
+  height: 220px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  position: relative;
 }
 
 .socialsAccountsImage{
-  width: 300px;
-  height: 380px;
+  width: 180px;
+  height: 220px;
+  display: block;
 }
 
+.socialsAccountsImageWrapper::after{
+  position: absolute;
+  display: flex;
+  content: '';
+  width: 217px;
+  height: 221px;
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  z-index: 000000;
+  top: 6px;
+  transform: rotate(41deg);
+  left: -24px;
+}
+
+.socialsAccountsImageWrapper::before{
+  position: absolute;
+  display: flex;
+  content: '';
+  width: 217px;
+  height: 221px;
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  z-index: 000000;
+  top: 6px;
+  transform: rotate(-62deg);
+  left: -15px;
+}
+
+.detailAboutTheActor{
+  margin-bottom: 10px;
+}
+
+.actorDepartmentName{
+  font-size: 24px;
+  color: #ffffffde;
+  border-bottom: 1px solid gold;
+  padding-bottom: 5px;
+  width: 91px;
+}
+
+.socialsAccounts{
+  display: flex;
+  align-items: center;
+  width: 140px;
+  gap: 10px;
+  height: 30px;
+}
 
 .ActorCareer{
-  width: 100%;
+  width: 867px;
+  display: flex;
+  gap: 30px;
+  border-top: 1px solid var(--border-color);
+}
+
+.biography-actorImgs{
+  width: 410px;
+  height: 510px;
   display: flex;
   flex-direction: column;
 }
 
-.actorActingCareer,
-.actorOtherDepartmentsJobs,
-.actorsPageImagesList{
+.ActorCareerSubsectionTitle{
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 5px;
+}
+
+.actorCareer-Filmography{
+  display: flex;
+  flex-direction: column;
+  width: 428px;
+}
+
+.actorActingCareer{
   width: 100%;
   display: flex;
   overflow-x: scroll;
-  gap: 15px;
-  scrollbar-color:black transparent;
-  height: 500px;
+  gap: 5px;
+  scrollbar-color:rgb(19, 6, 122) transparent;
+  height: 375px;
+  align-items: center;
+  scrollbar-width: thin;
 }
 
 .actorFilm{
   display: flex;
   flex-direction: column;
-  width: 180px;
-  height: 450px;
+  width: 101px;
+  height: 300px;
   cursor: pointer;
+  padding: 5px;
+  border-radius: 14px;
+  background-color: #090957;
 }
 
-.actorCareerFilmImg,
-.actorOtherDepartmentsJobsImg,
+.actorFilm:hover{
+  box-shadow: 0px 0px 20px 0px #d3d1f0;
+  transform: scale(1.01);
+}
+
+.actorsPageImagesList{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  width: 100%;
+
+}
+
+.actorLiImg{
+  width: 40px;
+  height: 60px;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+
 .actorsPageImage{
-  width: 180px;
-  height: 270px;
+  width: 40px;
+  height: 60px;
+  display: block;
+}
+
+.actorLiImg:nth-child(2n),
+.actorLiImg:nth-child(2n) .actorsPageImage {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+}
+
+.actorCareerFilmImg{
+  width: 100px;
+  height: 160px;
   display: block;
   border-radius: 14px;
 }
 
-.actorCareerFilmDescription,
-.actorOtherDepartmentsJobsDescription{
+.actorCareerFilmDescription{
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -64,15 +185,7 @@
   margin-top: 10px;
 }
 
-.actorCareerFilmDescriptionTitle,
-.actorOtherDepartmentsJobsTitle{
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.actorCareerFilmDescriptionVoteAverage,
-.actorOtherDepartmentsJobsVoteAverage{
+.actorCareerFilmDescriptionVoteAverage{
   display: flex;
   gap: 3px;
   align-items: center;
@@ -80,31 +193,172 @@
   height: 22px;
   position: absolute;
   right: 5px;
-  top: -279px;
+  top: -172px;
+  font-size: 12px;
 }
 
 .actorCareerFilmDescriptionCharacter{
-  font-size: 14px;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .actorCareerFilmDescriptionOverview{
-  height: 82px;
-  font-size: 12px;
+  height: 68px;
+  font-size: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   color: #ffffffa8;
+  text-align: justify;
 }
 
+.actorCareerFilmDetailsBtn{
+  border-radius: 50px;
+  border: none;
+  background-color: gold;
+  color: #1e0771;
+  width: 100px;
+  height: 20px;
+  margin-top: 8px;
+  font-size: 12px;
+}
 
-.actorOtherDepartmentsJobsFilm{
+.actorCareerFilmDetailsBtn:hover{
+  color:gold;
+  background-color: #1e0771;
+}
+
+.otherRolesWrapper{
+  width: 867px;
   display: flex;
   flex-direction: column;
-  width: 180px;
-  height: 380px;
+  align-items: flex-start;
+  gap: 10px;
+  padding-bottom: 50px;
+}
+
+.otherRolesList{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.otherRolesLi{
+  width: 631px;
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.otherRolesImg{
+  width: 150px;
+  height: 180px;
+  display: block;
+  border-radius: 14px;
+}
+
+.otherRolesFilmDescription{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  gap: 5px;
+}
+
+.otherRolesDepartment-overview{
+  color: #ffffffa8;
+  font-size: 12px;
+  max-height: 50px;
+  overflow: hidden;
+}
+
+.jobButton {
+  background: transparent;
+  border-bottom: 1px solid #d4af37;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding: 10px 16px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.jobButton:hover {
+  background: transparent;
+  transform: translateX(4px);
+}
+
+.jobModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.jobModal {
+  background: #0c0f17;
+  color: #fff;
+  padding: 20px;
+  width: 670px;
+  max-height: 80vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  border: 1px solid #d4af37;
+  position: relative;
+  animation: modalPop 0.25s ease;
+  scrollbar-width: none;
+}
+
+@keyframes modalPop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.closeModal {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 26px;
   cursor: pointer;
 }
 
-.actorOtherDepartmentsJobsDepartments,
-.actorOtherDepartmentsJobsRoles{
-  font-size: 14px;
+.movieListByJob {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
 }
+
+.otherRolesLi {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #111522;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.otherRolesLi:hover {
+  background: #151a2b;
+}
+

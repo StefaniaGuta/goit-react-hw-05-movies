@@ -1,9 +1,11 @@
 import { useRef, useEffect } from "react";
 import { IMAGE_URL } from "../../redux/movies/getAPI";
+import { useNavigate } from "react-router-dom";
 import "./SphereScroll.css"
 
 const SphereScroll = ({ movies }) => {
   const listRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,10 +34,21 @@ const SphereScroll = ({ movies }) => {
     return () => list.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navigateToDetails = (credit) => {
+    if(credit.media_type === "tv"){
+    navigate(`/serie/${credit.id}`)
+    console.log(credit)
+  } else if(credit.media_type === "movie") {
+    navigate(`/movie/${credit.id}`)
+  } else{
+    navigate(`/*`)
+  }
+  }
+
   return (
     <ul ref={listRef} className="movieList">
       {movies.map((m) => (
-        <li key={m.id}>
+        <li key={m.id} onClick={() => navigateToDetails(m)}>
           <img
             className="imgCover"
             src={IMAGE_URL + m.poster_path}

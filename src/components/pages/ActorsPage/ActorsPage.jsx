@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import { getActorDetails, getActorExternalIds, getActorCredits, getActorImages } from "../../../redux/actors/actors";
-import { IMAGE_URL } from "../../../redux/movies/getAPI";
+import { IMAGE_URL, formatDate } from "../../../redux/movies/getAPI";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import noImg from '../../Images/no_image.jpg';
 import url from '../../Images/icons.svg';
 import { useNavigate } from "react-router-dom";
+import Loader from "components/Loader/Loader";
 import './ActorsPage.css';
 
 const ActorsPage =() => {
@@ -18,7 +19,7 @@ const ActorsPage =() => {
   const [error, setError] = useState(null);
   const [actorImages, setActorImages] = useState(null)
   const navigate = useNavigate();
-
+  const [openJob, setOpenJob] = useState(null);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -47,248 +48,288 @@ const ActorsPage =() => {
   }, [dispatch, actorId]);
 
  if (loading) {
-    return <p style={{ textAlign: "center" }}>Loading...</p>;
+    return <Loader/>
   }
 
   if (error) {
     return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
   }
 
-const groupedCrew = Object.values(
-  credits.crew.reduce((acc, item) => {
-    const filmId = item.id;
+  const crewByJob = credits.crew.reduce((acc, item) => {
+    const job = item.job;
 
-    if (!acc[filmId]) {
-      acc[filmId] = {
-        ...item,
-        jobs: [{ department: item.department, job: item.job }]
+    if (!acc[job]) {
+      acc[job] = {
+        job,
+        movies: []
       };
-    } else {
-      acc[filmId].jobs.push({
+    }
+
+    if (!acc[job].movies.find(m => m.id === item.id)) {
+      acc[job].movies.push({
+        id: item.id,
+        title: item.title || item.name,
+        poster_path: item.poster_path,
+        backdrop_path: item.backdrop_path,
+        vote_average: item.vote_average,
         department: item.department,
-        job: item.job
+        overview: item.overview
       });
     }
 
     return acc;
-  }, {})
-);
+  }, {});
+const groupedByJobList = Object.values(crewByJob);
 
-//console.log(actorImages)
-console.log(actor)
-console.log(credits)
+
+const navigateToDetailsPage = (credit) => {
+  if(credit.media_type === "tv"){
+    navigate(`/serie/${credit.id}`)
+    console.log(credit)
+  } else if(credit.media_type === "movie") {
+    navigate(`/movie/${credit.id}`)
+  } else{
+    navigate(`/*`)
+  }
+}
   return (
     <section className="actorsPageSection">
-      <div className="Img-accounts-wrapper">
-
-      <div className="socialsAccounts">
-      <img className="socialsAccountsImage"
-        src={actor?.profile_path ? IMAGE_URL + actor.profile_path : noImg}
-        alt={actor?.name}
-      />
-        {socials?.facebook_id && (
-          <a 
-            href={`https://www.facebook.com/${socials.facebook_id}`} 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            
-            <svg width="29" height="32"><use xlinkHref={`${url}#facebook`}/></svg>
-          </a>
-        )}
-        
-        {socials?.instagram_id && (
-          <a 
-            href={`https://www.instagram.com/${socials.instagram_id}`} 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            <svg width="29" height="32"><use xlinkHref={`${url}#instagram`}/></svg>
-          </a>
-        )}
-        {socials?.tiktok_id && (
-          <a 
-          href={`https://www.tiktok.com/@${socials.tiktok_id}`} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          >
-            <svg width="29" height="32"><use xlinkHref={`${url}#tiktok`}/></svg>
-          </a>
-        )}
-        {socials?.tvrage_id && (
-          <a 
-          href={`${socials.tvrage_id}`} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          >
-            <svg width="29" height="32"><use xlinkHref={`${url}#TV`}/></svg>
-          </a>
-        )}
-        {socials?.twitter_id && (
-          <a 
-          href={`https://x.com/${socials.twitter_id}`} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          >
-            <svg width="29" height="32"><use xlinkHref={`${url}#twitter`}/></svg>
-          </a>
-        )}
-        {socials?.wikidata_id && (
-          <a 
-          href={`https://www.wikidata.org/wiki/${socials.wikidata_id}`} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          >
-            <svg width="29" height="32"><use xlinkHref={`${url}#wiki`}/></svg>
-          </a>
-        )}
-        {socials?.youtube_id && (
-          <a 
-          href={`https://www.youtube.com/@${socials.youtube_id}`} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          >
-            <svg width="29" height="32"><use xlinkHref={`${url}#youtube`}/></svg>
-          </a>
-        )}
-      </div>
-        <div className="actorNameAndBiographyWrapper">
-          <h1>{actor?.name}</h1>
-          <p>
-            <b>Biography</b><br />
-            {actor?.biography ? actor.biography : `We don't have a biography for ${actor.name}.`}
-          </p>
+      <div className="aboutActorWrapper">
+        <div className="socialsAccountsImageWrapper">
+          <img className="socialsAccountsImage"
+            src={actor?.profile_path ? IMAGE_URL + actor.profile_path : noImg}
+            alt={actor?.name}
+          />
         </div>
-      </div>
+        <div>
+          <h1>
+            {actor?.name}
+            <p className="actorDepartmentName">
+              {actor?.known_for_department}
+            </p>
+          </h1>  
+          <div className="aditionalDetailsAboutTheActor">
+            <p className="detailAboutTheActor">
+              <b>Born</b> {actor?.birthday ? formatDate(actor?.birthday) : "-"}
+            </p>
 
-      <div className="aditionalDetailsAboutTheActor">
-        {actor.also_known_as.length > 0 ? (
-        <span>
-          <b>Also known as:</b>
-          <ul>
-            {actor?.also_known_as?.map((name, i) => (
-              <li key={i}>{name}</li>
-            ))}
-          </ul>
-        </span>
-        ) : null}
-        <p>
-          <b>Birthday:</b> {actor?.birthday ? actor?.birthday : "-"}
-        </p>
+            {actor?.deathday && (
+              <p className="detailAboutTheActor">
+                <b>Deathday:</b> {formatDate(actor.deathday)}
+              </p>
+            )}
 
-        {actor?.deathday && (
-          <p>
-            <b>Deathday:</b> {actor.deathday}
-          </p>
-        )}
+            <p className="detailAboutTheActor">
+              <b>From</b> {actor?.place_of_birth? actor?.place_of_birth : "-"}
+            </p>
 
-        <p>
-          <b>Place of birth:</b> {actor?.place_of_birth? actor?.place_of_birth : "-"}
-        </p>
+            <p className="detailAboutTheActor">
+              <b>Gender</b>     {actor?.gender === 2 ? "Male" : "Female"}
+            </p>
 
-        <p>
-          <b>Gender:</b> {actor?.gender === 2 ? "Male" : "Female"}
-        </p>
+            <p className="detailAboutTheActor">
+              <b>Popularity</b> {actor?.popularity?.toFixed(1)}
+            </p>
+          </div>
 
-        <p>
-          <b>Department:</b> {actor?.known_for_department}
-        </p>
-
-        <p>
-          <b>Popularity:</b> {actor?.popularity?.toFixed(1)}
-        </p>
+          <div className="socialsAccounts">
+            {socials?.facebook_id && (
+              <a 
+                href={`https://www.facebook.com/${socials.facebook_id}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <svg width="20" height="20"><use xlinkHref={`${url}#facebook`}/></svg>
+              </a>
+            )}
+            
+            {socials?.instagram_id && (
+              <a 
+                href={`https://www.instagram.com/${socials.instagram_id}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <svg width="20" height="20"><use xlinkHref={`${url}#instagram`}/></svg>
+              </a>
+            )}
+            {socials?.tiktok_id && (
+              <a 
+              href={`https://www.tiktok.com/@${socials.tiktok_id}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              >
+                <svg width="20" height="20"><use xlinkHref={`${url}#tiktok`}/></svg>
+              </a>
+            )}
+            {socials?.tvrage_id && (
+              <a 
+              href={`${socials.tvrage_id}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              >
+                <svg width="20" height="20"><use xlinkHref={`${url}#TV`}/></svg>
+              </a>
+            )}
+            {socials?.twitter_id && (
+              <a 
+              href={`https://x.com/${socials.twitter_id}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              >
+                <svg width="20" height="20"><use xlinkHref={`${url}#twitter`}/></svg>
+              </a>
+            )}
+            {socials?.wikidata_id && (
+              <a 
+              href={`https://www.wikidata.org/wiki/${socials.wikidata_id}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              >
+                <svg width="20" height="20"><use xlinkHref={`${url}#wiki`}/></svg>
+              </a>
+            )}
+            {socials?.youtube_id && (
+              <a 
+              href={`https://www.youtube.com/@${socials.youtube_id}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              >
+                <svg width="20" height="20"><use xlinkHref={`${url}#youtube`}/></svg>
+              </a>
+            )}
+          </div>
+        </div>
       </div>
 
     
       <div className="ActorCareer">
-        <h2>Career</h2>
+        <div className="biography-actorImgs">
+            <h2 className="ActorCareerSubsectionTitle">Biography</h2>
+          <p title={actor.biography} className="actorBiography">
+            {actor?.biography ? actor.biography : `We don't have a biography for ${actor.name}.`}
+          </p>
+          {actorImages?.profiles.length > 0 ?  
+          <div className="actorImages">
+            <h2>Photo Gallery</h2>
+            <ul className="actorsPageImagesList">
+              {actorImages?.profiles.slice(0, 12).map((p, i) => (
+                <li key={i} className="actorLiImg">
+                  <img className="actorsPageImage" src={IMAGE_URL + p.file_path} alt={actor.name}/>
+                </li>
+              ))}
+            </ul>
+          </div>
+          : null}
+        </div>
 
-        <h3>Acting</h3>
-        {credits?.cast?.length ? (
-          <ul className="actorActingCareer">
-            {credits.cast.map((c, i) => (
-              <li key={i} className="actorFilm" onClick={() => navigate(`/movie/${c.id}`)}>
-                <img className="actorCareerFilmImg" src={c.poster_path || c.backdrop_path 
-                  ? IMAGE_URL + c.poster_path || c.backdrop_path
-                  : noImg
+        <div className="actorCareer-Filmography">
+          <h2 className="ActorCareerSubsectionTitle">Filmography</h2>
+          {credits?.cast?.length ? (
+            <ul className="actorActingCareer">
+              {credits.cast
+              .map((c, i) => (
+                <li key={i} className="actorFilm" onClick={() => navigateToDetailsPage(c)}>
+                  <img className="actorCareerFilmImg" src={c.poster_path || c.backdrop_path 
+                    ? IMAGE_URL + c.poster_path || c.backdrop_path
+                    : noImg
                   } 
                   alt={c.title || c.name}
-                />
-                <div className="actorCareerFilmDescription">
-                 <h4 className="actorCareerFilmDescriptionTitle">{c.title || c.name} </h4> 
-                 <p className="actorCareerFilmDescriptionVoteAverage">
-                  <svg width="14" height="14"><use xlinkHref={`${url}#star`}/></svg>
-                  {c.vote_average.toFixed(1)}
-                 </p>
-                 <p className="actorCareerFilmDescriptionCharacter">
-                  <b>Character:</b> {c.character}
-                 </p>
-                  <p className="actorCareerFilmDescriptionOverview">{c.overview}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No credits found.</p>
-        )}
+                  />
+                  <div className="actorCareerFilmDescription">
+                  <p className="actorCareerFilmDescriptionVoteAverage">
+                    <svg width="14" height="14"><use xlinkHref={`${url}#star`}/></svg>
+                    {c.vote_average.toFixed(1)}
+                  </p>
+                  <p title={c.character} className="actorCareerFilmDescriptionCharacter">
+                    <b>Character</b> <br></br>
+                    {c.character ? c.character : "-"}
+                  </p>
+                    <p className="actorCareerFilmDescriptionOverview">{c.overview}</p>
+                    <button className="actorCareerFilmDetailsBtn">Details</button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No credits found.</p>
+          )}
+        </div>      
+      </div>
+
+      <div className="otherRolesWrapper">
         {credits?.crew.length > 0 ? (
           <>
-          <h3>Other departments</h3>
-          <ul className="actorOtherDepartmentsJobs">
-            {groupedCrew.map((c, i) => (
-              <li className="actorOtherDepartmentsJobsFilm" key={i} onClick={() => navigate(`/movie/${c.id}`)}>
-                
-                <img
-                  className="actorOtherDepartmentsJobsImg"
-                  src={
-                    c.poster_path
-                    ? IMAGE_URL + c.poster_path
-                    : c.backdrop_path
-                    ? IMAGE_URL + c.backdrop_path
-                    : noImg
-                  }
-                  alt={c.title || c.name}
-                  />
+          <h2 className="ActorCareerSubsectionTitle">Other Roles and Contributions</h2>
+          <ul className="otherRolesList">
+            {groupedByJobList.map((group, idx) => (
+              <li key={idx} className="jobGroup">
 
-                <div className="actorOtherDepartmentsJobsDescription">
-                  <h4 className="actorOtherDepartmentsJobsTitle">
-                    {c.title || c.name}
-                  </h4>
+                <button 
+                  className="jobButton"
+                  onClick={() => setOpenJob(group.job)}
+                >
+                  {group.job}
+                </button>
 
-                  <p className="actorOtherDepartmentsJobsDepartments">
-                    <b>Departments:</b>{" "}
-                    {c.jobs.map(j => j.department).join(", ")}
-                  </p>
+                {openJob === group.job && (
+                  <div className="jobModalOverlay" onClick={() => setOpenJob(null)}>
+                    <div 
+                      className="jobModal"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <h3>{group.job} – Films</h3>
 
-                  <p className="actorOtherDepartmentsJobsVoteAverage">
-                  <svg width="14" height="14"><use xlinkHref={`${url}#star`}/></svg>
-                  {c.vote_average.toFixed(1)}
-                 </p>
+                      <button 
+                        className="closeModal"
+                        onClick={() => setOpenJob(null)}
+                      >
+                        ×
+                      </button>
 
-                  <p className="actorOtherDepartmentsJobsRoles">
-                    <b>Roles:</b>{" "}
-                    {c.jobs.map(j => j.job).join(", ")}
-                  </p>
-                </div>
-
+                      <ul className="movieListByJob">
+                        {group.movies.map((m, i) => (
+                          <li
+                            key={i}
+                            className="otherRolesLi"
+                            onClick={() => navigate(`/movie/${m.id}`)}
+                          >
+                            <img
+                              className="otherRolesImg"
+                              src={
+                                m.poster_path
+                                  ? IMAGE_URL + m.poster_path
+                                  : m.backdrop_path
+                                  ? IMAGE_URL + m.backdrop_path
+                                  : noImg
+                              }
+                              alt={m.title}
+                            />
+                            <div className="otherRolesFilmDescription">
+                              <h4>{m.title}</h4>
+                              <b>Department</b>
+                              <p className="otherRolesDepartment-overview">{m.department}</p>
+                              
+                                <b>Storyline</b> 
+                                <p className="otherRolesDepartment-overview">{m.overview}</p>
+                              <p>
+                                <svg width="14" height="14">
+                                  <use xlinkHref={`${url}#star`}/>
+                                </svg>
+                                {m.vote_average.toFixed(1)}
+                              </p>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
             </>
         ) : null}
       </div>
-      {actorImages?.profiles.length > 0 ?  
-      <div className="actorImages">
-        <h2>Photos</h2>
-        <ul className="actorsPageImagesList">
-          {actorImages?.profiles.map((p, i) => (
-            <li key={i}>
-              <img className="actorsPageImage" src={IMAGE_URL + p.file_path} alt={actor.name}/>
-            </li>
-          ))}
-        </ul>
-      </div>
-      : null}
     </section>
   );
 };

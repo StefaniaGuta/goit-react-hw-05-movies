@@ -6,6 +6,20 @@ export const API_KEY = '522a85804afc455b1edd9d5e4b52e3fb';
 export const IMAGE_URL = 'https://media.themoviedb.org/t/p/w220_and_h330_face/';
 export const day = new Date().toISOString().split("T")[0];
 
+export const formatDate = (dateString) => {
+  if (!dateString) return "";
+
+  const date = new Date(dateString);
+
+  const options = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  };
+
+  return date.toLocaleDateString("en-US", options);
+};
+
 export const getAll = createAsyncThunk(
   'movies/getAll',
   async(page=1, thunkAPI) => {
