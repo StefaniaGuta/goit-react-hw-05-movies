@@ -93,8 +93,12 @@
 
 .mainSection .genresList span a{
   font-size: 12px;
-  color: #6c58ca;
+  color: #ffffff8c;
   font-weight: bold;
+}
+
+.mainSection .genresList span a:hover{
+  color: white;
 }
 
 /*devices Section*/

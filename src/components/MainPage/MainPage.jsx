@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { getAll, getTrendingAll, day, getGenres, IMAGE_URL } from "../../redux/movies/getAPI";
 import {popularActors} from '../../redux/actors/actors';
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SphereScroll from "components/SphereScroll/SphereScroll";
 import url from '../Images/icons.svg';
 import MainPoster from "components/MainPoster/MainPoster";
@@ -17,6 +17,7 @@ const MainPage = () => {
   const [trending, setTrending] = useState([]);
   const [scrollAmount, setScrollAmount] = useState(0);
   const ref = useRef(null);
+  const navigate = useNavigate();
 
  useEffect(() => {
   const fetchResponse = async () => {
@@ -118,11 +119,11 @@ const scroll = (dir) => {
         </div>
         <ul className="actorsList" ref={ref}>
           {actors.map((a, i) => (
-            <Link key={i} to={`/people/${a.id}`} className="actor">
+            <li key={i} onClick={() => navigate(`/people/${a.id}`)} className="actor">
               <img src={a.profile_path ? IMAGE_URL + a.profile_path : noImg} alt={a.name}/>
               <h3>{a.name}</h3>
               <p>{a.known_for_department}</p>
-            </Link>
+            </li>
           ))}
         </ul>
       </div>    
