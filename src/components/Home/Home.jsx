@@ -5,7 +5,9 @@ import {  IMAGE_URL,  theNewRealedMovie, getMovieDetails } from '../../redux/mov
 import { newSeriesFetch } from '../../redux/series/seriesApi';
 import {useDispatch, useSelector} from 'react-redux';
 import Recommendations from '../Recommendations/Recommendations';
-import url from '../Images/icons.svg'
+import url from '../Images/icons.svg';
+import FavoriteList from '../FavoriteList/FavoriteList';
+import {selectRecentMovies} from '../../redux/movies/selectors';
 import './Home.css';
 
 const Home = () => {
@@ -14,7 +16,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(null);
-  const recentMovies = useSelector(state => state?.movies.recentMovies.results) || [];
+  const recentMovies = useSelector(selectRecentMovies);
 
   useEffect(() => { 
     const newReleasedMovies = async () => {
@@ -100,7 +102,8 @@ const Home = () => {
           .sort((a, b) => b.vote_average - a.vote_average)
           .slice(0, 4)
           .map((movie, i) => (
-              <Link key={i} className="newReleasedItem" to={`/movie/${movie.id}`}>
+              <Link key={i} className="newReleasedItem">
+                <FavoriteList item={movie} mediaType={"movie"}/>
                 <img
                   src={IMAGE_URL + movie.poster_path}
                   alt={movie.title || movie.name}
@@ -133,6 +136,7 @@ const Home = () => {
       <div className='newReleasedContainer'>
           <span className='title_viewAll'>
             <h2 className='sectionTitle'>New Release - Series</h2>
+            <button type='button' onClick={() => navigate('/list')}>List</button>
             <button onClick={() => navigateToSeriesPage("newReleaseSeries")}>View all &#10230;</button>
         </span>
         <ul className='newReleasedList'>
@@ -140,7 +144,8 @@ const Home = () => {
           .sort((a, b) => b.popularity - a.popularity)
           .slice(0, 4)
           .map((s, i) => (
-              <Link key={i} className="newReleasedItem" to={`/tv/${s.id}`}>
+              <Link key={i} className="newReleasedItem">
+                <FavoriteList item={s}/>
                 <img
                   src={IMAGE_URL + s.poster_path}
                   alt={s.title || s.name}

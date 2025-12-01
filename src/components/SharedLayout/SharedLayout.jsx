@@ -12,8 +12,10 @@ const SharedLayout = () => {
   const isLogin = useSelector((state) => state.auth.isLoggedIn);
   const genres = useSelector((state) => state?.movies.genres?.genres);
   const [open, setOpen] = useState(null);
-  const [openMovieModal, setOpenMovieModal] = useState(null)
-  const [openSeriesModal, setOpenSeriesModal] = useState(null)
+  const [openMovieModal, setOpenMovieModal] = useState(null);
+  const [openSeriesModal, setOpenSeriesModal] = useState(null);
+  const [openUserMenu, setUserMenu] = useState(null);
+
   
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -44,6 +46,8 @@ const SharedLayout = () => {
     navigate(`/series/${type}`, { state: { type } });
     setOpenSeriesModal(!openSeriesModal);
   }
+
+  const openMenu = () => setUserMenu(!openUserMenu);
   return (
     <>
       <header className='header'>
@@ -59,6 +63,7 @@ const SharedLayout = () => {
               ))}
             </ul>
           ) : null}
+          {isLogin ? <Link className="link">Actors</Link> : null}
           <Searchbar/>
           <Link onClick={handleOpenMovie} className="link"> Movies</Link>
           {openMovieModal ?(
@@ -79,10 +84,16 @@ const SharedLayout = () => {
             <li onClick={() => navigateToSeriesPage("topRatedSeries")}>Top Rated</li>
           </ul>
           ) : null}
+          
           {isLogin ? ((
             <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
-              <button onClick={() => logout()} className='logOutButton' type='submit'>Logout</button>
-              
+              <button type='button' className='userMenu' onClick={openMenu}></button>
+              {openUserMenu ? 
+              <div className='userMenuList'>
+                <button onClick={() => logout()} className='logOutButton' type='submit'>Logout</button>
+                <Link to="/list" className='watchlistLink'>Watchlist</Link>
+              </div>  
+              : null}
             </div>)) 
               : 
           (

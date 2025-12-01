@@ -1,0 +1,21 @@
+.addToListSection{
+    position: absolute;
+    height: 86%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.81);
+    z-index: 77;
+    visibility: hidden;
+    gap: 15px;
+    border-radius: 10px;
+}
+
+.listSvg{
+    fill: aliceblue;
+}
+
+.listSvg:hover{
+    fill: var(--border-color);
+}

@@ -42,12 +42,9 @@ const Registration = () => {
     try{
       const response = await dispatch(register({ ...form }));
       
-        if (register.fulfilled.match(response.payload)) {
         resetForm();
         navigate('/home');
-      } else {
-        console.error("Eroare la răspunsul serverului:", response.payload);
-      }
+        
       console.log(response.payload)
         return response.payload
     } catch(e){
@@ -83,7 +80,7 @@ const Registration = () => {
             />
           </label>
           <label>
-            Email&
+            Email*
             <Field id="email"
               type="text"
               className="input"

@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import Notiflix from 'notiflix';
 
 
-const API_URL =  'https://my-application-backend.vercel.app/api/auth';
+const API_URL =  'http://localhost:5000/api';
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
@@ -19,12 +19,12 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
 
-      const res = await axios.post(`${API_URL}/users/signup`, credentials);
+      const res = await axios.post(`${API_URL}/auth/register`, credentials);
 
       if (res.status === 201) {
         console.log('Registration successfully!');
 
-        const loginResponse = await axios.post(`${API_URL}api/auth/login`, {
+        const loginResponse = await axios.post(`${API_URL}/auth/login`, {
           email: credentials.email,
           password: credentials.password
         });
@@ -36,7 +36,6 @@ export const register = createAsyncThunk(
           return loginResponse.data;
         }
       }
-      console.log(res)
 
       return res.data;
     } catch (error) {
@@ -56,8 +55,8 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post(`${API_URL}/users/login`, credentials);
-      const { token } = response.data;
+      const response = await axios.post(`${API_URL}/auth/login`, credentials);
+      const token = response.data.accessToken;
       setAuthHeader(token);
       localStorage.setItem('token', token);
       return response.data;
@@ -65,6 +64,7 @@ export const logIn = createAsyncThunk(
       if(error.response.status === 401){
         return Notiflix.Notify.failure("Email or password is wrog")
       }
+      console.log(error)
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -75,14 +75,14 @@ export const logOut = createAsyncThunk(
   'auth/logout',
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    const token = state.auth.token || localStorage.getItem('token');
+    const token = state.auth.accessToken || localStorage.getItem('token');
 
     if (!token) {
       return thunkAPI.rejectWithValue('No token available for logout');
     }
 
     try {
-      await axios.get(`${API_URL}/users/logout`, {
+      await axios.post(`${API_URL}/auth/logout`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       clearAuthHeader();

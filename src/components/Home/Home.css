@@ -175,6 +175,10 @@
   height: 344px;
 }
 
+.homeSection .newReleasedItem:hover .addToListSection{
+  visibility: visible;
+}
+
 .homeSection .titleSection .seasonNumber{
   border: 1px solid red;
   margin: 0;

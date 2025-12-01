@@ -16,6 +16,11 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
+}
+
+.RecommendationSection .Item:hover .addToListSection{
+  visibility: visible;
 }
 
 .RecommendationSection .Item img{
