@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/goit-react-hw-05-movies/static/css/main.e91de12e.css",
-    "main.js": "/goit-react-hw-05-movies/static/js/main.a36dc538.js",
+    "main.js": "/goit-react-hw-05-movies/static/js/main.7d106b0b.js",
     "static/css/819.7fcf23a2.chunk.css": "/goit-react-hw-05-movies/static/css/819.7fcf23a2.chunk.css",
-    "static/js/819.7d3879f9.chunk.js": "/goit-react-hw-05-movies/static/js/819.7d3879f9.chunk.js",
+    "static/js/819.157ea0e9.chunk.js": "/goit-react-hw-05-movies/static/js/819.157ea0e9.chunk.js",
     "static/css/115.31f70b3c.chunk.css": "/goit-react-hw-05-movies/static/css/115.31f70b3c.chunk.css",
     "static/js/115.e5e9fbc6.chunk.js": "/goit-react-hw-05-movies/static/js/115.e5e9fbc6.chunk.js",
     "static/css/522.1d2ec42f.chunk.css": "/goit-react-hw-05-movies/static/css/522.1d2ec42f.chunk.css",
@@ -30,9 +30,9 @@
     "static/media/no_image.jpg": "/goit-react-hw-05-movies/static/media/no_image.26d5e32e1f3f8947039a.jpg",
     "index.html": "/goit-react-hw-05-movies/index.html",
     "main.e91de12e.css.map": "/goit-react-hw-05-movies/static/css/main.e91de12e.css.map",
-    "main.a36dc538.js.map": "/goit-react-hw-05-movies/static/js/main.a36dc538.js.map",
+    "main.7d106b0b.js.map": "/goit-react-hw-05-movies/static/js/main.7d106b0b.js.map",
     "819.7fcf23a2.chunk.css.map": "/goit-react-hw-05-movies/static/css/819.7fcf23a2.chunk.css.map",
-    "819.7d3879f9.chunk.js.map": "/goit-react-hw-05-movies/static/js/819.7d3879f9.chunk.js.map",
+    "819.157ea0e9.chunk.js.map": "/goit-react-hw-05-movies/static/js/819.157ea0e9.chunk.js.map",
     "115.31f70b3c.chunk.css.map": "/goit-react-hw-05-movies/static/css/115.31f70b3c.chunk.css.map",
     "115.e5e9fbc6.chunk.js.map": "/goit-react-hw-05-movies/static/js/115.e5e9fbc6.chunk.js.map",
     "522.1d2ec42f.chunk.css.map": "/goit-react-hw-05-movies/static/css/522.1d2ec42f.chunk.css.map",
@@ -58,6 +58,6 @@
   },
   "entrypoints": [
     "static/css/main.e91de12e.css",
-    "static/js/main.a36dc538.js"
+    "static/js/main.7d106b0b.js"
   ]
 }
