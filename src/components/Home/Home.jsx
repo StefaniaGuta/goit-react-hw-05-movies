@@ -136,7 +136,6 @@ const Home = () => {
       <div className='newReleasedContainer'>
           <span className='title_viewAll'>
             <h2 className='sectionTitle'>New Release - Series</h2>
-            <button type='button' onClick={() => navigate('/list')}>List</button>
             <button onClick={() => navigateToSeriesPage("newReleaseSeries")}>View all &#10230;</button>
         </span>
         <ul className='newReleasedList'>
