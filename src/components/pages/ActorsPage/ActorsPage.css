@@ -33,12 +33,14 @@
   padding: 20px;
   border: 1px solid var(--border-color);
   position: relative;
+  transform: rotate(45deg);
 }
 
 .socialsAccountsImage{
   width: 180px;
   height: 220px;
   display: block;
+  transform: rotate(-45deg);
 }
 
 .socialsAccountsImageWrapper::after{

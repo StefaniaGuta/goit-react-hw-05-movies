@@ -3,7 +3,8 @@
 :root{
   --border-color: gold;
   --addToListcolor: rgb(251, 255, 0);
-  --bgcolor: radial-gradient(circle, rgb(19, 12, 81), black)
+  --bgcolor: radial-gradient(circle, rgb(19, 12, 81), black);
+  --transition: 0.3s ease, opacity 0.3s ease;
 }
 
 body {

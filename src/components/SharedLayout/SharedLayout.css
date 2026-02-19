@@ -74,6 +74,7 @@
   padding: 10px;
   border-radius: 14px;
   align-items: baseline;
+  z-index: 88;
 }
 
 .watchlistLink{
