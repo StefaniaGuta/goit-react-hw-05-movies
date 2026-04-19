@@ -1,24 +1,31 @@
 import { Form, Field, Formik } from 'formik';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import {createWishList} from "../../redux/wishList/wishList";
 import './CreateWatchlist.css';
 
 
 const Watchlist = ({setOpen, open}) => {
   const [form, setForm] = useState({name: '', description: ''});
+  const dispatch = useDispatch();
 
   const resetForm = () => {
     setForm({name: '', description: ''});
   }
+  const closeModal = () => setOpen(!open)
     
   const handleSubmit = async() => {
     try{
+      const res = await dispatch(createWishList(form));
+      console.log(res)
       resetForm();
+      closeModal();
+      return res;
     } catch(e) {
       console.log(e)
     }
   }
 
-  const closeModal = () => setOpen(!open)
   return (
     <section className='createWatchlistSection'>
       <Formik

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { getAll, getTrendingAll, day, getGenres, IMAGE_URL } from "../../redux/movies/getAPI";
-import {popularActors} from '../../redux/actors/actors';
+import { useActors } from "../../redux/actors/useActors";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import SphereScroll from "components/SphereScroll/SphereScroll";
@@ -13,7 +13,7 @@ const MainPage = () => {
   const dispatch = useDispatch();
   const [recentMovie, setRecentMovie] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [actors, setActors] = useState([]);
+  const actors = useActors();
   const [trending, setTrending] = useState([]);
   const [scrollAmount, setScrollAmount] = useState(0);
   const ref = useRef(null);
@@ -28,10 +28,7 @@ const MainPage = () => {
 
       const resGen = await dispatch(getGenres());
       setGenres(resGen.payload.genres)
-    
-      const resActor = await dispatch(popularActors());
-      setActors(resActor.payload.results)
-
+      
       const responseTrending = await dispatch(getAll())
       const sortedTrending = responseTrending.payload.results
         .filter(m => m.poster_path || m.backdrop_path)

@@ -1,14 +1,13 @@
 import {getList, deleteItemFromTheList} from '../../../redux/list/listOperantions';
 import { IMAGE_URL } from '../../../redux/movies/getAPI';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import url from '../../Images/icons.svg';
-import { useSelector } from 'react-redux';
 import {selectFirstRecentMovies} from '../../../redux/movies/selectors';
 import RatingStars from '../../RatingStars/RatingStars';
 import FavoriteList from '../../FavoriteList/FavoriteList';
 import CreateWatchlist from '../../CreateWatchlist/CreateWatchlist'; 
+import {getWishList} from '../../../redux/wishList/wishList';
 import './ListPage.css'
 
 const ListPage = () => {
@@ -17,15 +16,19 @@ const ListPage = () => {
  const mov = useSelector(selectFirstRecentMovies);
  const ser = useSelector(state => state?.series.series.slice(0, 5));
  const all = mov.concat(ser);
- const [open, setOpen] = useState(null)
+ const [open, setOpen] = useState(null);
 
  useEffect(() => {
   const getItemsFromTheList = async () => {
     const res = await dispatch(getList());
     setItem(res.payload.movies)
+    
+    const getwishes = await dispatch(getWishList())
+    console.log("wishes", getwishes);
   }
   getItemsFromTheList();
- }, [dispatch]);
+}, [dispatch]);
+console.log(items)
 
  const deleteItem = async (item) => {
   try{
@@ -54,10 +57,10 @@ const ListPage = () => {
 
  return(
   <section className='listPageSection'>
-      <h1 className='listPageTitle'>Welcome to <span>Watchlists</span></h1>
-    {items && items.length > 0 ? 
+      <h1 className='listPageTitle'>Welcome to <span>Watchlist</span></h1>
+    {items.filter(i => i.type === "favorite") && items.filter(i => i.type === "favorite").length > 0 ? 
     <ul className='listPageListItems'>
-      {items.map((i, index) => (
+      {items.filter(i => i.type === "favorite").map((i, index) => (
         <li key={index} className='listPageItem'>
           <button title='detele' type='button' onClick={() => deleteItem(i)} className='listPageDeleteBtn'>
             <svg className='listPageBinClose' width="20" height="20"><use xlinkHref={`${url}#delete`}/></svg> 

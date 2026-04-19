@@ -14,6 +14,7 @@ import { moviesReducer } from '../redux/movies/slice';
 import { seriesReducer } from '../redux/series/seriesSlice';
 import { actorsReducer } from '../redux/actors/actorsSlice';
 import { listReducer } from '../redux/list/listSlice';
+import {wishListReducer} from '../redux/wishList/wishSlice';
 import storage from 'redux-persist/lib/storage';
 
 const authPersistConfig = {
@@ -28,7 +29,8 @@ export const store = configureStore({
     movies: moviesReducer,
     series: seriesReducer,
     actors: actorsReducer,
-    list: listReducer
+    list: listReducer,
+    wishlist: wishListReducer
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware({

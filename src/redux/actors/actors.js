@@ -6,8 +6,10 @@ export const popularActors = createAsyncThunk(
     'actors/popularActors',
   async(_, thunkAPI) => {
     try{
-      const response = await axios.get(`${URL}/person/popular?api_key=${API_KEY}`);
-      return response.data
+      const responseFirstPage = await axios.get(`${URL}/person/popular?api_key=${API_KEY}&page=1`);
+      const responseSecondPage = await axios.get(`${URL}/person/popular?api_key=${API_KEY}&page=2`);
+      const concatedPages = responseFirstPage.data.results.concat(responseSecondPage.data.results)
+      return concatedPages
     } catch(e){
       return thunkAPI.rejectWithValue(e.response.data)
     }
