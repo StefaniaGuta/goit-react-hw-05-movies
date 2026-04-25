@@ -50,3 +50,12 @@ button{
 .viewAll:hover{
   color: aliceblue;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6c5ce7;
+  border-radius: 10px;
+}

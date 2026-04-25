@@ -41,11 +41,12 @@
   height: 40px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #3030a2;
+  color: aliceblue;
   font-size: 14px;
   font-weight: 700;
   border-radius: 4px;
   margin-bottom: 5px;
+  text-transform:capitalize;
 }
 
 .libraryDropdown{
@@ -173,15 +174,6 @@
   margin: 20px 0;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #6c5ce7;
-  border-radius: 10px;
-}
-
 .listPageListItems{
   width: 90%;
   height: 100%;
@@ -202,6 +194,7 @@
   text-decoration: none;
   position: relative;
   color: #cfcfff;
+  cursor: pointer;
 }
 
 .listPageItem img {
@@ -240,4 +233,9 @@
 
 .listPageDeleteBtn:hover .listPageBinClose{
   display: none;
+}
+
+.Recomm{
+  display: flex;
+  flex-direction: column;
 }
