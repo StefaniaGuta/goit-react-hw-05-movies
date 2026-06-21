@@ -1,12 +1,15 @@
 .searchBarSection{
   position: relative;
+  width: 100%;
+  max-width: 416px;
+  margin-right: 21px;
 }
 
 .searcbarForm {
   display: flex;
   justify-content: center;
   position: relative;
-  width: 416px;
+  width: 100%;
   height: 40px;
   border-radius: 25px;
   background-color: #FFF;
@@ -26,4 +29,16 @@
   right: 10px;
   top: 9px;
   padding: 0;
+}
+
+@media screen and  (max-width: 615px) {
+  .searcbarForm button{
+    display: none;
+  }
+}
+
+@media screen and  (max-width: 599px) {
+  .searcbarForm input::placeholder{
+    visibility: hidden;
+  }
 }

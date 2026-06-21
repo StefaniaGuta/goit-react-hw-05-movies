@@ -4,7 +4,7 @@ import url from '../Images/icons.svg';
 import { useNavigate } from 'react-router-dom';
 import './FavoriteList.css';
 
-const FavoriteList = ({item}) => {
+const FavoriteList = ({item}, wish) => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const sez = item.seasons
@@ -25,7 +25,7 @@ const FavoriteList = ({item}) => {
         console.log(e)
     }
   }
-
+console.log("wish",wish)
   const navToPage = () => {
     if (sez) {
       navigate(`/serie/${item.id}`);

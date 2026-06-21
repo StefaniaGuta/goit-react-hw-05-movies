@@ -17,6 +17,7 @@
   justify-content: center;
   gap: 20px;
   position: relative;
+  padding: 0 20px;
 }
 
 .modalWrapper{
@@ -83,6 +84,10 @@
   font-size: 17px;
 }
 
+.link:hover{
+  color: #FF0000;
+}
+
 .link:hover::after{
   content: "";
   width: 5px;
@@ -114,4 +119,25 @@
 
 .menuChoises:hover{
   color: gold;
+}
+
+.menuMobile{
+  display: none;
+}
+
+@media screen and  (max-width: 480px) {
+  .link{
+    display: none;
+  }
+
+  .navigation svg,
+  .seriesTypes,
+  .moviesTypes,
+  .genList{
+    display: none;
+  }
+
+  .navigation .menuMobile{
+    display: flex;
+  }
 }

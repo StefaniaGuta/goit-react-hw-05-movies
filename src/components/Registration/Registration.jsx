@@ -3,6 +3,7 @@ import {register } from '../../redux/auth/operations';
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import url from '../Images/icons.svg';
 import Notiflix from 'notiflix';
 import "./Registration.css";
 
@@ -56,7 +57,7 @@ const Registration = () => {
     <section className="registrationSection">
       <p className='helloText'>
         Hello! <br></br>
-        Please log in or create an account
+        Please create an account
         to use the features of this app
       </p>
       <Formik
@@ -68,40 +69,44 @@ const Registration = () => {
         onSubmit={handleSubmit}
       >
         <Form className="registrationForm">
-          <label>
-            Name*
+          <label className="label">
             <Field id="name"
               type="text"
               className="input"
               required
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              placeholder="Enter your email adress"
+             placeholder="Username"
             />
+            <svg width="24" height="24"><use xlinkHref={`${url}#user`}/></svg>
           </label>
-          <label>
-            Email*
+          <label className="label">
             <Field id="email"
               type="text"
               className="input"
               required
-              placeholder="Enter your email adress"
+              placeholder="Email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
+             <svg width="24" height="24"><use xlinkHref={`${url}#email`}/></svg>
           </label>
-          <label>
-            Password*
+          <label className="label">
             <Field id="password"
               type="password"
               className="input"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               required
             />
+             <svg width="24" height="24"><use xlinkHref={`${url}#password`}/></svg>
           </label>
           <button type="submit">Create Profile</button>
+          <span className="bottom">
+            Already have an account?
+            <a href='login'>Login</a>
+          </span>
         </Form>
       </Formik>
     </section>

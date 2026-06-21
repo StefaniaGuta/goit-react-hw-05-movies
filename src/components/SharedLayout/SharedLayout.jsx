@@ -6,6 +6,7 @@ import './SharedLayout.css';
 import Searchbar from 'components/Searchbar/Searchbar';
 import { useSelector, useDispatch } from 'react-redux';
 import {logOut} from "../../redux/auth/operations";
+import MenuMobile from 'components/MobileMenu/menuMobile';
 import url from '../Images/icons.svg';
 
 
@@ -18,6 +19,7 @@ const SharedLayout = () => {
   const [openSeriesModal, setOpenSeriesModal] = useState(null);
   const [openUserMenu, setUserMenu] = useState(null);
   const [openActorsMenu, setOpenActorsMenu] = useState(null);
+  const [openMobileMenu, setOpenMobileMenu] = useState(false);
   
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -43,19 +45,26 @@ const SharedLayout = () => {
   const navigateToMoviesPage = (type) => {
     navigate(`/movies/${type}`, { state: { type } });
     setOpenMovieModal(!openMovieModal);
+    setOpenMobileMenu(false);
   };
 
   const navigateToSeriesPage = (type) => {
     navigate(`/series/${type}`, { state: { type } });
     setOpenSeriesModal(!openSeriesModal);
+    setOpenMobileMenu(false);
   }
 
   const navigateToActorPage = (a) => {
     navigate(`/people/${a.id}`);
     setOpenActorsMenu(!openActorsMenu);
+    setOpenMobileMenu(false);
   }
 
   const openMenu = () => setUserMenu(!openUserMenu);
+
+  const handleMobileMenu = () => {
+  setOpenMobileMenu(prev => !prev);
+};
   return (
     <>
       <header className='header'>
@@ -128,12 +137,27 @@ const SharedLayout = () => {
               : 
           (
             <div style={{display: 'flex', width: '140px', alignItems: 'center', gap: "5px"}}>
-              <Link to="/login" className="link">Login</Link> / 
+              <Link to="/login" className="link">Login/ </Link>
               <Link to="/registration" className="link">Singup</Link>
               <svg width="24" height="24"><use xlinkHref={`${url}#bell`}/></svg>
           </div>
           )
           }
+          <MenuMobile
+            handleOpen={handleOpen}
+            open={open}
+            genres={genres}
+            handleNavigate={handleNavigate}
+            handleOpenMovie={handleOpenMovie}
+            openMovieModal={openMovieModal}
+            navigateToMoviesPage={navigateToMoviesPage}
+            handleOpenSeries={handleOpenSeries}
+            openSeriesModal={openSeriesModal}
+            navigateToSeriesPage={navigateToSeriesPage}
+            handleMobileMenu={handleMobileMenu}
+            openMobileMenu={openMobileMenu}
+            setOpenMobileMenu={setOpenMobileMenu}
+          />
         </nav>
       </header>
       <Suspense fallback={<div><Loader/></div>}>

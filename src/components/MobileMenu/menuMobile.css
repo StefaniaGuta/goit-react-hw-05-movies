@@ -1,0 +1,63 @@
+.menuMobile {
+  display: none;
+  cursor: pointer;
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 54px;
+  left: 0;
+  width: 100%;
+  background: var(--bgcolor);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 20px 20px;
+  z-index: 1000;
+  gap: 15px;
+  height: 100vh;
+}
+
+.mobileLink,
+.mobileSection span {
+  cursor: pointer;
+  color: #FFF;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  line-height: 0%;
+  font-weight: 600;
+  text-decoration: none;
+  width: 180px;
+  min-height: 25px;
+}
+
+.mobileLink{
+  display: flex;
+  align-items: center;
+}
+
+.mobileSection{
+  width: 180px;
+}
+
+.mobileSection ul {
+  padding-left: 15px;
+  gap: 4px;
+}
+
+.mobileSection li {
+  color: #ddd;
+  padding: 5px 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+
+}
+
+@media screen and  (max-width: 480px) {
+  .menuMobile {
+    display: block;
+  }
+
+  
+}

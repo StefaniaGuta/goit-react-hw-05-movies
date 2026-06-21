@@ -29,30 +29,46 @@
   margin: 0;
 }
 
+.loginSection label {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.loginSection label svg{
+  position: absolute;
+  top: 19px;
+  right: 0;
+}
+
 .input{
   width: 279px;
   height: 41px;
   background-color: transparent;
-  border: 1px solid #D9D9D9;
+  border: none;
+  border-bottom: 2px solid #ffffff;
   color: #D9D9D9;
   outline: none;
-  padding: 0 10px;
+  padding: 0 5px;
   margin-top: 10px;
+  outline-style: none;
 }
 
-.loginSection label {
-  display: flex;
-  flex-direction: column;
-  color: #E1E1E1;
+
+.input::placeholder{
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .loginSection button{
-  width: 247px;
+  width: 289px;
   height: 41px;
-  background-color: rgb(18, 17, 17);
+  background: var(--bgcolor);
   border: none;
+  border-radius: 40px;
   font-family: 'Lato', sans-serif;
-  color: aliceblue;
+  color: #f0f8ffb3;
   text-transform: uppercase;
   font-weight: 600;
   text-align: center;
@@ -61,13 +77,39 @@
 
 .loginSection button:hover{
   background-color: transparent;
-  border: 1px solid aliceblue;
+  border: none;
+  transform:scale(1.03);
+  transition: transform var(--transition);
 }
 
 .loginForm a{
-  font-family: 'Lato', sans-serif;
-  font-size: 18px;
-  color: black;
+  font-size: 16px;
+  color: #ffffff;
   font-weight: 600;
   cursor: pointer;
+}
+
+@media screen and  (max-width: 374px) {
+  .loginForm{
+    margin-left: 82%;
+  }
+}
+
+
+@media screen and  (max-width: 416px) {
+  .loginForm{
+    margin-left: 64%;
+  }
+}
+
+@media screen and  (max-width: 455px) {
+  .loginForm{
+    margin-left: 50%;
+  }
+}
+
+@media screen and  (max-width: 571px) {
+  .loginForm{
+    margin-left: 30%;
+  }
 }

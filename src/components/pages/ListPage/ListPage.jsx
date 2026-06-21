@@ -211,7 +211,7 @@ const ListPage = () => {
               {recomm.map((r, index) => (
                 <li key={index} className='popularItem' onClick={() => navToPage(r)}>
 
-                  <FavoriteList item={r} />
+                  <FavoriteList item={r}/>
 
                   <img
                     src={IMAGE_URL + (r.backdrop_path || r.poster_path)}

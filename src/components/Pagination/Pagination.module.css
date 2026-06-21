@@ -7,15 +7,24 @@
 }
 
 .pagination button {
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  background: white;
+  padding: 12px 12px;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 50%;
+  color: white;
+  width: 12px;
+  height: 39px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .pagination :hover:not(:disabled) {
-  background: #eee;
+  color: #FF0000;
 }
 
 .pagination button:disabled {
@@ -23,8 +32,18 @@
   cursor: not-allowed;
 }
 
-.pagination .active {
-  background: #007bff;
-  color: white;
-  border-color: #007bff;
+.pagination .active{
+  position: relative;
+  color:#FF0000;
+}
+
+.pagination .active::after{
+  content: "";
+  width: 5px;
+  height: 5px;
+  background-color: #FF0000;
+  border-radius: 50px;
+  position: absolute;
+  bottom: -3px;
+  right: 37%;
 }
