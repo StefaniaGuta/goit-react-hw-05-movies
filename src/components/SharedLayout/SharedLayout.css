@@ -126,6 +126,9 @@
 }
 
 @media screen and  (max-width: 480px) {
+  .navigation{
+    gap: 0;
+  }
   .link{
     display: none;
   }

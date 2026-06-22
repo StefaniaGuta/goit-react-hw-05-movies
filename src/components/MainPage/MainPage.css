@@ -46,14 +46,16 @@
 .genresSection .sectionTitle{
   font-size: 35px;
   text-transform: capitalize;
-  width: 345px;
+  width: 100%;
+max-width: 345px;
   height: 79px;
   text-align: justify;
 }
 
 .mainSection .genresSection .sectionText,
 .mainSection .devicesSection .text{
-  width: 429px;
+  width: 100%;
+max-width: 429px;
   font-size: 18px;
   margin: 0;
   line-height: 26px;
@@ -115,7 +117,8 @@
 }
 
 .mainSection .devicesSection .devicesList{
-  width: 600px;
+  width: 100%;
+max-width: 600px;
   list-style-type: none;
   display: flex;
   align-items: center;
@@ -251,7 +254,7 @@
 }
 
 .mainSection .trendingList li{
-  width: 330px;
+  width: 290px;
   height: 490px;
   display: flex;
   flex-direction: column;
@@ -269,13 +272,10 @@
 .mainSection .trendingList .recentMovie img{
   box-shadow: 0px 0px 60px 0px #d3d1f0;
   border-radius: 100%;
-  width: 257px;
+  width: 100%;
   height: auto;
   display: block;
   margin: auto;
-  position: absolute;
-  z-index: 00000000000000;
-  top: 69px;
 }
 
 .mainSection .trendingList .recentMovie:nth-child(2){
@@ -283,15 +283,209 @@
 }
 
 .mainSection .trendingList .recentMovie .titleArc {
-  width: 475px;
+  width: 100%;
+  max-width: 475px;
   height: 307px;
   pointer-events: none;
   z-index: 111;
+  position: absolute;
+  top: -70px;
 }
 
 .mainSection .isPopularSection{
   margin-bottom: 0;
   height: 370px;
+}
+
+@media (max-width: 1024px) {
+
+  .mainSection .genresList {
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 50px;
+  }
+
+  .mainSection .trendingList li {
+    width: 220px;
+  }
+
+  .mainSection .devicesSection .devicesList {
+    width: 100%;
+    max-width: 600px;
+  }
+
+   .mainSection .trendingList .recentMovie .titleArc {
+    top: -35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainSection h2 {
+    font-size: 28px;
+    white-space: break-spaces;
+  }
+
+  .mainSection .genresSection {
+    height: auto;
+    margin-bottom: 80px;
+    padding: 0 20px;
+  }
+
+  .mainSection .genresSection div {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .mainSection .trendingList .recentMovie:nth-child(2){
+  transform: scale(1);
+  }
+
+  .mainSection .devicesSection .text {
+    white-space: break-spaces;
+  }
+
+  .genresSection .sectionTitle,
+  .mainSection .genresSection .sectionText,
+  .mainSection .devicesSection .text {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    text-align: center;
+  }
+
+  .mainSection .genresList {
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .mainSection .genresList li {
+    width: 100%;
+  }
+
+  .mainSection .devicesSection {
+    height: auto;
+    margin-bottom: 80px;
+    padding: 0 20px;
+  }
+
+  .mainSection .devicesSection .devicesList {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .mainSection .popularCelebritiesSection{
+    margin-bottom: 80px;
+  }
+
+  .mainSection .moveBtn {
+    display: none;
+  }
+
+  .mainSection .trendingSection {
+    height: auto;
+    margin-bottom: 80px;
+  }
+
+  .mainSection .trendingList {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .mainSection .trendingList li {
+    width: 220px;
+    height: auto;
+  }
+
+  .mainSection .trendingList .recentMovie .titleArc {
+    width: 300px;
+    top: -96px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainSection h2 {
+    font-size: 24px;
+  }
+
+  .genresSection .sectionTitle {
+    font-size: 24px;
+    width: 100%;
+  }
+
+  .mainSection .genresSection .sectionText,
+  .mainSection .devicesSection .text {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .mainSection .genresList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 40px;
+  }
+
+  .mainSection .genresList li {
+    height: 60px;
+  }
+
+  .mainSection .genresList li svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mainSection .actorsList {
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+
+  .mainSection .actorsList .actor {
+    width: 120px;
+  }
+
+  .mainSection .actorsList .actor img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .mainSection .actorsList .actor h3 {
+    font-size: 14px;
+  }
+
+  .mainSection .actorsList .actor p {
+    font-size: 12px;
+  }
+
+  .mainSection .devicesSection .devicesList {
+    gap: 20px;
+  }
+
+  .mainSection .devicesSection .devicesList li {
+    width: 100px;
+    font-size: 14px;
+  }
+
+  .mainSection .trendingList {
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .mainSection .trendingList li {
+    width: 180px;
+  }
+
+  .mainSection .trendingList .recentMovie .titleArc {
+    width: 240px;
+    top: -107px;
+  }
+
+  .mainSection .trendingList .recentMovie:nth-child(2) {
+    transform: scale(1);
+  }
 }
 
 
