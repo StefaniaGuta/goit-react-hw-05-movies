@@ -1,16 +1,21 @@
-.actorsPageSection{
-  color: aliceblue;
+
+.actorsPageSection {
   width: 100%;
+  max-width: 1400px;
+  color: aliceblue;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
- 
 }
 .actorBiography{
-  width: 410px;
-  height: 178px;
+  width: 100%;
+  height: auto;
+  max-height: 180px;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: justify;
@@ -20,11 +25,11 @@
 }
 .aboutActorWrapper{
   display: flex;
-  height: 400px;
-  gap: 147px;
-  width: 100%;
   align-items: center;
   justify-content: center;
+  gap: 10rem;
+  width: 100%;
+  padding: 3rem 0 6rem 0;
 }
 
 .socialsAccountsImageWrapper{
@@ -92,15 +97,19 @@
 }
 
 .ActorCareer{
-  width: 867px;
+  width: 100%;
+  max-width: 1100px;
   display: flex;
-  gap: 30px;
+  gap: 2rem;
   border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+  overflow: hidden;
 }
 
 .biography-actorImgs{
-  width: 410px;
-  height: 510px;
+  width: 40%;
+  min-width: 320px;
+  max-height: 510px;
   display: flex;
   flex-direction: column;
 }
@@ -113,7 +122,8 @@
 .actorCareer-Filmography{
   display: flex;
   flex-direction: column;
-  width: 428px;
+  width: 60%;
+  flex: 1;
 }
 
 .actorActingCareer{
@@ -232,12 +242,12 @@
 }
 
 .otherRolesWrapper{
-  width: 867px;
+  width: 100%;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  padding-bottom: 50px;
 }
 
 .otherRolesList{
@@ -247,7 +257,8 @@
 }
 
 .otherRolesLi{
-  width: 631px;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   border: 1px solid var(--border-color);
   border-radius: 14px;
@@ -364,3 +375,164 @@
   background: #151a2b;
 }
 
+@media (max-width: 1024px) {
+
+  .aboutActorWrapper {
+    gap: 10rem;
+  }
+
+  .ActorCareer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .biography-actorImgs,
+  .actorCareer-Filmography {
+    max-width: 700px;
+    width: 100%;
+  }
+
+  .otherRolesWrapper {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .aboutActorWrapper {
+    flex-direction: column;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .actorBiography {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .socialsAccounts {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .ActorCareer {
+    padding-top: 1.5rem;
+  }
+
+  .actorActingCareer {
+    height: auto;
+    padding-bottom: 1rem;
+  }
+
+  .otherRolesImg {
+    width: 120px;
+    height: 150px;
+  }
+
+  .jobModal {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .actorsPageSection {
+    padding: 1rem;
+  }
+
+  .socialsAccountsImageWrapper {
+    width: 120px;
+    height: 150px;
+    padding: 10px;
+  }
+
+  .socialsAccountsImage {
+    width: 120px;
+    height: 150px;
+  }
+
+  .socialsAccountsImageWrapper::before,
+  .socialsAccountsImageWrapper::after {
+    display: none;
+  }
+
+  .actorDepartmentName {
+    font-size: 18px;
+    margin: 0 auto;
+  }
+
+  .actorBiography {
+    font-size: 13px;
+    max-height: 220px;
+  }
+
+  .ActorCareerSubsectionTitle {
+    text-align: center;
+  }
+
+  .actorFilm {
+    width: 90px;
+    height: 280px;
+  }
+
+  .actorCareerFilmImg {
+    width: 90px;
+    height: 140px;
+  }
+
+  .actorCareerFilmDetailsBtn {
+    width: 90px;
+    font-size: 11px;
+  }
+
+  .otherRolesLi {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .otherRolesImg {
+    width: 140px;
+    height: 180px;
+  }
+
+  .otherRolesDepartment-overview {
+    max-height: none;
+  }
+
+  .jobButton {
+    font-size: 14px;
+  }
+
+  .jobModal {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+
+  .actorFilm {
+    width: 80px;
+  }
+
+  .actorCareerFilmImg {
+    width: 80px;
+    height: 120px;
+  }
+
+  .actorCareerFilmDescriptionCharacter,
+  .actorCareerFilmDescriptionOverview {
+    font-size: 9px;
+  }
+
+  .socialsAccountsImageWrapper {
+    transform: none;
+    border: none;
+  }
+
+  .socialsAccountsImage {
+    transform: none;
+    border-radius: 12px;
+  }
+}
