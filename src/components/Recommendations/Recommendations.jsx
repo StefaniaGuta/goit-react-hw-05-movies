@@ -2,7 +2,6 @@ import {moviesRecommendations, IMAGE_URL} from '../../redux/movies/getAPI';
 import {seriesRecommendations} from '../../redux/series/seriesApi';
 import { useDispatch } from 'react-redux';
 import { useState, useCallback  } from 'react';
-//import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import FavoriteList from '../FavoriteList/FavoriteList';
 import { Link } from 'react-router-dom';
@@ -52,6 +51,7 @@ const Recommendations = ({setActiveTab, activeTab}) => {
         {activeTab === "movies" &&
           recommMovies
           .filter(m => m.poster_path)
+          .slice(0, 8)
           .map((m, i) => (
             <Link key={i} className="Item" to={`/movie/${m.id}`}>
               <FavoriteList item={m}/>
@@ -67,6 +67,7 @@ const Recommendations = ({setActiveTab, activeTab}) => {
         activeTab === "series" &&
           recommSeries
           .filter(s => s.poster_path)
+          .slice(0, 8)
           .map((s, i) => (
               <Link key={i} className="Item" to={`/tv/${s.id}`}>
                 <FavoriteList item={s}/>

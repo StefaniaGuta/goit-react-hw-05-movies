@@ -3,30 +3,31 @@
   flex-direction: column;
   padding: 70px;
   color: #FFF;
-  gap: 150px;
+  gap: 100px;
+  overflow: hidden; 
 }
 
 .homeSection .recentlyUpdatesContainer{
   max-width: 100%;
-  height: 170px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow: hidden;
-  gap: 30px;
+  gap: 20px;
 }
 
 .homeSection .sectionTitle{
-  font-family: 'Poppsins', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 24px;
-  font-weight: medium;
+  font-weight: 500;
   letter-spacing: 0%;
   margin: 0;
 }
 
 .homeSection .recentMovie{
+  flex: 0 0 auto; 
   width: 188px;
-  height: 103px;
+  height: auto;
   display: flex;
   gap: 5px;
   align-items: center;
@@ -35,12 +36,15 @@
 .homeSection .recentryMoviesList,
 .homeSection .newReleasedList{
   display: flex;
-  height: 386px;
-  justify-content: space-between;
+  flex-wrap: nowrap; 
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  justify-content: flex-start;
   padding: 0;
   margin: 0;
-  gap: 10px;
-  align-items: center;
+  gap: 15px;
+  align-items: flex-start;
 }
 
 .homeSection li {
@@ -55,7 +59,8 @@
 }
 
 .homeSection .recentryMoviesList img{
-  height: 100px;
+  height: 90px;
+  object-fit: cover;
 } 
 
 .homeSection .movieTitle{
@@ -63,7 +68,7 @@
   white-space: nowrap;      
   overflow: hidden;         
   text-overflow: ellipsis; 
-  max-width: 100px;        
+  max-width: 123px;
   display: block;  
   font-weight: bold;
   font-size: inherit;
@@ -75,27 +80,27 @@
 
 .homeSection .recentMovieButton{
   background-color: #D9D9D9;
-  width: 60px;
-  height: 60px;
+  width: 50px; 
+  height: 50px;
   border-radius: 50%;
   border: none;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .homeSection .title_viewAll{
   display: flex;
-  align-items:baseline;
+  align-items: baseline;
   justify-content: space-between;
 }
 
-.homeSection .title_viewAll button,
-.homeSection .RecommendationContainer .viewAll{
+.homeSection .title_viewAll button{
   color: hsla(0, 0%, 100%, 0.322);
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
-  font-weight:600;
+  font-weight: 600;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -103,17 +108,18 @@
 
 .homeSection .newReleasedItem img{
   width: 100%;
-  height: 293px;
+  height: 300px;
   display: block;
-  object-fit: fill;
+  object-fit: cover; 
   border-radius: 10px;
 }
 
 .homeSection .titleSection,
 .homeSection .runtime_vote{
-  height: 20px;
+  height: auto;
+  min-height: 20px;
   display: flex;
-  align-items: last baseline;
+  align-items: center;
   justify-content: space-between;
   padding: 0 5px;
 }
@@ -122,13 +128,15 @@
   display: flex;
   gap: 10px;
   padding: 0;
+  margin: 0;
 }
 
 .homeSection .titleSection .movieTitle,
 .homeSection .newReleasedItem .movieTitle{
-  max-width: 146px;
+  max-width: 100%;
   margin: 10px 0 0 0;
 }
+
 .homeSection .movieGenre{
   border-radius: 8px;
   font-size: 11px;
@@ -140,19 +148,19 @@
   padding: 4px 5px;
 }
 
-/*newrealed*/
-
 .homeSection .newReleasedContainer{
   max-width: 100%;
-  height: 450px;
+  height: auto;
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
 .homeSection .newReleasedItem{
-  width: 256px;
-  height: 400px;
+  flex: 0 0 calc(20% - 12px);
+  min-width: 180px;
+  max-width: 240px;
+  height: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -170,10 +178,7 @@
   position: absolute;
   top: 5px;
   left: 5px;
-}
-
-.homeSection .newReleasedItem img{
-  height: 344px;
+  z-index: 2;
 }
 
 .homeSection .newReleasedItem:hover .addToListSection{
@@ -185,14 +190,16 @@
   margin: 0;
   padding: 3px;
   border-radius: 8px;
-  width: 70px;
-  height: 16px;
+  width: 65px;
+  height: auto;
   text-align: center;
+  font-size: 12px;
 }
 
 .homeSection .runtime_vote{
-  width: 96.5%;
+  width: 95%;
   position: absolute;
+  bottom: 55px; 
 }
 
 .homeSection .runtime_vote span{
@@ -205,11 +212,63 @@
   height: 13px;
 }
 
+@media (max-width: 1024px) {
+  .homeSection {
+    padding: 40px;
+    gap: 60px;
+  }
+  
+  .homeSection .newReleasedItem {
+    flex: 0 0 calc(25% - 12px);
+    min-width: 150px;
+  }
+
+  .homeSection .newReleasedItem img {
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .homeSection {
+    padding: 20px;
+    gap: 40px;
+  }
+
+  .homeSection .newReleasedItem {
+    flex: 0 0 calc(33.33% - 10px); 
+    min-width: 120px;
+  }
+
+  .homeSection .newReleasedItem img {
+    height: 180px; 
+  }
+  
+  .homeSection .recentMovie {
+    width: 150px; 
+  }
+  
+  .homeSection .recentryMoviesList img {
+    height: 75px;
+  }
+}
+
+@media (max-width: 480px) {
+  .homeSection .newReleasedItem {
+    flex: 0 0 calc(50% - 8px); 
+  }
+
+  .homeSection .newReleasedItem img {
+    height: 150px;
+  }
+
+  .homeSection .sectionTitle {
+    font-size: 18px;
+  }
+}
+
 .homeSection .RecommendationContainer{
   display: flex;
   flex-direction: column;
-  height: 848px;
-  overflow-y: hidden;
   position: relative;
 }
 
@@ -219,7 +278,6 @@
   right: 0;
 }
 
-/*Trailers*/
 .homeSection .trailersContainer{
   width: 100%;
   height: 300px;

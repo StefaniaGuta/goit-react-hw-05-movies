@@ -1,66 +1,200 @@
-.RecommendationSection{
-  min-width: 100%;
+.RecommendationSection {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  box-sizing: border-box;
 }
 
-.RecommendationSection .recommendationList{
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-}
-
-.RecommendationSection .Item{
-  width: 256px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-}
-
-.RecommendationSection .Item:hover .addToListSection{
-  visibility: visible;
-}
-
-.RecommendationSection .Item img{
-  display: block;
+.RecommendationSection .title_filters {
   width: 100%;
-  height: 344px;
-  object-fit: fill;
-  border-radius: 10px;
-}
-
-.RecommendationSection .Item .movieTitle{
-  max-width: 180px;
-  margin: 10px 0 0 0;
-}
-
-.RecommendationSection .title_filters{
-  width: 500px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
-
 }
 
 .RecommendationSection .title_filters button {
   border: 1px solid #FF0000;
   background-color: transparent;
   color: #ffffff80;
-  width: 78px;
+  min-width: 78px;
   height: 31px;
   font-size: 14px;
   font-weight: 600;
   border-radius: 10px;
-  padding: 0;
+  padding: 0 12px;
   text-align: center;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .RecommendationSection .title_filters button:hover,
-.RecommendationSection .title_filters button:active{
+.RecommendationSection .title_filters button:active {
   color: #FFFFFF;
-  border: none;
+  border: 1px solid #FF0000;
   background-color: #FF0000;
+}
+
+.RecommendationSection .recommendationList {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.RecommendationSection .Item {
+  width: 100%;
+  max-width: 240px; 
+  margin: 0 auto;  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  transition: transform 0.25s ease;
+}
+
+.RecommendationSection .Item:hover {
+  transform: translateY(-5px);
+}
+
+.RecommendationSection .Item:hover .addToListSection {
+  visibility: visible;
+}
+
+.RecommendationSection .Item img {
+  width: 100%;
+  height: 344px; 
+  display: block;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: box-shadow 0.25s ease;
+}
+
+.RecommendationSection .Item:hover img {
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); 
+}
+
+.RecommendationSection .Item .movieTitle {
+  width: 100%;
+  margin: 10px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .RecommendationSection .recommendationList {
+    gap: 20px;
+  }
+
+  .RecommendationSection .Item img {
+    height: 300px; 
+  }
+
+  .RecommendationSection .Item .movieTitle {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 992px) {
+  .RecommendationSection .recommendationList {
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 18px;
+  }
+
+  .RecommendationSection .Item img {
+    height: 260px;
+  }
+
+  .RecommendationSection .Item .movieTitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .RecommendationSection {
+    gap: 20px;
+  }
+
+  .RecommendationSection .recommendationList {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .RecommendationSection .Item img {
+    height: 220px;
+  }
+
+  .RecommendationSection .title_filters {
+    gap: 8px;
+  }
+
+  .RecommendationSection .title_filters button {
+    min-width: 70px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .RecommendationSection .Item .movieTitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .RecommendationSection .sectionTitle {
+    display: none;
+  }
+
+  .RecommendationSection {
+    gap: 15px;
+  }
+
+  .RecommendationSection .recommendationList {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 12px;
+  }
+
+  .RecommendationSection .Item img {
+    height: 180px;
+  }
+
+  .RecommendationSection .title_filters button {
+    min-width: 64px;
+    height: 28px;
+    font-size: 12px;
+    border-radius: 8px;
+    padding: 0 8px;
+  }
+
+  .RecommendationSection .Item .movieTitle {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .RecommendationSection .recommendationList {
+    grid-template-columns: 1fr;
+  }
+
+  .RecommendationSection .Item {
+    max-width: 200px;
+  }
+
+  .RecommendationSection .Item img {
+    height: 280px;
+  }
+
+  .RecommendationSection .title_filters button {
+    min-width: 60px;
+    font-size: 11px;
+  }
 }
