@@ -17,7 +17,7 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const [recommendation, setRecommendation] = useState([]);
-  const [visibleHeight, setVisibleHeight] = useState(218);
+  const [visibleHeight, setVisibleHeight] = useState(235);
   const navigate = useNavigate();
   const [recommendationId, setRecommendationId] = useState(movieId);
   const fallbackId = "1038392";
@@ -25,10 +25,10 @@ const MovieDetails = () => {
   const handleSeeMore = () => {
     const maxHeight = recommendation.slice(0, 15).length * 43;
     setVisibleHeight(prev =>
-      Math.min(prev + 218, maxHeight)
+      Math.min(prev + 235, maxHeight)
     );
     if(maxHeight === visibleHeight){
-      setVisibleHeight(218)
+      setVisibleHeight(235)
     }
   };
 

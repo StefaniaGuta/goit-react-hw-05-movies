@@ -75,18 +75,16 @@ const Home = () => {
         <h2 className='sectionTitle'>Recently Updated</h2>
         <ul className='recentryMoviesList'>
         {recentMovies ? (recentMovies.filter(m => m.poster_path)
-        .sort((a, b) => b.release_date - a.release_date)
+        .sort((a, b) => new Date(b.release_date) - new Date(a.release_date))
         .slice(0, 5)
         .map((movie, i) => (
-            <Link key={i} className="recentMovie" to={`/movie/${movie.id}`}>
+            <li key={i} className="recentMovie" onClick={() => navigate(`/movie/${movie.id}`)}>
               <img
                 src={IMAGE_URL + movie.poster_path}
                 alt={movie.title || movie.name}
               />
-              <div>
                 <h2 className='movieTitle'>{movie.title || movie.name}</h2>
-              </div>
-            </Link>
+            </li>
         )) ) : (<p>no</p>)}
         <button onClick={() => handlerNavigate("popular")} className='recentMovieButton' type='button'>&#10230;</button>
       </ul>
@@ -100,7 +98,7 @@ const Home = () => {
         <ul className='newReleasedList'>
           {releasedMovie.filter(m => m.poster_path)
           .sort((a, b) => b.vote_average - a.vote_average)
-          .slice(0, 4)
+          .slice(0, 5)
           .map((movie, i) => (
               <Link key={i} className="newReleasedItem">
                 <FavoriteList item={movie} mediaType={"movie"}/>
@@ -141,7 +139,7 @@ const Home = () => {
         <ul className='newReleasedList'>
           {series.filter(m => m.poster_path)
           .sort((a, b) => b.popularity - a.popularity)
-          .slice(0, 4)
+          .slice(0, 5)
           .map((s, i) => (
               <Link key={i} className="newReleasedItem">
                 <FavoriteList item={s}/>
