@@ -59,7 +59,7 @@
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 10;
-  margin-top: 300px;
+  margin-top: 350px;
 }
 
 .title-watchlist-container .movieName {
@@ -154,8 +154,8 @@
 }
 
 .movie-details p {
-  margin: 10px 0;
   font-size: 0.95rem;
+  line-height: 1.4rem;
 }
 
 .movieExtraInfo {
@@ -371,7 +371,8 @@
   }
 
   .infoAbtMovie .infoAbtMovieImg{
-    width: 100px;
+    width: 200px;
+    height: 250px;
   }
 
   .title-watchlist-container{
@@ -387,6 +388,11 @@
     border: none;
     padding: 0;
     backdrop-filter: unset;
+  }
+
+  .movie-details p {
+    border-bottom: unset;
+    padding: 0;
   }
 }
 
