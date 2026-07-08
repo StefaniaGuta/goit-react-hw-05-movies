@@ -1,94 +1,157 @@
-.createWatchlistSection{
+.createWatchlistSection {
   width: 100%;
-  height: 100%;
-  background-color: #0c0f17cb;
-  display: flex;
-  justify-items: center;
-  align-items: center;
-  z-index: 99999999;
+  height: 100vh;
+  background-color: rgba(12, 15, 23, 0.85); 
+  backdrop-filter: blur(8px); 
   position: fixed;
   top: 0;
+  left: 0;
   right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 99999;
+  padding: 20px; 
+  box-sizing: border-box;
 }
 
-.createWatchlistForm{
-  width: 700px;
-  height: 280px;
+.createWatchlistForm {
+  width: 100%;
+  max-width: 600px; 
+  background-color: #0c0f17;
+  border: 1px solid var(--border-color, #232a3d);
+  border-radius: 16px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  color: #E1E1E1;
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  background-color: #0c0f17;
-  padding: 15px;
   gap: 20px;
-  position: relative;
-}
-
-.createWatchlistFormTitle{
-  font-size: 20px;
   color: #E1E1E1;
-  width: 219px;
-  margin: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
 }
 
-.createWatchlistFormLabel{
-  font-size: 18px;
-  font-weight: 600;
-  width: 461px;
+.createWatchlistFormTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 5px 0;
+}
+
+.createWatchlistFormLabel {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #b0b5c6;
+  width: 100%;
 }
 
-.inputWatchlistDescription,
-.inputWatchlistName{
-  width: 295px;
-  height: 144px;
-  outline: none;
-  border: 1px solid var(--border-color);
+.inputWatchlistName,
+.inputWatchlistDescription {
+  width: 100%; 
   background-color: #111522;
-  border-radius: 4px;
-  padding: 5px;
+  border: 1px solid var(--border-color, #232a3d);
+  border-radius: 8px;
+  padding: 12px;
   color: #E1E1E1;
-  font-size: 16px;
+  font-size: 15px;
+  font-family: sans-serif;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.inputWatchlistName{
-  height: 40px;
+.inputWatchlistName {
+  height: 45px;
 }
 
-.createWatchlistFormBtnContainer{
+.inputWatchlistDescription {
+  height: 120px;
+  resize: none; 
+}
+
+.inputWatchlistName:focus,
+.inputWatchlistDescription:focus {
+  border-color: var(--border-color, gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.15);
+}
+
+.createWatchlistFormBtnContainer {
   display: flex;
-  gap: 10px;
+  justify-content: flex-end; 
   align-items: center;
-  width: 187px;
-  height: 50px;
-  position: absolute;
-  bottom: 21px;
-  right: 10px;
+  gap: 15px;
+  margin-top: 10px;
+  width: 100%;
 }
 
-.createWatchlistFormCancelBtn{
+.createWatchlistFormCancelBtn {
   background-color: transparent;
   border: none;
-  color: var(--border-color);
-  font-size: 16px;
-  width: 60px;
-  height: 24px;
-  border-bottom: 2px solid gold;
-  padding-bottom: 2px;
-  text-align: center;
+  color: #a0a5b5;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.2s;
 }
 
-.createWatchlistFormSaveBtn{
-  background-color: var(--border-color);
-  border-radius: 4px;
-  width: 110px;
-  height: 41px;
-  border: none;
-  font-size: 16px;
+.createWatchlistFormCancelBtn:hover {
+  color: #ffffff;
+}
+
+.createWatchlistFormSaveBtn {
+  background-color: var(--border-color, gold);
   color: #000000;
+  border: none;
+  border-radius: 8px;
+  width: 120px;
+  height: 42px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.createWatchlistFormSaveBtn:hover {
+  opacity: 0.9;
+}
+
+.createWatchlistFormSaveBtn:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 576px) {
+  .createWatchlistSection {
+    padding: 16px;
+  }
+
+  .createWatchlistForm {
+    padding: 20px;
+    gap: 16px;
+    border-radius: 12px;
+  }
+
+  .createWatchlistFormTitle {
+    font-size: 19px;
+  }
+
+  .createWatchlistFormBtnContainer {
+    flex-direction: column-reverse; 
+    gap: 10px;
+    margin-top: 5px;
+  }
+
+  .createWatchlistFormSaveBtn,
+  .createWatchlistFormCancelBtn {
+    width: 100%; 
+    height: 45px;
+    text-align: center;
+  }
+
+  .createWatchlistFormCancelBtn {
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05); 
+  }
 }
