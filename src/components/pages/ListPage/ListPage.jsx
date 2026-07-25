@@ -108,8 +108,6 @@ const ListPage = () => {
     }
   }
 
-  console.log(filteredItems)
-
   return (
     <section className='listPageSection'>
 

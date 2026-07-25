@@ -33,6 +33,7 @@
   color: #ffffff;
   flex: 1;
   min-width: 0; 
+  cursor: pointer;
 }
 
 .homeSection .newReleasedList{
