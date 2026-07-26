@@ -25,7 +25,6 @@ const FavoriteList = ({item}, wish) => {
         console.log(e)
     }
   }
-console.log("wish",wish)
   const navToPage = () => {
     if (sez) {
       navigate(`/serie/${item.id}`);

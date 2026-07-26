@@ -26,16 +26,25 @@ const ListPage = () => {
   const toggleLibrary = () => setIsLibraryOpen(prev => !prev);
 
   const mov = useSelector(selectFirstRecentMovies);
-  const ser = useSelector(state => state?.series.series.slice(0, 5));
+  const ser = useSelector(state => {
+    return Array.isArray(state.series.series)
+      ? state.series.series.slice(0, 5)
+      : [];
+  });
   const all = mov.concat(ser);
+
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await dispatch(getList());
-      setItems(res.payload.movies);
-
-      const wishRes = await dispatch(getWishList());
-      setWishes(wishRes.payload.wishLists || []);
+      try{
+        const res = await dispatch(getList());
+        setItems(res.payload.movies);
+  
+        const wishRes = await dispatch(getWishList());
+        setWishes(wishRes.payload.wishLists || []);
+      }catch(e){
+        console.log(e)
+      }
     };
 
     fetchData();
@@ -73,44 +82,61 @@ const ListPage = () => {
     });
   }
 
-  const lastElemAdded = filteredItems[filteredItems.length-1];
+  const recommendationSource =
+  filteredItems.length > 0
+    ? filteredItems[filteredItems.length - 1]
+    : items.length > 0
+      ? items[items.length - 1]
+      : null;
 
   useEffect(() => {
-    const fetchRecomm = async () =>{
-      if(lastElemAdded.mediaType === "movie"){
-        const getRec = await dispatch(moviesRecommendations({id: lastElemAdded.movieId}));
-        setRecomm(getRec.payload.results)
-      } else if(lastElemAdded.mediaType === "tv"){
-        const getResSer = await dispatch(seriesRecommendations({id: lastElemAdded.movieId}));
-        setRecomm(getResSer.payload.results)
+  if (!recommendationSource) return;
+  
+
+  const fetchRecomm = async () => {
+    try{
+      if (recommendationSource.mediaType === "movie") {
+        const res = await dispatch(
+          moviesRecommendations({ id: recommendationSource.movieId })
+        );
+        setRecomm(res.payload.results);
+      } else {
+        const res = await dispatch(
+          seriesRecommendations({ id: recommendationSource.movieId })
+        );
+        setRecomm(res.payload.results);
       }
+    }catch(e){
+      console.log(e)
     }
-    fetchRecomm();
-  }, [dispatch, lastElemAdded]);
+  };
+
+  fetchRecomm();
+}, [recommendationSource, dispatch]);
 
   const getLibraryLabel = () => {
-  if (!selectedList) return "Your Library";
+    if (!selectedList) return "Your Library";
 
-  if (selectedList === "favorite") return "Favorites";
-  if (selectedList === "watched") return "Watched";
-  if (selectedList === "general") return "General";
+    if (selectedList === "favorite") return "Favorites";
+    if (selectedList === "watched") return "Watched";
+    if (selectedList === "general") return "General";
 
-  const foundWish = wishes.find(w => w._id === selectedList);
-  return foundWish ? foundWish.name : "Your Library";
-};
+    const foundWish = wishes.find(w => w._id === selectedList);
+    return foundWish ? foundWish.name : "Your Library";
+  };
 
- const navToPage = (item) => {
+  const navToPage = (item) => {
     if (item.mediaType || item.media_type === "tv") {
       navigate(`/serie/${item.movieId || item.id}`);
-      console.log(item.movieId || item.id)
     } else{
       navigate(`/movie/${item.movieId || item.id}`);
     }
   }
 
+
+
   return (
     <section className='listPageSection'>
-
       <div className="content">
         <h1 className='listPageTitle'>
           Welcome to <span>Watchlist</span>

@@ -12,7 +12,8 @@ export const postItemInTheList = createAsyncThunk(
 			return res.data
 		}catch(e){
 			console.log(e)
-			return thunkAPI.rejectWithValue(e.response.data);
+      console.log("eroare")
+			return thunkAPI.rejectWithValue(e);
 		}
 	}
 )
@@ -22,9 +23,10 @@ export const getList = createAsyncThunk(
 	async(_, thunkAPI) => {
 		try{
 			const res = await axios.get(`${URL}/movies`);
+      console.log(res)
 			return res.data;
 		} catch(e){
-			return thunkAPI.rejectWithValue(e.response.data)
+			return thunkAPI.rejectWithValue(e)
 		}
 	}
 )
@@ -36,7 +38,7 @@ export const deleteItemFromTheList = createAsyncThunk(
 			const res = await axios.delete(`${URL}/movies/${movieId}?mediaType=${mediaType}&type=${type}`)
 			return res.data
 		} catch(e){
-			return thunkAPI.rejectWithValue(e.response.data)
+			return thunkAPI.rejectWithValue(e)
 		}
 	}
 )
