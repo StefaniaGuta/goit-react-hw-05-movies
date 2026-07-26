@@ -6,7 +6,6 @@ import { newSeriesFetch } from '../../redux/series/seriesApi';
 import {useDispatch, useSelector} from 'react-redux';
 import Recommendations from '../Recommendations/Recommendations';
 import url from '../Images/icons.svg';
-import FavoriteList from '../FavoriteList/FavoriteList';
 import {selectRecentMovies} from '../../redux/movies/selectors';
 import './Home.css';
 
@@ -100,8 +99,7 @@ const Home = () => {
           .sort((a, b) => b.vote_average - a.vote_average)
           .slice(0, 5)
           .map((movie, i) => (
-              <Link key={i} className="newReleasedItem">
-                <FavoriteList item={movie} mediaType={"movie"}/>
+              <Link key={i} className="newReleasedItem" to={`/movie/${movie.id}`}>
                 <img
                   src={IMAGE_URL + movie.poster_path}
                   alt={movie.title || movie.name}
@@ -141,8 +139,7 @@ const Home = () => {
           .sort((a, b) => b.popularity - a.popularity)
           .slice(0, 5)
           .map((s, i) => (
-              <Link key={i} className="newReleasedItem">
-                <FavoriteList item={s}/>
+              <Link key={i} className="newReleasedItem" to={`/serie/${s.id}`}>
                 <img
                   src={IMAGE_URL + s.poster_path}
                   alt={s.title || s.name}

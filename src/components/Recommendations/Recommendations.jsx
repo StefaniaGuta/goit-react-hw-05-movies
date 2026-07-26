@@ -3,7 +3,6 @@ import {seriesRecommendations} from '../../redux/series/seriesApi';
 import { useDispatch } from 'react-redux';
 import { useState, useCallback  } from 'react';
 import { useEffect } from 'react';
-import FavoriteList from '../FavoriteList/FavoriteList';
 import { Link } from 'react-router-dom';
 
 import './Recommendations.css';
@@ -54,7 +53,6 @@ const Recommendations = ({setActiveTab, activeTab}) => {
           .slice(0, 8)
           .map((m, i) => (
             <Link key={i} className="Item" to={`/movie/${m.id}`}>
-              <FavoriteList item={m}/>
               <img
                 src={IMAGE_URL + m.poster_path}
                 alt={m.title || m.name}
@@ -69,8 +67,7 @@ const Recommendations = ({setActiveTab, activeTab}) => {
           .filter(s => s.poster_path)
           .slice(0, 8)
           .map((s, i) => (
-              <Link key={i} className="Item" to={`/tv/${s.id}`}>
-                <FavoriteList item={s}/>
+              <Link key={i} className="Item" to={`/serie/${s.id}`}>
                 <img
                   src={IMAGE_URL + s.poster_path}
                   alt={s.title || s.name}

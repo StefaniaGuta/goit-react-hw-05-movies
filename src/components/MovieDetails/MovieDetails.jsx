@@ -9,6 +9,7 @@ import Cast from 'components/Cast/Cast';
 import url from '../Images/icons.svg';
 import Trailers from 'components/Trailer/Trailer';
 import RatingStars from 'components/RatingStars/RatingStars';
+import FavoriteList from 'components/FavoriteList/FavoriteList';
 import './MovieDetails.css';
 
 const MovieDetails = () => {
@@ -93,10 +94,7 @@ const MovieDetails = () => {
                 <h1 className='movieName'>
                   {movie.name || movie.title}   ({new Date(movie.release_date).getFullYear()})
                 </h1>
-                <span>
-                  <svg className='addToListSvg' width="30" height="30"><use xlinkHref={`${url}#heart`}/></svg>
-                  <svg className='addToListSvg' width="22" height="25" ><use xlinkHref={`${url}#favorite`}/></svg>
-                </span>
+                <FavoriteList item={movie} mediaType={"movie"}/>
               </span>
               <div className='infoAbtMovie'>
                 <div>

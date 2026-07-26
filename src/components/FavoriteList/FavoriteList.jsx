@@ -63,12 +63,12 @@ return (
       <svg width="28" height="27" className='listSvg' onClick={() => addToList({type: "favorite"})} ><use xlinkHref={`${url}#heart`}/></svg>
     </span>
 
-    <span title="add to watched list" className="customListWrapper"> 
+    <span title="add to watched list"> 
       <svg width="21" height="21" onClick={() => addToList({type: "watched"})} className='listSvg'><use xlinkHref={`${url}#eye`}/></svg> 
     </span>
     <div className="customListWrapper">
       <span title="add to watch list">
-        <svg width="28" height="27" onClick={() => setOpenLists(prev => !prev)} className='listSvg'><use xlinkHref={`${url}#favorite`}/></svg>
+        <svg width="20" height="27" onClick={() => setOpenLists(prev => !prev)} className='listSvg'><use xlinkHref={`${url}#favorite`}/></svg>
         {openLists && (
           <ul className="customListsDropdown">
             {wish ? (wish.map(list => (

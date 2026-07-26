@@ -10,6 +10,7 @@ import Cast from 'components/Cast/Cast';
 import url from '../Images/icons.svg';
 import Trailers from 'components/Trailer/Trailer';
 import RatingStars from 'components/RatingStars/RatingStars';
+import FavoriteList from 'components/FavoriteList/FavoriteList';
 import "./SeriesDetails.css";
 
 const SeriesDetails = () => {
@@ -111,10 +112,7 @@ const getSeasonsEpisodes = async (seasonNumber) => {
                 <h1 className='seriesName'>
                   {series.name || series.title}   ({new Date(series.first_air_date).getFullYear()})
                 </h1>
-                <span>
-                  <svg className='addToListSvg' width="30" height="30"><use xlinkHref={`${url}#heart`}/></svg>
-                  <svg className='addToListSvg' width="22" height="25" ><use xlinkHref={`${url}#favorite`}/></svg>
-                </span>
+                <FavoriteList item={series} mediaType={"tv"}/>
               </span>
               <div className='infoAbtseries'>
                 <div className='poster_trailer_network_series_wrapper'>

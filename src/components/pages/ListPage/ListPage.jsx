@@ -4,7 +4,6 @@ import {seriesRecommendations} from '../../../redux/series/seriesApi';
 import {selectFirstRecentMovies} from '../../../redux/movies/selectors';
 import url from '../../Images/icons.svg';
 import RatingStars from '../../RatingStars/RatingStars';
-import FavoriteList from '../../FavoriteList/FavoriteList';
 import CreateWatchlist from '../../CreateWatchlist/CreateWatchlist'; 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -190,7 +189,6 @@ const ListPage = () => {
                     </ul>
                   )}
                 </div>
-
               </div>
             )}
           </div>
@@ -227,21 +225,16 @@ const ListPage = () => {
             <ul className='listPopularItems'>
               {recomm.map((r, index) => (
                 <li key={index} className='popularItem' onClick={() => navToPage(r)}>
-
-                  <FavoriteList item={r}/>
-
                   <img
                     src={IMAGE_URL + (r.backdrop_path || r.poster_path)}
                     alt={r.title || r.name}
                   />
-
                   <div className='titleVoteWrapper'>
                     <h2 className='listPageMovieTitle'>
                       {r.title || r.name}
                     </h2>
                     <p className='listPageMovieAverage'>{r.vote_average.toFixed(1)}</p>
                   </div>
-
                   <RatingStars voteAverage={r.vote_average} />
                 </li>
               ))}
@@ -250,14 +243,12 @@ const ListPage = () => {
           </>
         ) : (
           <div className='emptyState'>
-
             <div className='listPageTitleDescription'>
               <span className='listPageDescription'>
                 No movies here yet 🎬 <br />
                 Start adding movies to this list.
               </span>
             </div>
-
             <h2 className='listPageSubtitle'>
               Popular movies right now
             </h2>
@@ -265,14 +256,10 @@ const ListPage = () => {
             <ul className='listPopularItems'>
               {all.map((a, index) => (
                 <li key={index} className='popularItem' onClick={() => navToPage(a)}>
-
-                  <FavoriteList item={a} />
-
                   <img
                     src={IMAGE_URL + (a.backdrop_path || a.poster_path)}
                     alt={a.title || a.name}
                   />
-
                   <div className='titleVoteWrapper'>
                     <h2 className='listPageMovieTitle'>
                       {a.title || a.name}
