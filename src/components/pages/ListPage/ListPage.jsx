@@ -2,7 +2,6 @@ import {getList, deleteItemFromTheList} from '../../../redux/list/listOperantion
 import { IMAGE_URL, moviesRecommendations} from '../../../redux/movies/getAPI';
 import {seriesRecommendations} from '../../../redux/series/seriesApi';
 import {selectFirstRecentMovies} from '../../../redux/movies/selectors';
-import {getWishList} from '../../../redux/wishList/wishList';
 import url from '../../Images/icons.svg';
 import RatingStars from '../../RatingStars/RatingStars';
 import FavoriteList from '../../FavoriteList/FavoriteList';
@@ -16,8 +15,8 @@ const ListPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
-  const [wishes, setWishes] = useState([]);
   const [selectedList, setSelectedList] = useState("favorite");
+  const lists = useSelector(state => state?.wishlist?.wishlist?.wishLists);
   const [open, setOpen] = useState(false);
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [isMyListOpen, setIsMyListOpen] = useState(false);
@@ -39,9 +38,6 @@ const ListPage = () => {
       try{
         const res = await dispatch(getList());
         setItems(res.payload.movies);
-  
-        const wishRes = await dispatch(getWishList());
-        setWishes(wishRes.payload.wishLists || []);
       }catch(e){
         console.log(e)
       }
@@ -90,29 +86,28 @@ const ListPage = () => {
       : null;
 
   useEffect(() => {
-  if (!recommendationSource) return;
-  
-
-  const fetchRecomm = async () => {
-    try{
-      if (recommendationSource.mediaType === "movie") {
-        const res = await dispatch(
-          moviesRecommendations({ id: recommendationSource.movieId })
-        );
-        setRecomm(res.payload.results);
-      } else {
-        const res = await dispatch(
-          seriesRecommendations({ id: recommendationSource.movieId })
-        );
-        setRecomm(res.payload.results);
+    if (!recommendationSource) return;
+    
+    const fetchRecomm = async () => {
+      try{
+        if (recommendationSource.mediaType === "movie") {
+          const res = await dispatch(
+            moviesRecommendations({ id: recommendationSource.movieId })
+          );
+          setRecomm(res.payload.results);
+        } else {
+          const res = await dispatch(
+            seriesRecommendations({ id: recommendationSource.movieId })
+          );
+          setRecomm(res.payload.results);
+        }
+      }catch(e){
+        console.log(e)
       }
-    }catch(e){
-      console.log(e)
-    }
-  };
+    };
 
-  fetchRecomm();
-}, [recommendationSource, dispatch]);
+    fetchRecomm();
+  }, [recommendationSource, dispatch]);
 
   const getLibraryLabel = () => {
     if (!selectedList) return "Your Library";
@@ -121,7 +116,7 @@ const ListPage = () => {
     if (selectedList === "watched") return "Watched";
     if (selectedList === "general") return "General";
 
-    const foundWish = wishes.find(w => w._id === selectedList);
+    const foundWish = lists.find(w => w._id === selectedList);
     return foundWish ? foundWish.name : "Your Library";
   };
 
@@ -132,8 +127,6 @@ const ListPage = () => {
       navigate(`/movie/${item.movieId || item.id}`);
     }
   }
-
-
 
   return (
     <section className='listPageSection'>
@@ -180,9 +173,9 @@ const ListPage = () => {
                     My Lists ▶
                   </button>
 
-                  {wishes.length > 0 && isMyListOpen && (
+                  {lists.length > 0 && isMyListOpen && (
                     <ul className="myListDropdown">
-                      {[...wishes].map(w => (
+                      {[...lists].map(w => (
                         <li
                           key={w._id}
                           className={`myListItem ${selectedList === w._id ? "active" : ""}`}
