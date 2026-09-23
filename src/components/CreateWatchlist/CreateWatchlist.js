@@ -17,7 +17,6 @@ const Watchlist = ({setOpen, open}) => {
   const handleSubmit = async() => {
     try{
       const res = await dispatch(createWishList(form));
-      console.log(res)
       resetForm();
       closeModal();
       return res;

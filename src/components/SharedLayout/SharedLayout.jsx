@@ -131,6 +131,7 @@ const SharedLayout = () => {
               <div className='userMenuList'>
                 <button onClick={() => logout()} className='logOutButton' type='submit'>Logout</button>
                 <Link to="/list" onClick={openMenu} className='watchlistLink'>Watchlist</Link>
+                <Link to="/list" onClick={openMenu} className='watchlistLink'>Settings</Link>
               </div>  
               : null}
             </div>)) 

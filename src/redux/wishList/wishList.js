@@ -8,7 +8,6 @@ export const createWishList = createAsyncThunk(
 	async(credentials, thunkAPI) => {
 		try{
 			const res = await axios.post(`${URL}/wishListCreate`, credentials);
-			console.log(res)
 			return res.data
 		}catch(e){
 			console.log(e)
@@ -35,7 +34,6 @@ export const getOneWishList = createAsyncThunk(
 	async(listId, thunkAPI) =>{
 		try{
 			const res = await axios.get(`${URL}/${listId}`);
-			console.log(res.data)
 			return res.data
 		} catch(e){
 			console.log(e);
@@ -43,3 +41,32 @@ export const getOneWishList = createAsyncThunk(
 		}
 	}
 )
+
+export const deleteWishList = createAsyncThunk(
+	'wishList/deleteWishList',
+	async(listId, thunkAPI) => {
+		try{
+			const res = await axios.delete(`${URL}/${listId}`);
+			return res.data
+		} catch(e){
+			return thunkAPI.rejectWithValue(e.response.data)
+		}
+	}
+)
+
+export const updateWishList = createAsyncThunk(
+  'wishList/updateWishList',
+  async ({ id, name, description }, thunkAPI) => {
+    try {
+      const res = await axios.put(`${URL}/${id}`, {
+        name,
+        description
+      });
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(
+        e.response?.data || { message: 'Server error' }
+      );
+    }
+  }
+);

@@ -24,9 +24,6 @@ const listSlice = createSlice({
     })
     .addCase(deleteItemFromTheList.fulfilled, (state, action) => {
       state.movies = action.payload
-      
-      console.log("state.movies", state.movies)
-      console.log("action.payload", action.payload)
       state.isLoading = false;
       state.error = null;
     })

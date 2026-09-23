@@ -1,0 +1,168 @@
+.editWishListPopup{
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(12, 15, 23, 0.85); 
+  backdrop-filter: blur(8px); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  padding: 20px; 
+  box-sizing: border-box;
+}
+
+.editWatchlistForm {
+  width: 100%;
+  max-width: 600px; 
+  background-color: #0c0f17;
+  border: 1px solid var(--border-color, #232a3d);
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #E1E1E1;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.editWatchlistFormTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 5px 0;
+}
+
+.editWatchlistFormLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #b0b5c6;
+  width: 100%;
+}
+
+.editedInputWatchlistName,
+.editedInputWatchlistDescription {
+  width: 100%; 
+  background-color: #111522;
+  border: 1px solid var(--border-color, #232a3d);
+  border-radius: 8px;
+  padding: 12px;
+  color: #E1E1E1;
+  font-size: 15px;
+  font-family: sans-serif;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.editedInputWatchlistName {
+  height: 45px;
+}
+
+.editedInputWatchlistDescription {
+  height: 120px;
+  resize: none; 
+}
+
+.editedInputWatchlistName:focus,
+.editedInputWatchlistDescription:focus {
+  border-color: var(--border-color, gold);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.15);
+}
+
+.editWatchlistFormBtnContainer {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.editWishListPopup .editWatchlistFormCancelBtn {
+  background-color: transparent;
+  border: none;
+  color: #a0a5b5;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: color 0.2s;
+}
+
+.editWishListPopup .editWatchlistFormCancelBtn:hover {
+  color: #ffffff;
+	transform: unset;
+	text-decoration: none;
+	transition: none;
+	font-weight: 300;
+}
+
+.editWishListPopup .editWatchlistFormSaveBtn {
+  background-color: var(--border-color, gold);
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  width: 120px;
+  height: 42px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.editWishListPopup .editWatchlistFormSaveBtn:hover {
+  opacity: 0.9;
+	text-decoration: unset;
+	color: #000000;
+}
+
+.editWishListPopup .editWatchlistFormSaveBtn:active {
+  transform: scale(0.98);
+	text-decoration: unset;
+	color: #000000;
+}
+
+@media (max-width: 576px) {
+  .editWatchlistSection {
+    padding: 16px;
+  }
+
+  .editWatchlistForm {
+    padding: 20px;
+    gap: 16px;
+    border-radius: 12px;
+  }
+
+  .editWatchlistFormTitle {
+    font-size: 19px;
+  }
+
+  .editWatchlistFormBtnContainer {
+    flex-direction: column-reverse; 
+    gap: 10px;
+    margin-top: 5px;
+  }
+
+  .editWishListPopup .editWatchlistFormSaveBtn,
+  .editWishListPopup .editWatchlistFormCancelBtn {
+    width: 100%; 
+    height: 45px;
+    text-align: center;
+  }
+
+  .editWishListPopup .editWatchlistFormCancelBtn {
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05); 
+  }
+}

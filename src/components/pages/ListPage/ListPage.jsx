@@ -1,6 +1,8 @@
 import {getList, deleteItemFromTheList} from '../../../redux/list/listOperantions';
 import { IMAGE_URL, moviesRecommendations} from '../../../redux/movies/getAPI';
 import {seriesRecommendations} from '../../../redux/series/seriesApi';
+import { deleteWishList} from '../../../redux/wishList/wishList';
+import EditWishList from "../../EditWishList/EditWishList";
 import {selectFirstRecentMovies} from '../../../redux/movies/selectors';
 import url from '../../Images/icons.svg';
 import RatingStars from '../../RatingStars/RatingStars';
@@ -18,10 +20,14 @@ const ListPage = () => {
   const lists = useSelector(state => state?.wishlist?.wishlist?.wishLists);
   const [open, setOpen] = useState(false);
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
-  const [isMyListOpen, setIsMyListOpen] = useState(false);
+  const [editWishListId, setEditWishListId] = useState(null);
   const [recomm, setRecomm] = useState([]);
 
   const toggleLibrary = () => setIsLibraryOpen(prev => !prev);
+
+  const openEditWishListPopup = (wishListId) => {
+    setEditWishListId(wishListId);
+    };
 
   const mov = useSelector(selectFirstRecentMovies);
   const ser = useSelector(state => {
@@ -127,6 +133,15 @@ const ListPage = () => {
     }
   }
 
+  const deleteOneWishList = async (wishId) => {
+    try{
+      const res = await dispatch(deleteWishList(wishId));
+      return res.data;
+    } catch(e){
+      console.log("Failed to delete item:", e)
+    }
+  }
+
   return (
     <section className='listPageSection'>
       <div className="content">
@@ -135,28 +150,28 @@ const ListPage = () => {
         </h1>
         <div className='libraryAddWishListWrapper'>
           <div className="libraryWrapper">
-            <button className="libraryBtn" onClick={toggleLibrary}>
+            <button type='button' className="libraryBtn" onClick={toggleLibrary}>
               {getLibraryLabel()}
             </button>
 
             {isLibraryOpen && (
               <div className="libraryDropdown">
 
-                <button
+                <button type='button'
                   onClick={() => {setSelectedList("favorite");setIsLibraryOpen(false)}}
                   className={selectedList === "favorite" ? "active" : ""}
                 >
                   Favorites
                 </button>
 
-                <button
+                <button type='button'
                   onClick={() => {setSelectedList("watched"); setIsLibraryOpen(false)}}
                   className={selectedList === "watched" ? "active" : ""}
                 >
                   Watched 
                 </button>
 
-                <button
+                <button type='button'
                   onClick={() => {setSelectedList("general");setIsLibraryOpen(false)}}
                   className={selectedList === "general" ? "active" : ""}
                 >
@@ -165,25 +180,41 @@ const ListPage = () => {
 
                 <div
                   className="myListWrapper"
-                  onMouseEnter={() => setIsMyListOpen(true)}
-                  onMouseLeave={() => setIsMyListOpen(false)}
                 >
-                  <button>
+                  <p>
                     My Lists ▶
-                  </button>
+                  </p>
 
-                  {lists.length > 0 && isMyListOpen && (
+                  {lists.length > 0  && (
                     <ul className="myListDropdown">
                       {[...lists].map(w => (
                         <li
                           key={w._id}
                           className={`myListItem ${selectedList === w._id ? "active" : ""}`}
-                          onClick={() => {
+                        >
+                          <h2 onClick={() => {
                             setSelectedList(w._id);
                             setIsLibraryOpen(false);
-                          }}
-                        >
-                          {w.name}
+                          }}>
+                            {w.name}
+                          </h2>
+                          <div className='editDeteleBtns'>
+                            <button title='edit' type='button' className='editListButton' onClick={() => openEditWishListPopup(w._id)}>
+                              <svg width="20" height="20"><use xlinkHref={`${url}#pencil`}/></svg> 
+                            </button>
+                          
+                            <button title='delete' type='button' onClick={() => {deleteOneWishList(w._id);setIsLibraryOpen(false)}}  className='listPageDeleteBtn'>
+                              <svg className='listPageBinClose' width="20" height="20"><use xlinkHref={`${url}#delete`}/></svg> 
+                              <svg className='listPageBinOpen' width="20" height="20"><use xlinkHref={`${url}#deleteOn`}/></svg> 
+                            </button>
+                            
+                          </div>
+                            {editWishListId === w._id && (
+                              <EditWishList
+                                setEditWishListId={setEditWishListId}
+                                wishList={w}
+                              />
+                            )}
                         </li>
                       ))}
                     </ul>
@@ -193,7 +224,7 @@ const ListPage = () => {
             )}
           </div>
 
-          <button className="libraryBtn" onClick={() => setOpen(true)}>
+          <button type='button' className="libraryBtn" onClick={() => setOpen(true)}>
             + Create List
           </button>
         </div>
